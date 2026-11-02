@@ -5,7 +5,7 @@
 NFC/RFID, ИК, USB-C зарядкой, USB-A портами и выведенной наверх гребёнкой
 на 40 GPIO для своих проектов.
 
-> **Актуальная концепция — v2 «пазл»:** шесть маленьких плат вокруг Pi Zero,
+> **Актуальная концепция — v3 «пазл»:** маленькие платы вокруг Pi Zero, 3 антенны сверху, USB-A сбоку,
 > отпечаток почти как у самой Pi. Смотри [`docs/concept.md`](docs/concept.md) и
 > **3D-модель с телефона:** https://claude.ai/artifact/SPZszNhs2kebLbU7mErjtX
 >
@@ -45,7 +45,7 @@ NFC/RFID, ИК, USB-C зарядкой, USB-A портами и выведенн
 
 ## Документы
 
-- [`docs/concept.md`](docs/concept.md) — **v2 «пазл»**: платы, что можно/нельзя, распиновка.
+- [`docs/concept.md`](docs/concept.md) — **v3 «пазл»**: платы, что можно/нельзя, распиновка.
 - [`docs/shopping-list.md`](docs/shopping-list.md) — что купить, со ссылками на поиск
   по Ozon, Wildberries, Я.Маркету, AliExpress и ЧипДипу.
 - [`docs/hardware.md`](docs/hardware.md) — (v1) архитектура, распиновка всех 40 GPIO,
