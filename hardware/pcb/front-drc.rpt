@@ -1,136 +1,315 @@
 ** Drc report for /home/user/KODY/hardware/pcb/front.kicad_pcb **
-** Created on 2026-11-02 15:25:07 **
+** Created on 2026-11-02 18:05:25 **
 
-** Found 166 DRC violations **
+** Found 232 DRC violations **
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(6.9950 mm, 45.8200 mm): PCB Text 'GPIO' on F.Silkscreen
+    @(-0.0100 mm, 45.8000 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(6.9950 mm, 45.8200 mm): PCB Text 'GPIO' on F.Silkscreen
+    @(8.6200 mm, 20.3400 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(27.8000 mm, 89.9400 mm): PCB Text 'USB-C' on F.Silkscreen
+    @(27.8000 mm, 90.8550 mm): Reference 'J3'
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(8.3000 mm, 88.3000 mm): Rect on F.Silkscreen
+    @(23.1000 mm, 98.5000 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(39.8000 mm, 86.3700 mm): Reference 'D2'
+    @(41.3000 mm, 85.3000 mm): PCB Text 'ЗАРЯД' on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(42.8000 mm, 86.3700 mm): Reference 'D3'
+    @(41.3000 mm, 85.3000 mm): PCB Text 'ЗАРЯД' on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(46.6000 mm, 55.1400 mm): Line on F.Silkscreen
+    @(22.3000 mm, 14.8000 mm): Rect on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(46.6000 mm, 55.6600 mm): Line on F.Silkscreen
+    @(22.3000 mm, 14.8000 mm): Rect on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(41.3000 mm, 85.3000 mm): PCB Text 'ЗАРЯД' on F.Silkscreen
+    @(22.3000 mm, 14.8000 mm): Rect on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(46.8000 mm, 80.4000 mm): Reference 'SW4'
+    @(22.3000 mm, 14.8000 mm): Rect on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(46.6000 mm, 26.9400 mm): Line on F.Silkscreen
+    @(22.3000 mm, 14.8000 mm): Rect on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(46.6000 mm, 27.4600 mm): Line on F.Silkscreen
+    @(22.3000 mm, 14.8000 mm): Rect on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(46.6000 mm, 34.1400 mm): Line on F.Silkscreen
+    @(22.3000 mm, 14.8000 mm): Rect on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(46.6000 mm, 34.6600 mm): Line on F.Silkscreen
+    @(22.3000 mm, 14.8000 mm): Rect on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(45.7000 mm, 17.8000 mm): Reference 'ENC1'
+    @(22.3000 mm, 14.8000 mm): Rect on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(22.3000 mm, 14.8000 mm): Rect on F.Silkscreen
+    @(46.6000 mm, 45.1600 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(22.3000 mm, 14.8000 mm): Rect on F.Silkscreen
+    @(46.6000 mm, 37.4400 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(22.3000 mm, 14.8000 mm): Rect on F.Silkscreen
+    @(46.6000 mm, 37.9600 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(22.3000 mm, 14.8000 mm): Rect on F.Silkscreen
+    @(46.6000 mm, 44.6400 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(22.3000 mm, 14.8000 mm): Rect on F.Silkscreen
+    @(46.6000 mm, 47.9400 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(22.3000 mm, 14.8000 mm): Rect on F.Silkscreen
+    @(46.6000 mm, 48.4600 mm): Line on F.Silkscreen
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
     @(2.7600 mm, 93.0000 mm): Reference 'D8'
     @(3.0000 mm, 93.4000 mm): Reference 'H5'
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
-    @(5.7000 mm, 16.3000 mm): Arc on F.Silkscreen
-    @(6.9700 mm, 18.9000 mm): Reference 'J2'
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(5.7000 mm, 16.3000 mm): Arc on F.Silkscreen
-    @(6.8000 mm, 18.3000 mm): PCB Text 'GPIO 3.3V' on F.Silkscreen
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(6.9700 mm, 18.9000 mm): Reference 'J2'
-    @(6.8000 mm, 18.3000 mm): PCB Text 'GPIO 3.3V' on F.Silkscreen
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(23.8000 mm, 9.8000 mm): PCB Text 'KODY v9 FRONT' on F.Silkscreen
-    @(30.8000 mm, 9.9020 mm): Reference 'BT2'
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
-    @(41.3000 mm, 85.3000 mm): PCB Text 'ЗАРЯД' on F.Silkscreen
-    @(39.8000 mm, 86.3700 mm): Reference 'D2'
-[silk_overlap]: Silkscreen overlap
-    Rule: board setup constraints silk; Severity: warning
     @(25.8000 mm, 9.9020 mm): Reference 'BT1'
     @(23.8000 mm, 9.8000 mm): PCB Text 'KODY v9 FRONT' on F.Silkscreen
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
-    @(41.3000 mm, 85.3000 mm): PCB Text 'ЗАРЯД' on F.Silkscreen
-    @(42.8000 mm, 86.3700 mm): Reference 'D3'
+    @(28.3000 mm, 3.9600 mm): Reference 'J6'
+    @(32.9500 mm, 4.3000 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(23.8000 mm, 12.5000 mm): Reference 'J10'
+    @(24.1000 mm, 14.0000 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(32.9500 mm, 4.3000 mm): Line on F.Silkscreen
+    @(17.3000 mm, 3.9600 mm): Reference 'J5'
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(30.8000 mm, 9.9020 mm): Reference 'BT2'
+    @(31.4600 mm, 10.1000 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(30.8000 mm, 9.9020 mm): Reference 'BT2'
+    @(31.4600 mm, 10.1000 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(29.1000 mm, 10.6000 mm): Line on F.Silkscreen
+    @(31.4600 mm, 10.1000 mm): Line on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(30.8000 mm, 9.9020 mm): Reference 'BT2'
+    @(23.8000 mm, 9.8000 mm): PCB Text 'KODY v9 FRONT' on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(6.9700 mm, 18.9000 mm): Reference 'J2'
+    @(5.7000 mm, 16.3000 mm): Arc on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(6.9700 mm, 18.9000 mm): Reference 'J2'
+    @(6.8000 mm, 18.3000 mm): PCB Text 'GPIO 3.3V' on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(6.8000 mm, 18.3000 mm): PCB Text 'GPIO 3.3V' on F.Silkscreen
+    @(5.7000 mm, 16.3000 mm): Arc on F.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(40.8000 mm, 5.3000 mm): PCB Text 'NRF24 PA/LNA' on B.Silkscreen
+    @(35.8000 mm, 0.3000 mm): Rect on B.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(27.8000 mm, 12.8000 mm): PCB Text 'LoRa E22-900M22S' on B.Silkscreen
+    @(14.3000 mm, 13.3000 mm): Rect on B.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(27.8000 mm, 12.8000 mm): PCB Text 'LoRa E22-900M22S' on B.Silkscreen
+    @(20.8000 mm, 2.8000 mm): Rect on B.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(8.8000 mm, 5.8000 mm): PCB Text 'GPS MAX-M10S' on B.Silkscreen
+    @(3.8000 mm, 0.8000 mm): Rect on B.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(29.3000 mm, 45.8000 mm): PCB Text 'Raspberry Pi Zero 2 WH' on B.Silkscreen
+    @(20.4000 mm, 68.6600 mm): Line on B.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(7.8000 mm, 81.3000 mm): Rect on B.Silkscreen
+    @(13.8000 mm, 86.8000 mm): PCB Text 'ПУЛЬТЫ CC1101' on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(3.8000 mm, 0.8000 mm): Rect on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(32.8000 mm, 80.8000 mm): Rect on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(35.8000 mm, 0.3000 mm): Rect on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(22.3000 mm, 14.8000 mm): Rect on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(8.3000 mm, 88.3000 mm): Rect on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(8.8000 mm, 5.8000 mm): PCB Text 'GPS MAX-M10S' on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(23.8000 mm, 9.8000 mm): PCB Text 'KODY v9 FRONT' on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(17.7800 mm, 45.8300 mm): PCB Text 'СЮДА Pi' on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(38.2250 mm, 17.8000 mm): PCB Text 'КРУТИЛКА' on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(6.8000 mm, 18.3000 mm): PCB Text 'GPIO 3.3V' on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
     @(1.2000 mm, 72.3300 mm): PCB Text '1' on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
-    @(6.8000 mm, 18.3000 mm): PCB Text 'GPIO 3.3V' on F.Silkscreen
+    @(23.8000 mm, 12.5000 mm): Reference 'J10'
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
-    @(32.9500 mm, -0.7000 mm): Line on F.Silkscreen
+    @(31.4600 mm, 10.1000 mm): Line on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(25.8000 mm, 9.9020 mm): Reference 'BT1'
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(24.1000 mm, 10.6000 mm): Line on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(24.1000 mm, 14.0000 mm): Line on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(27.5000 mm, 10.6000 mm): Line on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(30.8000 mm, 9.9020 mm): Reference 'BT2'
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(29.1000 mm, 10.6000 mm): Line on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(29.1000 mm, 14.0000 mm): Line on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
     @(17.8000 mm, 71.1000 mm): Reference 'H1'
 [solder_mask_bridge]: Front solder mask aperture bridges items with different nets
     Rule: board setup solder mask min width; Severity: error
-    @(16.0500 mm, 0.0000 mm): Pad 2 [<no net>] of J5 on F.Cu
-    @(14.6500 mm, 2.4000 mm): Pad MP [<no net>] of J10 on F.Cu
+    @(31.0500 mm, 10.6500 mm): Pad 1 [<no net>] of J10 on F.Cu
+    @(30.8000 mm, 12.3000 mm): Pad 1 [<no net>] of BT2 on F.Cu
 [solder_mask_bridge]: Front solder mask aperture bridges items with different nets
     Rule: board setup solder mask min width; Severity: error
-    @(30.5500 mm, 92.4550 mm): Pad A1 [<no net>] of J3 on F.Cu
-    @(30.5500 mm, 92.4550 mm): Pad B12 [<no net>] of J3 on F.Cu
+    @(30.5500 mm, 10.6500 mm): Pad 2 [<no net>] of J10 on F.Cu
+    @(30.8000 mm, 12.3000 mm): Pad 1 [<no net>] of BT2 on F.Cu
 [solder_mask_bridge]: Front solder mask aperture bridges items with different nets
     Rule: board setup solder mask min width; Severity: error
-    @(31.3500 mm, 92.4550 mm): Pad A4 [<no net>] of J3 on F.Cu
-    @(31.3500 mm, 92.4550 mm): Pad B9 [<no net>] of J3 on F.Cu
+    @(30.0500 mm, 10.6500 mm): Pad 3 [<no net>] of J10 on F.Cu
+    @(30.8000 mm, 12.3000 mm): Pad 1 [<no net>] of BT2 on F.Cu
 [solder_mask_bridge]: Front solder mask aperture bridges items with different nets
     Rule: board setup solder mask min width; Severity: error
-    @(36.2500 mm, 92.4550 mm): Pad A9 [<no net>] of J3 on F.Cu
-    @(36.2500 mm, 92.4550 mm): Pad B4 [<no net>] of J3 on F.Cu
+    @(29.5500 mm, 10.6500 mm): Pad 4 [<no net>] of J10 on F.Cu
+    @(30.8000 mm, 12.3000 mm): Pad 1 [<no net>] of BT2 on F.Cu
 [solder_mask_bridge]: Front solder mask aperture bridges items with different nets
     Rule: board setup solder mask min width; Severity: error
-    @(37.0500 mm, 92.4550 mm): Pad A12 [<no net>] of J3 on F.Cu
-    @(37.0500 mm, 92.4550 mm): Pad B1 [<no net>] of J3 on F.Cu
+    @(27.0500 mm, 10.6500 mm): Pad 9 [<no net>] of J10 on F.Cu
+    @(25.8000 mm, 12.3000 mm): Pad 1 [<no net>] of BT1 on F.Cu
 [solder_mask_bridge]: Front solder mask aperture bridges items with different nets
     Rule: board setup solder mask min width; Severity: error
-    @(32.9500 mm, 2.4000 mm): Pad MP [<no net>] of J10 on F.Cu
-    @(31.3000 mm, 0.0000 mm): Pad 1 [<no net>] of J6 on F.Cu
+    @(26.5500 mm, 10.6500 mm): Pad 10 [<no net>] of J10 on F.Cu
+    @(25.8000 mm, 12.3000 mm): Pad 1 [<no net>] of BT1 on F.Cu
 [solder_mask_bridge]: Front solder mask aperture bridges items with different nets
     Rule: board setup solder mask min width; Severity: error
-    @(14.6500 mm, 2.4000 mm): Pad MP [<no net>] of J10 on F.Cu
-    @(13.5500 mm, 0.0000 mm): Pad 2 [<no net>] of J4 on F.Cu
+    @(26.0500 mm, 10.6500 mm): Pad 11 [<no net>] of J10 on F.Cu
+    @(25.8000 mm, 12.3000 mm): Pad 1 [<no net>] of BT1 on F.Cu
+[solder_mask_bridge]: Front solder mask aperture bridges items with different nets
+    Rule: board setup solder mask min width; Severity: error
+    @(25.5500 mm, 10.6500 mm): Pad 12 [<no net>] of J10 on F.Cu
+    @(25.8000 mm, 12.3000 mm): Pad 1 [<no net>] of BT1 on F.Cu
+[solder_mask_bridge]: Front solder mask aperture bridges items with different nets
+    Rule: board setup solder mask min width; Severity: error
+    @(25.0500 mm, 10.6500 mm): Pad 13 [<no net>] of J10 on F.Cu
+    @(25.8000 mm, 12.3000 mm): Pad 1 [<no net>] of BT1 on F.Cu
+[solder_mask_bridge]: Front solder mask aperture bridges items with different nets
+    Rule: board setup solder mask min width; Severity: error
+    @(24.5500 mm, 10.6500 mm): Pad 14 [<no net>] of J10 on F.Cu
+    @(25.8000 mm, 12.3000 mm): Pad 1 [<no net>] of BT1 on F.Cu
+[solder_mask_bridge]: Front solder mask aperture bridges items with different nets
+    Rule: board setup solder mask min width; Severity: error
+    @(24.5500 mm, 92.4550 mm): Pad A1 [<no net>] of J3 on F.Cu
+    @(24.5500 mm, 92.4550 mm): Pad B12 [<no net>] of J3 on F.Cu
+[solder_mask_bridge]: Front solder mask aperture bridges items with different nets
+    Rule: board setup solder mask min width; Severity: error
+    @(25.3500 mm, 92.4550 mm): Pad A4 [<no net>] of J3 on F.Cu
+    @(25.3500 mm, 92.4550 mm): Pad B9 [<no net>] of J3 on F.Cu
+[solder_mask_bridge]: Front solder mask aperture bridges items with different nets
+    Rule: board setup solder mask min width; Severity: error
+    @(30.2500 mm, 92.4550 mm): Pad A9 [<no net>] of J3 on F.Cu
+    @(30.2500 mm, 92.4550 mm): Pad B4 [<no net>] of J3 on F.Cu
+[solder_mask_bridge]: Front solder mask aperture bridges items with different nets
+    Rule: board setup solder mask min width; Severity: error
+    @(31.0500 mm, 92.4550 mm): Pad A12 [<no net>] of J3 on F.Cu
+    @(31.0500 mm, 92.4550 mm): Pad B1 [<no net>] of J3 on F.Cu
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(12.6200 mm, 21.6700 mm): Footprint J2
+    @(0.8000 mm, 85.3300 mm): Footprint D7
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(0.8000 mm, 72.5300 mm): Footprint D5
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(50.4000 mm, 17.3000 mm): Footprint ENC1
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(4.3000 mm, 18.8000 mm): Footprint U30
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(30.8000 mm, 12.3000 mm): Footprint BT2
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(39.8000 mm, 87.8000 mm): Footprint D2
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(20.3000 mm, 0.0000 mm): Footprint J5
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(33.8000 mm, 96.5000 mm): Footprint J3
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(17.8000 mm, 16.8000 mm): Footprint H3
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(0.8000 mm, 78.9300 mm): Footprint D6
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(36.8000 mm, 87.8000 mm): Footprint D1
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(25.8000 mm, 12.3000 mm): Footprint BT1
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(42.3000 mm, 0.0000 mm): Footprint J7
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(23.8000 mm, 3.8000 mm): Footprint J10
+    @(48.6000 mm, 96.6000 mm): Footprint H6
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
     @(0.8000 mm, 91.7300 mm): Footprint D8
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(48.6000 mm, 3.0000 mm): Footprint H8
+    @(39.8000 mm, 87.8000 mm): Footprint D2
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(50.4000 mm, 36.5500 mm): Footprint SW2
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(50.4000 mm, 47.0500 mm): Footprint SW3
+    @(42.8000 mm, 87.8000 mm): Footprint D3
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
     @(50.4000 mm, 81.8000 mm): Footprint SW4
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(40.8000 mm, 74.8000 mm): Footprint H2
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(45.8000 mm, 87.8000 mm): Footprint D4
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(31.3000 mm, 0.0000 mm): Footprint J6
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(23.8000 mm, 8.8000 mm): Footprint J10
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(48.6000 mm, 3.0000 mm): Footprint H8
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
     @(3.0000 mm, 96.6000 mm): Footprint H5
@@ -139,49 +318,229 @@
     @(9.3000 mm, 0.0000 mm): Footprint J4
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(50.4000 mm, 26.0500 mm): Footprint SW1
+    @(20.3000 mm, 0.0000 mm): Footprint J5
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(45.8000 mm, 87.8000 mm): Footprint D4
+    @(50.4000 mm, 39.0500 mm): Footprint SW2
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(42.8000 mm, 87.8000 mm): Footprint D3
+    @(4.3000 mm, 11.8000 mm): Footprint U31
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(40.8000 mm, 74.8000 mm): Footprint H2
+    @(4.3000 mm, 18.8000 mm): Footprint U30
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(48.6000 mm, 96.6000 mm): Footprint H6
+    @(50.4000 mm, 28.5500 mm): Footprint SW1
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(17.8000 mm, 16.8000 mm): Footprint H3
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(50.4000 mm, 20.3000 mm): Footprint ENC1
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(27.8000 mm, 96.5000 mm): Footprint J3
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(50.4000 mm, 49.5500 mm): Footprint SW3
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(12.6200 mm, 21.6700 mm): Footprint J2
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(0.8000 mm, 72.5300 mm): Footprint D5
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(42.3000 mm, 0.0000 mm): Footprint J7
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(36.8000 mm, 87.8000 mm): Footprint D1
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(25.8000 mm, 12.3000 mm): Footprint BT1
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
     @(3.0000 mm, 3.0000 mm): Footprint H7
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(4.3000 mm, 10.8000 mm): Footprint U31
+    @(30.8000 mm, 12.3000 mm): Footprint BT2
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
     @(17.8000 mm, 74.8000 mm): Footprint H1
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(40.8000 mm, 16.8000 mm): Footprint H4
+    @(0.8000 mm, 78.9300 mm): Footprint D6
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
     @(35.8000 mm, 12.3000 mm): Footprint BT3
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(0.8000 mm, 85.3300 mm): Footprint D7
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(31.3000 mm, 0.0000 mm): Footprint J6
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(19.0700 mm, 69.9300 mm): Footprint J1
+    @(40.8000 mm, 16.8000 mm): Footprint H4
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
     @(35.3000 mm, 65.9000 mm): Footprint J11
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(14.8000 mm, 93.8000 mm): Footprint J20
+    @(13.8000 mm, 96.3000 mm): Footprint J20
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(19.0700 mm, 69.9300 mm): Footprint J1
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(48.6000 mm, 96.6000 mm): Arc on Edge.Cuts
+    @(32.8000 mm, 80.8000 mm): Rect on B.Silkscreen
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(0.0000 mm, 96.6000 mm): Line on Edge.Cuts
+    @(0.8000 mm, 85.3300 mm): PTH pad 1 [<no net>] of D7
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(0.0000 mm, 96.6000 mm): Line on Edge.Cuts
+    @(0.8000 mm, 87.8700 mm): PTH pad 2 [<no net>] of D7
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(0.0000 mm, 96.6000 mm): Line on Edge.Cuts
+    @(0.8000 mm, 91.7300 mm): PTH pad 1 [<no net>] of D8
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(0.0000 mm, 96.6000 mm): Line on Edge.Cuts
+    @(0.8000 mm, 94.2700 mm): PTH pad 2 [<no net>] of D8
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
+    @(50.4000 mm, 83.9000 mm): PTH pad [<no net>] of SW4
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
+    @(50.4000 mm, 75.7000 mm): PTH pad [<no net>] of SW4
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
+    @(50.4000 mm, 81.8000 mm): PTH pad 1 [<no net>] of SW4
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
+    @(50.4000 mm, 79.8000 mm): PTH pad 2 [<no net>] of SW4
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
+    @(50.4000 mm, 77.8000 mm): PTH pad 3 [<no net>] of SW4
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
+    @(31.3000 mm, 0.0000 mm): Pad 1 [<no net>] of J6 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
+    @(27.0500 mm, 0.0000 mm): Pad 2 [<no net>] of J6 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
+    @(27.0500 mm, 0.0000 mm): Pad 2 [<no net>] of J6 on B.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
+    @(35.5500 mm, 0.0000 mm): Pad 2 [<no net>] of J6 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
+    @(35.5500 mm, 0.0000 mm): Pad 2 [<no net>] of J6 on B.Cu
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(48.6000 mm, 3.0000 mm): Arc on Edge.Cuts
+    @(48.6000 mm, -0.2000 mm): Reference 'H8'
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
+    @(9.3000 mm, 0.0000 mm): Pad 1 [<no net>] of J4 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
+    @(5.0500 mm, 0.0000 mm): Pad 2 [<no net>] of J4 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
+    @(5.0500 mm, 0.0000 mm): Pad 2 [<no net>] of J4 on B.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
+    @(13.5500 mm, 0.0000 mm): Pad 2 [<no net>] of J4 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
+    @(13.5500 mm, 0.0000 mm): Pad 2 [<no net>] of J4 on B.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
+    @(20.3000 mm, 0.0000 mm): Pad 1 [<no net>] of J5 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
+    @(16.0500 mm, 0.0000 mm): Pad 2 [<no net>] of J5 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
+    @(16.0500 mm, 0.0000 mm): Pad 2 [<no net>] of J5 on B.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
+    @(24.5500 mm, 0.0000 mm): Pad 2 [<no net>] of J5 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
+    @(24.5500 mm, 0.0000 mm): Pad 2 [<no net>] of J5 on B.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.3250 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
+    @(50.4000 mm, 39.0500 mm): PTH pad 1 [<no net>] of SW2
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.3250 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
+    @(50.4000 mm, 43.5500 mm): PTH pad 2 [<no net>] of SW2
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.3250 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
+    @(50.4000 mm, 28.5500 mm): PTH pad 1 [<no net>] of SW1
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.3250 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
+    @(50.4000 mm, 33.0500 mm): PTH pad 2 [<no net>] of SW1
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4380 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
+    @(50.4000 mm, 20.3000 mm): PTH pad A [<no net>] of ENC1
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4380 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
+    @(50.4000 mm, 15.3000 mm): PTH pad B [<no net>] of ENC1
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4380 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
+    @(50.4000 mm, 17.8000 mm): PTH pad C [<no net>] of ENC1
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
+    @(52.1000 mm, 11.4500 mm): Line on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
+    @(49.1000 mm, 24.1500 mm): Line on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(23.1000 mm, 98.5000 mm): Line on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(32.5000 mm, 98.5000 mm): Line on F.Silkscreen
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.3250 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
+    @(50.4000 mm, 49.5500 mm): PTH pad 1 [<no net>] of SW3
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.3250 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
+    @(50.4000 mm, 54.0500 mm): PTH pad 2 [<no net>] of SW3
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; Severity: warning
     @(0.0000 mm, 96.6000 mm): Line on Edge.Cuts
@@ -362,62 +721,6 @@
     Rule: board setup constraints edge; Severity: error
     @(0.0000 mm, 96.6000 mm): Line on Edge.Cuts
     @(0.8000 mm, 75.0700 mm): PTH pad 2 [<no net>] of D5
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4380 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
-    @(50.4000 mm, 17.3000 mm): PTH pad A [<no net>] of ENC1
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4380 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
-    @(50.4000 mm, 12.3000 mm): PTH pad B [<no net>] of ENC1
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4380 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
-    @(50.4000 mm, 14.8000 mm): PTH pad C [<no net>] of ENC1
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
-    @(52.1000 mm, 8.4500 mm): Line on F.Silkscreen
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
-    @(49.1000 mm, 21.1500 mm): Line on F.Silkscreen
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(20.3000 mm, 0.0000 mm): Pad 1 [<no net>] of J5 on F.Cu
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(16.0500 mm, 0.0000 mm): Pad 2 [<no net>] of J5 on F.Cu
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(16.0500 mm, 0.0000 mm): Pad 2 [<no net>] of J5 on B.Cu
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(24.5500 mm, 0.0000 mm): Pad 2 [<no net>] of J5 on F.Cu
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(24.5500 mm, 0.0000 mm): Pad 2 [<no net>] of J5 on B.Cu
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
-    @(29.1000 mm, 98.5000 mm): Line on F.Silkscreen
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
-    @(38.5000 mm, 98.5000 mm): Line on F.Silkscreen
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(0.0000 mm, 96.6000 mm): Line on Edge.Cuts
-    @(0.8000 mm, 78.9300 mm): PTH pad 1 [<no net>] of D6
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(0.0000 mm, 96.6000 mm): Line on Edge.Cuts
-    @(0.8000 mm, 81.4700 mm): PTH pad 2 [<no net>] of D6
 [copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
     Rule: board setup constraints edge; Severity: error
     @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
@@ -440,205 +743,149 @@
     @(46.5500 mm, 0.0000 mm): Pad 2 [<no net>] of J7 on B.Cu
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; Severity: warning
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(32.9500 mm, 1.0400 mm): Line on F.Silkscreen
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(14.6500 mm, -0.7000 mm): Line on F.Silkscreen
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(0.0000 mm, 96.6000 mm): Line on Edge.Cuts
-    @(0.8000 mm, 91.7300 mm): PTH pad 1 [<no net>] of D8
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(0.0000 mm, 96.6000 mm): Line on Edge.Cuts
-    @(0.8000 mm, 94.2700 mm): PTH pad 2 [<no net>] of D8
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(48.6000 mm, -0.2000 mm): Reference 'H8'
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.3250 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
-    @(50.4000 mm, 36.5500 mm): PTH pad 1 [<no net>] of SW2
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.3250 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
-    @(50.4000 mm, 41.0500 mm): PTH pad 2 [<no net>] of SW2
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.3250 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
-    @(50.4000 mm, 47.0500 mm): PTH pad 1 [<no net>] of SW3
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.3250 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
-    @(50.4000 mm, 51.5500 mm): PTH pad 2 [<no net>] of SW3
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
-    @(50.4000 mm, 83.9000 mm): PTH pad [<no net>] of SW4
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
-    @(50.4000 mm, 75.7000 mm): PTH pad [<no net>] of SW4
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
-    @(50.4000 mm, 81.8000 mm): PTH pad 1 [<no net>] of SW4
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
-    @(50.4000 mm, 79.8000 mm): PTH pad 2 [<no net>] of SW4
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
-    @(50.4000 mm, 77.8000 mm): PTH pad 3 [<no net>] of SW4
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(9.3000 mm, 0.0000 mm): Pad 1 [<no net>] of J4 on F.Cu
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(5.0500 mm, 0.0000 mm): Pad 2 [<no net>] of J4 on F.Cu
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(5.0500 mm, 0.0000 mm): Pad 2 [<no net>] of J4 on B.Cu
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(13.5500 mm, 0.0000 mm): Pad 2 [<no net>] of J4 on F.Cu
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(13.5500 mm, 0.0000 mm): Pad 2 [<no net>] of J4 on B.Cu
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.3250 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
-    @(50.4000 mm, 26.0500 mm): PTH pad 1 [<no net>] of SW1
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.3250 mm)
-    Rule: board setup constraints edge; Severity: error
-    @(51.6000 mm, 3.0000 mm): Line on Edge.Cuts
-    @(50.4000 mm, 30.5500 mm): PTH pad 2 [<no net>] of SW1
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
     @(3.0000 mm, 3.0000 mm): Arc on Edge.Cuts
     @(3.0000 mm, -0.2000 mm): Reference 'H7'
 [copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
     Rule: board setup constraints edge; Severity: error
     @(0.0000 mm, 96.6000 mm): Line on Edge.Cuts
-    @(0.8000 mm, 85.3300 mm): PTH pad 1 [<no net>] of D7
+    @(0.8000 mm, 78.9300 mm): PTH pad 1 [<no net>] of D6
 [copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
     Rule: board setup constraints edge; Severity: error
     @(0.0000 mm, 96.6000 mm): Line on Edge.Cuts
-    @(0.8000 mm, 87.8700 mm): PTH pad 2 [<no net>] of D7
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    @(0.8000 mm, 81.4700 mm): PTH pad 2 [<no net>] of D6
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.1500 mm)
     Rule: board setup constraints edge; Severity: error
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(31.3000 mm, 0.0000 mm): Pad 1 [<no net>] of J6 on F.Cu
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(6.8150 mm, 98.2500 mm): Pad 2 [+5V] of J20 on B.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.1500 mm)
     Rule: board setup constraints edge; Severity: error
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(27.0500 mm, 0.0000 mm): Pad 2 [<no net>] of J6 on F.Cu
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(8.0850 mm, 98.2500 mm): Pad 4 [GND] of J20 on B.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.1500 mm)
     Rule: board setup constraints edge; Severity: error
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(27.0500 mm, 0.0000 mm): Pad 2 [<no net>] of J6 on B.Cu
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(9.3550 mm, 98.2500 mm): Pad 6 [USB1_DN] of J20 on B.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.1500 mm)
     Rule: board setup constraints edge; Severity: error
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(35.5500 mm, 0.0000 mm): Pad 2 [<no net>] of J6 on F.Cu
-[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.0000 mm)
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(10.6250 mm, 98.2500 mm): Pad 8 [GND] of J20 on B.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.1500 mm)
     Rule: board setup constraints edge; Severity: error
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(35.5500 mm, 0.0000 mm): Pad 2 [<no net>] of J6 on B.Cu
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(11.8950 mm, 98.2500 mm): Pad 10 [USB2_DN] of J20 on B.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.1500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(13.1650 mm, 98.2500 mm): Pad 12 [+3V3] of J20 on B.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.1500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(14.4350 mm, 98.2500 mm): Pad 14 [NFC_MOSI] of J20 on B.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.1500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(15.7050 mm, 98.2500 mm): Pad 16 [NFC_CS] of J20 on B.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.1500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(16.9750 mm, 98.2500 mm): Pad 18 [GND] of J20 on B.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.1500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(18.2450 mm, 98.2500 mm): Pad 20 [RF125_RX] of J20 on B.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.1500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(19.5150 mm, 98.2500 mm): Pad 22 [GND] of J20 on B.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.1500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(20.7850 mm, 98.2500 mm): Pad 24 [I2C_SCL] of J20 on B.Cu
 [courtyards_overlap]: Courtyards overlap
     Rule: board setup constraints courtyard; Severity: error
-    @(12.6200 mm, 21.6700 mm): Footprint J2
-    @(0.8000 mm, 72.5300 mm): Footprint D5
-[courtyards_overlap]: Courtyards overlap
-    Rule: board setup constraints courtyard; Severity: error
-    @(12.6200 mm, 21.6700 mm): Footprint J2
-    @(4.3000 mm, 18.8000 mm): Footprint U30
-[courtyards_overlap]: Courtyards overlap
-    Rule: board setup constraints courtyard; Severity: error
-    @(0.8000 mm, 72.5300 mm): Footprint D5
-    @(0.8000 mm, 78.9300 mm): Footprint D6
-[courtyards_overlap]: Courtyards overlap
-    Rule: board setup constraints courtyard; Severity: error
-    @(20.3000 mm, 0.0000 mm): Footprint J5
-    @(23.8000 mm, 3.8000 mm): Footprint J10
-[courtyards_overlap]: Courtyards overlap
-    Rule: board setup constraints courtyard; Severity: error
-    @(20.3000 mm, 0.0000 mm): Footprint J5
-    @(9.3000 mm, 0.0000 mm): Footprint J4
-[courtyards_overlap]: Courtyards overlap
-    Rule: board setup constraints courtyard; Severity: error
-    @(20.3000 mm, 0.0000 mm): Footprint J5
-    @(9.3000 mm, 0.0000 mm): Footprint J4
-[courtyards_overlap]: Courtyards overlap
-    Rule: board setup constraints courtyard; Severity: error
-    @(20.3000 mm, 0.0000 mm): Footprint J5
-    @(31.3000 mm, 0.0000 mm): Footprint J6
-[courtyards_overlap]: Courtyards overlap
-    Rule: board setup constraints courtyard; Severity: error
-    @(20.3000 mm, 0.0000 mm): Footprint J5
-    @(31.3000 mm, 0.0000 mm): Footprint J6
-[courtyards_overlap]: Courtyards overlap
-    Rule: board setup constraints courtyard; Severity: error
-    @(0.8000 mm, 78.9300 mm): Footprint D6
     @(0.8000 mm, 85.3300 mm): Footprint D7
+    @(0.8000 mm, 91.7300 mm): Footprint D8
 [courtyards_overlap]: Courtyards overlap
     Rule: board setup constraints courtyard; Severity: error
-    @(42.3000 mm, 0.0000 mm): Footprint J7
-    @(48.6000 mm, 3.0000 mm): Footprint H8
-[courtyards_overlap]: Courtyards overlap
-    Rule: board setup constraints courtyard; Severity: error
-    @(42.3000 mm, 0.0000 mm): Footprint J7
-    @(31.3000 mm, 0.0000 mm): Footprint J6
-[courtyards_overlap]: Courtyards overlap
-    Rule: board setup constraints courtyard; Severity: error
-    @(42.3000 mm, 0.0000 mm): Footprint J7
-    @(31.3000 mm, 0.0000 mm): Footprint J6
-[courtyards_overlap]: Courtyards overlap
-    Rule: board setup constraints courtyard; Severity: error
-    @(23.8000 mm, 3.8000 mm): Footprint J10
-    @(9.3000 mm, 0.0000 mm): Footprint J4
-[courtyards_overlap]: Courtyards overlap
-    Rule: board setup constraints courtyard; Severity: error
-    @(23.8000 mm, 3.8000 mm): Footprint J10
-    @(31.3000 mm, 0.0000 mm): Footprint J6
+    @(0.8000 mm, 85.3300 mm): Footprint D7
+    @(0.8000 mm, 78.9300 mm): Footprint D6
 [courtyards_overlap]: Courtyards overlap
     Rule: board setup constraints courtyard; Severity: error
     @(0.8000 mm, 91.7300 mm): Footprint D8
     @(3.0000 mm, 96.6000 mm): Footprint H5
 [courtyards_overlap]: Courtyards overlap
     Rule: board setup constraints courtyard; Severity: error
-    @(0.8000 mm, 91.7300 mm): Footprint D8
-    @(0.8000 mm, 85.3300 mm): Footprint D7
+    @(31.3000 mm, 0.0000 mm): Footprint J6
+    @(20.3000 mm, 0.0000 mm): Footprint J5
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(31.3000 mm, 0.0000 mm): Footprint J6
+    @(20.3000 mm, 0.0000 mm): Footprint J5
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(31.3000 mm, 0.0000 mm): Footprint J6
+    @(42.3000 mm, 0.0000 mm): Footprint J7
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(31.3000 mm, 0.0000 mm): Footprint J6
+    @(42.3000 mm, 0.0000 mm): Footprint J7
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(23.8000 mm, 8.8000 mm): Footprint J10
+    @(25.8000 mm, 12.3000 mm): Footprint BT1
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(23.8000 mm, 8.8000 mm): Footprint J10
+    @(30.8000 mm, 12.3000 mm): Footprint BT2
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(23.8000 mm, 8.8000 mm): Footprint J10
+    @(35.8000 mm, 12.3000 mm): Footprint BT3
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(48.6000 mm, 3.0000 mm): Footprint H8
+    @(42.3000 mm, 0.0000 mm): Footprint J7
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(9.3000 mm, 0.0000 mm): Footprint J4
+    @(20.3000 mm, 0.0000 mm): Footprint J5
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(9.3000 mm, 0.0000 mm): Footprint J4
+    @(20.3000 mm, 0.0000 mm): Footprint J5
 [courtyards_overlap]: Courtyards overlap
     Rule: board setup constraints courtyard; Severity: error
     @(9.3000 mm, 0.0000 mm): Footprint J4
     @(3.0000 mm, 3.0000 mm): Footprint H7
 [courtyards_overlap]: Courtyards overlap
     Rule: board setup constraints courtyard; Severity: error
-    @(3.0000 mm, 3.0000 mm): Footprint H7
-    @(4.3000 mm, 10.8000 mm): Footprint U31
+    @(4.3000 mm, 11.8000 mm): Footprint U31
+    @(4.3000 mm, 18.8000 mm): Footprint U30
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(4.3000 mm, 18.8000 mm): Footprint U30
+    @(12.6200 mm, 21.6700 mm): Footprint J2
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(12.6200 mm, 21.6700 mm): Footprint J2
+    @(0.8000 mm, 72.5300 mm): Footprint D5
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; Severity: error
+    @(0.8000 mm, 72.5300 mm): Footprint D5
+    @(0.8000 mm, 78.9300 mm): Footprint D6
 
 ** Found 3 unconnected pads **
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(12.6200 mm, 68.6600 mm): Track [+3V3] on F.Cu, length 1.2700 mm
-    @(14.1650 mm, 95.7500 mm): Pad 12 [+3V3] of J20 on B.Cu
+    @(13.1650 mm, 98.2500 mm): Pad 12 [+3V3] of J20 on B.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(7.8150 mm, 91.8500 mm): Pad 1 [+5V] of J20 on B.Cu
-    @(7.8150 mm, 95.7500 mm): Pad 2 [+5V] of J20 on B.Cu
+    @(6.8150 mm, 94.3500 mm): Pad 1 [+5V] of J20 on B.Cu
+    @(6.8150 mm, 98.2500 mm): Pad 2 [+5V] of J20 on B.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(7.8150 mm, 91.8500 mm): Pad 1 [+5V] of J20 on B.Cu
+    @(6.8150 mm, 94.3500 mm): Pad 1 [+5V] of J20 on B.Cu
     @(16.5300 mm, 71.2000 mm): Track [+5V] on B.Cu, length 6.4500 mm
 
 ** Found 0 Footprint errors **

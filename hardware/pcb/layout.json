@@ -1,0 +1,456 @@
+{
+ "W": 51.6,
+ "H": 99.6,
+ "items": [
+  {
+   "board": "front",
+   "key": "pi",
+   "name": "Raspberry Pi Zero 2 WH",
+   "side": "bottom",
+   "x": 14.3,
+   "y": 13.299999999999997,
+   "w": 30,
+   "h": 65
+  },
+  {
+   "board": "front",
+   "key": "lora",
+   "name": "LoRa E22-900M22S",
+   "side": "bottom",
+   "x": 20.8,
+   "y": 2.799999999999997,
+   "w": 14,
+   "h": 20
+  },
+  {
+   "board": "front",
+   "key": "gps",
+   "name": "GPS MAX-M10S",
+   "side": "bottom",
+   "x": 3.8000000000000007,
+   "y": 0.7999999999999972,
+   "w": 10,
+   "h": 10
+  },
+  {
+   "board": "front",
+   "key": "nrf",
+   "name": "NRF24 PA/LNA",
+   "side": "bottom",
+   "x": 35.8,
+   "y": 0.29999999999999716,
+   "w": 10,
+   "h": 10
+  },
+  {
+   "board": "front",
+   "key": "radio",
+   "name": "РАЦИЯ SA818-U",
+   "side": "bottom",
+   "x": 32.8,
+   "y": 80.8,
+   "w": 18,
+   "h": 18
+  },
+  {
+   "board": "front",
+   "key": "cc1101",
+   "name": "ПУЛЬТЫ CC1101",
+   "side": "bottom",
+   "x": 7.800000000000001,
+   "y": 81.3,
+   "w": 12,
+   "h": 11
+  },
+  {
+   "board": "front",
+   "key": "battery",
+   "name": "АККУМУЛЯТОР 8.5x24x70",
+   "side": "top",
+   "x": 22.299999999999997,
+   "y": 14.799999999999997,
+   "w": 24,
+   "h": 70
+  },
+  {
+   "board": "front",
+   "key": "speaker",
+   "name": "ДИНАМИК 1511",
+   "side": "top",
+   "x": 8.3,
+   "y": 88.3,
+   "w": 15,
+   "h": 11
+  },
+  {
+   "board": "front",
+   "key": "BT3",
+   "name": "NTC",
+   "side": "top",
+   "x": 33.775,
+   "y": 10.274999,
+   "w": 4.05,
+   "h": 4.05
+  },
+  {
+   "board": "front",
+   "key": "BT2",
+   "name": "BAT-",
+   "side": "top",
+   "x": 28.775,
+   "y": 10.274999,
+   "w": 4.05,
+   "h": 4.05
+  },
+  {
+   "board": "front",
+   "key": "BT1",
+   "name": "BAT+",
+   "side": "top",
+   "x": 23.775,
+   "y": 10.274999,
+   "w": 4.05,
+   "h": 4.05
+  },
+  {
+   "board": "front",
+   "key": "J11",
+   "name": "HDMI-шлейф от Pi (FPC)",
+   "side": "bottom",
+   "x": 30.375,
+   "y": 56.825,
+   "w": 7.95,
+   "h": 18.15
+  },
+  {
+   "board": "front",
+   "key": "J10",
+   "name": "Экран (FPC, уточнить)",
+   "side": "top",
+   "x": 13.225,
+   "y": 3.874999,
+   "w": 21.15,
+   "h": 7.95
+  },
+  {
+   "board": "front",
+   "key": "U31",
+   "name": "TSMP58000",
+   "side": "top",
+   "x": 2.975,
+   "y": 5.544999,
+   "w": 5.5,
+   "h": 7.43
+  },
+  {
+   "board": "front",
+   "key": "U30",
+   "name": "TSOP38238",
+   "side": "top",
+   "x": 2.975,
+   "y": 12.544999,
+   "w": 5.5,
+   "h": 7.43
+  },
+  {
+   "board": "front",
+   "key": "D8",
+   "name": "VSLY5940",
+   "side": "top",
+   "x": -9.425,
+   "y": 89.754999,
+   "w": 11.5,
+   "h": 6.5
+  },
+  {
+   "board": "front",
+   "key": "D7",
+   "name": "TSAL6400",
+   "side": "top",
+   "x": -9.425,
+   "y": 83.355,
+   "w": 11.5,
+   "h": 6.5
+  },
+  {
+   "board": "front",
+   "key": "D6",
+   "name": "TSAL6400",
+   "side": "top",
+   "x": -9.425,
+   "y": 76.955,
+   "w": 11.5,
+   "h": 6.5
+  },
+  {
+   "board": "front",
+   "key": "D5",
+   "name": "VSLY5940",
+   "side": "top",
+   "x": -9.425,
+   "y": 70.555,
+   "w": 11.5,
+   "h": 6.5
+  },
+  {
+   "board": "front",
+   "key": "J7",
+   "name": "SMA 2.4 ГГц",
+   "side": "top",
+   "x": 36.695,
+   "y": -14.495,
+   "w": 11.21,
+   "h": 18.265
+  },
+  {
+   "board": "front",
+   "key": "J6",
+   "name": "SMA Рация 433",
+   "side": "top",
+   "x": 25.695,
+   "y": -14.495,
+   "w": 11.21,
+   "h": 18.265
+  },
+  {
+   "board": "front",
+   "key": "J5",
+   "name": "SMA LoRa",
+   "side": "top",
+   "x": 14.695,
+   "y": -14.495,
+   "w": 11.21,
+   "h": 18.265
+  },
+  {
+   "board": "front",
+   "key": "J4",
+   "name": "SMA GPS",
+   "side": "top",
+   "x": 3.695,
+   "y": -14.495,
+   "w": 11.21,
+   "h": 18.265
+  },
+  {
+   "board": "front",
+   "key": "D4",
+   "name": "Заряд 100%",
+   "side": "top",
+   "x": 44.255,
+   "y": 87.005,
+   "w": 3.05,
+   "h": 1.59
+  },
+  {
+   "board": "front",
+   "key": "D3",
+   "name": "Заряд 75%",
+   "side": "top",
+   "x": 41.255,
+   "y": 87.005,
+   "w": 3.05,
+   "h": 1.59
+  },
+  {
+   "board": "front",
+   "key": "D2",
+   "name": "Заряд 50%",
+   "side": "top",
+   "x": 38.255,
+   "y": 87.005,
+   "w": 3.05,
+   "h": 1.59
+  },
+  {
+   "board": "front",
+   "key": "D1",
+   "name": "Заряд 25%",
+   "side": "top",
+   "x": 35.255,
+   "y": 87.005,
+   "w": 3.05,
+   "h": 1.59
+  },
+  {
+   "board": "front",
+   "key": "J3",
+   "name": "USB-C (данные + PD)",
+   "side": "top",
+   "x": 22.455,
+   "y": 91.204999,
+   "w": 10.69,
+   "h": 9.47
+  },
+  {
+   "board": "front",
+   "key": "SW4",
+   "name": "Питание: ползунок SS12D07",
+   "side": "top",
+   "x": 47.675,
+   "y": 74.075,
+   "w": 9.45,
+   "h": 11.45
+  },
+  {
+   "board": "front",
+   "key": "SW3",
+   "name": "Кнопка 6x6 угловая",
+   "side": "top",
+   "x": 45.925,
+   "y": 47.025,
+   "w": 7.675,
+   "h": 9.6
+  },
+  {
+   "board": "front",
+   "key": "SW2",
+   "name": "Кнопка 6x6 угловая",
+   "side": "top",
+   "x": 45.925,
+   "y": 36.525,
+   "w": 7.675,
+   "h": 9.6
+  },
+  {
+   "board": "front",
+   "key": "SW1",
+   "name": "Кнопка 6x6 угловая",
+   "side": "top",
+   "x": 45.925,
+   "y": 26.024999,
+   "w": 7.675,
+   "h": 9.6
+  },
+  {
+   "board": "front",
+   "key": "ENC1",
+   "name": "EC11/PEC12R horizontal + push",
+   "side": "top",
+   "x": 44.225,
+   "y": 9.624999,
+   "w": 20.45,
+   "h": 16.35
+  },
+  {
+   "board": "front",
+   "key": "J20",
+   "name": "B2B 2x12 1.27 SMD (к другой плате)",
+   "side": "bottom",
+   "x": 5.625,
+   "y": 91.975,
+   "w": 16.35,
+   "h": 8.65
+  },
+  {
+   "board": "front",
+   "key": "J2",
+   "name": "GPIO 2x20 out (left edge)",
+   "side": "top",
+   "x": -0.455,
+   "y": 19.895,
+   "w": 14.9,
+   "h": 51.85
+  },
+  {
+   "board": "front",
+   "key": "J1",
+   "name": "Pi socket 2x20 bottom-entry",
+   "side": "bottom",
+   "x": 14.705,
+   "y": 19.905,
+   "w": 6.15,
+   "h": 51.85
+  },
+  {
+   "board": "back",
+   "key": "TP22",
+   "name": "COIL125_B",
+   "side": "top",
+   "x": 44.325,
+   "y": 9.725,
+   "w": 2.55,
+   "h": 2.55
+  },
+  {
+   "board": "back",
+   "key": "TP21",
+   "name": "COIL125_A",
+   "side": "top",
+   "x": 44.325,
+   "y": 6.725,
+   "w": 2.55,
+   "h": 2.55
+  },
+  {
+   "board": "back",
+   "key": "TP11",
+   "name": "NFC ANT2",
+   "side": "top",
+   "x": 10.825,
+   "y": 36.924999,
+   "w": 2.55,
+   "h": 2.55
+  },
+  {
+   "board": "back",
+   "key": "TP10",
+   "name": "NFC ANT1",
+   "side": "top",
+   "x": 7.525,
+   "y": 35.525,
+   "w": 2.55,
+   "h": 2.55
+  },
+  {
+   "board": "back",
+   "key": "TP4",
+   "name": "PI_USB_DN",
+   "side": "top",
+   "x": 38.025,
+   "y": 25.524999,
+   "w": 2.55,
+   "h": 2.55
+  },
+  {
+   "board": "back",
+   "key": "TP3",
+   "name": "PI_USB_DP",
+   "side": "top",
+   "x": 38.025,
+   "y": 28.524999,
+   "w": 2.55,
+   "h": 2.55
+  },
+  {
+   "board": "back",
+   "key": "TP2",
+   "name": "GND",
+   "side": "top",
+   "x": 38.025,
+   "y": 31.524999,
+   "w": 2.55,
+   "h": 2.55
+  },
+  {
+   "board": "back",
+   "key": "TP1",
+   "name": "PI_5V",
+   "side": "top",
+   "x": 38.025,
+   "y": 34.525,
+   "w": 2.55,
+   "h": 2.55
+  },
+  {
+   "board": "back",
+   "key": "J20",
+   "name": "B2B 2x12 1.27 SMD (к другой плате)",
+   "side": "top",
+   "x": 5.625,
+   "y": 92.925,
+   "w": 16.3,
+   "h": 6.75
+  }
+ ]
+}

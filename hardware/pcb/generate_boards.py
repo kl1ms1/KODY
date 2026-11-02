@@ -194,7 +194,7 @@ def holes(board):
         at(board, "MountingHole", "MountingHole_2.2mm_M2", f"H{i}", "корпус M2", False, *K(hx, hy))
 
 
-B2B_ORIGIN = (-11.0, -44.0)     # центр разъёма в координатах модели
+B2B_ORIGIN = (-12.0, -46.5)     # центр разъёма в координатах модели
 
 
 def _rel(fp, num):
@@ -243,6 +243,32 @@ def gnd_zone(board, net, layer):
     for x, y in [(0.5, 0.5), (W - 0.5, 0.5), (W - 0.5, H - 0.5), (0.5, H - 0.5)]:
         o.Append(mm(x), mm(y))
     board.Add(z)
+
+
+LAYOUT = []
+
+# Модули и крупные детали, которые ставятся «целиком»: (подпись, x, y, ширина, высота, сторона)
+# Радио — у своих антенн наверху; рация и пульты 433 — внизу (большой модуль), к антенне — кабель с защёлками.
+FRONT_ZONES = {
+    "pi":      ("Raspberry Pi Zero 2 WH", PX, PY, 30, 65, "bottom"),
+    "lora":    ("LoRa E22-900M22S", 2, 37, 14, 20, "bottom"),
+    "gps":     ("GPS MAX-M10S", -17, 44, 10, 10, "bottom"),
+    "nrf":     ("NRF24 PA/LNA", 15, 44.5, 10, 10, "bottom"),
+    "radio":   ("РАЦИЯ SA818-U", 16, -40, 18, 18, "bottom"),
+    "cc1101":  ("ПУЛЬТЫ CC1101", -12, -37, 12, 11, "bottom"),
+    "battery": ("АККУМУЛЯТОР 8.5x24x70", 8.5, 0, 24, 70, "top"),
+    "speaker": ("ДИНАМИК 1511", -10, -44, 15, 11, "top"),
+}
+
+
+def export_footprints(board, name):
+    for fp in board.GetFootprints():
+        ref = fp.GetReference()
+        if ref.startswith("H"):
+            continue
+        bb = fp.GetBoundingBox(False, False)
+        LAYOUT.append(dict(board=name, key=ref, name=fp.GetValue(), side="bottom" if fp.IsFlipped() else "top",
+                           x=pcbnew.ToMM(bb.GetLeft()), y=pcbnew.ToMM(bb.GetTop()), w=pcbnew.ToMM(bb.GetWidth()), h=pcbnew.ToMM(bb.GetHeight())))
 
 
 # =============================================================== FRONT
@@ -295,42 +321,47 @@ def front(drc):
     b2b(b, True, N)
 
     # правый бок, сверху вниз: крутилка, 3 кнопки, ползунок питания
-    edge_part(b, "Rotary_Encoder", "RotaryEncoder_Bourns_Horizontal_PEC12R-2x17F-Sxxxx", "ENC1", "EC11/PEC12R horizontal + push", False, "+x", K(0, 35)[1], margin=1.2)
-    for i, y in enumerate((21.5, 11, 0.5), 1):
+    edge_part(b, "Rotary_Encoder", "RotaryEncoder_Bourns_Horizontal_PEC12R-2x17F-Sxxxx", "ENC1", "EC11/PEC12R horizontal + push", False, "+x", K(0, 32)[1], margin=1.2)
+    for i, y in enumerate((19, 8.5, -2), 1):
         edge_part(b, "Button_Switch_THT", "SW_Tactile_SPST_Angled_PTS645Vx31-2LFS", f"SW{i}", "Кнопка 6x6 угловая", False, "+x", K(0, y)[1], margin=1.2)
     edge_part(b, "Button_Switch_THT", "SW_Slide_SPDT_Angled_CK_OS102011MA1Q", "SW4", "Питание: ползунок SS12D07", False, "+x", K(0, -30)[1], margin=1.2)
     # низ: один USB-C, индикатор заряда
-    edge_part(b, "Connector_USB", "USB_C_Receptacle_HRO_TYPE-C-31-M-12", "J3", "USB-C (данные + PD)", False, "+y", K(8, 0)[0], by="fab", overhang=0.6)
+    edge_part(b, "Connector_USB", "USB_C_Receptacle_HRO_TYPE-C-31-M-12", "J3", "USB-C (данные + PD)", False, "+y", K(2, 0)[0], by="fab", overhang=0.6)
     for i, x in enumerate((11, 14, 17, 20), 1):
         at(b, "LED_SMD", "LED_0603_1608Metric", f"D{i}", f"Заряд {i*25}%", False, *K(x, -38))
     # верх: 4× SMA посередине толщины
     for i, x in enumerate((-16.5, -5.5, 5.5, 16.5), 1):
-        edge_part(b, "Connector_Coaxial", "SMA_Amphenol_132289_EdgeMount", f"J{3+i}", ["SMA LoRa", "SMA Рация 433", "SMA 2.4 ГГц", "SMA GPS"][i - 1], False, "-y", K(x, 0)[0], margin=0.0)
+        edge_part(b, "Connector_Coaxial", "SMA_Amphenol_132289_EdgeMount", f"J{3+i}", ["SMA GPS", "SMA LoRa", "SMA Рация 433", "SMA 2.4 ГГц"][i - 1], False, "-y", K(x, 0)[0], margin=0.0)
     # ИК-порт слева под GPIO: 2 узких + 2 широких светодиода, 2 приёмника
     for i, y in enumerate((-24.2, -30.6, -37.0, -43.4), 1):
         edge_part(b, "LED_THT", "LED_D5.0mm_Horizontal_O1.27mm_Z3.0mm", f"D{4+i}", ["VSLY5940", "TSAL6400", "TSAL6400", "VSLY5940"][i - 1], False, "-x", K(0, y)[1], margin=0.8)
     at(b, "OptoDevice", "Vishay_MINIMOLD-3Pin", "U30", "TSOP38238", False, *K(-21.5, 31.0), 90)
-    at(b, "OptoDevice", "Vishay_MINIMOLD-3Pin", "U31", "TSMP58000", False, *K(-21.5, 39.0), 90)
+    at(b, "OptoDevice", "Vishay_MINIMOLD-3Pin", "U31", "TSMP58000", False, *K(-21.5, 38.0), 90)
     # экран и HDMI: разъёмы FPC (точная модель — по выбранному экрану)
-    at(b, "Connector_FFC-FPC", "Hirose_FH12-30S-0.5SH_1x30-1MP_P0.50mm_Horizontal", "J10", "Экран (FPC, уточнить)", False, *K(-2, 46.0), 180)
+    at(b, "Connector_FFC-FPC", "Hirose_FH12-30S-0.5SH_1x30-1MP_P0.50mm_Horizontal", "J10", "Экран (FPC, уточнить)", False, *K(-2, 41.0), 180)
     at(b, "Connector_FFC-FPC", "Hirose_FH12-24S-0.5SH_1x24-1MP_P0.50mm_Horizontal", "J11", "HDMI-шлейф от Pi (FPC)", True, *K(PX + 6, PY - 20.1), 90)
     # аккумулятор: 3 площадки под лепестки
     for i, x in enumerate((0, 5, 10), 1):
         at(b, "TestPoint", "TestPoint_Pad_3.0x3.0mm", f"BT{i}", ["BAT+", "BAT-", "NTC"][i - 1], False, *K(x, 37.5))
 
     # разметка: зоны модулей и крупных деталей
-    for label, (cx, cy, w, h, layer) in {
-        "РАЦИЯ SA818-U (снизу)": (12, -40, 26, 18, C), "LoRa E22-900M22S (снизу)": (8, 30, 14, 20, C),
-        "CC1101 E07 (снизу)": (-14, 40, 14, 14, C), "NRF24 PA/LNA (снизу)": (8, -14, 12, 18, C),
-        "ESP32-C5 (снизу)": (-14, -40, 13, 18, C), "GPS MAX-M10S (снизу)": (6, 44, 10, 10, C),
-        "АККУМУЛЯТОР 8.5x24x70": (8.5, 0, 24, 70, D), "ДИНАМИК 1511": (-2, -44, 15, 11, D),
-        "Raspberry Pi Zero 2 WH (снизу)": (PX, PY, 30, 65, C),
-    }.items():
-        kx, ky = K(cx, cy); rect(b, layer, kx, ky, w, h, 0.1); text(b, layer, kx, ky, label, 1.0)
+    FS, BS = pcbnew.F_SilkS, pcbnew.B_SilkS
+    for key, (label, cx, cy, w, h, side) in FRONT_ZONES.items():
+        layer = FS if side == "top" else BS
+        kx, ky = K(cx, cy); rect(b, layer, kx, ky, w, h, 0.15); text(b, layer, kx, ky, label, 1.0, mirror=(side == "bottom"))
+        LAYOUT.append(dict(board="front", key=key, name=label, side=side, x=kx - w / 2, y=ky - h / 2, w=w, h=h))
+    for ref, lab, dx, dy in [("ENC1", "КРУТИЛКА", -6, 0), ("SW1", "КН1", -4, 0), ("SW2", "КН2", -4, 0), ("SW3", "КН3", -4, 0),
+                             ("SW4", "ПИТАНИЕ", -6, 0), ("J3", "USB-C", 0, -6), ("J2", "GPIO", 0, 0), ("J1", "СЮДА Pi", 0, 0)]:
+        fp = b.FindFootprintByReference(ref); bb = fp.GetBoundingBox(False, False)
+        fx, fy = pcbnew.ToMM(bb.GetCenter().x), pcbnew.ToMM(bb.GetCenter().y)
+        if ref in ("ENC1", "SW1", "SW2", "SW3", "SW4"):
+            fx = pcbnew.ToMM(bb.GetLeft())
+        text(b, FS, fx + dx, fy + dy, lab, 1.0)
     text(b, pcbnew.F_SilkS, *K(15.5, -35.5), "ЗАРЯД", 0.9)
     text(b, pcbnew.F_SilkS, *K(-2, 40), "KODY v9 FRONT", 1.0)
     text(b, pcbnew.F_SilkS, *K(-19, 31.5), "GPIO 3.3V", 0.9)
     gnd_zone(b, N["GND"], Bc)
+    export_footprints(b, "front")
     fill_and_save(b, os.path.join(HERE, "front.kicad_pcb"), drc)
 
 
@@ -384,10 +415,15 @@ def back(drc):
     text(b, S, sx, sy + 22, "KODY", 5.0, mirror=True, thick=0.9)
     text(b, S, sx, sy + 27, "SUB-GHZ  LORA  2.4G  GPS  NFC  IR", 1.1, mirror=True)
     text(b, pcbnew.F_SilkS, *K(10, -42), "KODY v9 BACK", 1.0)
+    export_footprints(b, "back")
     fill_and_save(b, os.path.join(HERE, "back.kicad_pcb"), drc)
 
 
 if __name__ == "__main__":
+    import json
     drc = "--drc" in sys.argv
     front(drc)
     back(drc)
+    with open(os.path.join(HERE, "layout.json"), "w", encoding="utf-8") as f:
+        json.dump({"W": W, "H": H, "items": LAYOUT}, f, ensure_ascii=False, indent=1)
+    print("OK: layout.json", len(LAYOUT))

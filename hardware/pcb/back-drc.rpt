@@ -1,53 +1,47 @@
 ** Drc report for /home/user/KODY/hardware/pcb/back.kicad_pcb **
-** Created on 2026-11-02 15:25:07 **
+** Created on 2026-11-02 18:05:26 **
 
-** Found 27 DRC violations **
+** Found 40 DRC violations **
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
     @(45.6000 mm, 9.3520 mm): Reference 'TP22'
     @(45.6000 mm, 8.0000 mm): Circle on F.Silkscreen
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
-    @(39.3000 mm, 28.1520 mm): Reference 'TP3'
     @(39.3000 mm, 26.8000 mm): Circle on F.Silkscreen
+    @(39.3000 mm, 28.1520 mm): Reference 'TP3'
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
-    @(39.3000 mm, 29.8000 mm): Circle on F.Silkscreen
     @(39.3000 mm, 31.1520 mm): Reference 'TP2'
+    @(39.3000 mm, 29.8000 mm): Circle on F.Silkscreen
 [silk_overlap]: Silkscreen overlap
     Rule: board setup constraints silk; Severity: warning
-    @(39.3000 mm, 32.8000 mm): Circle on F.Silkscreen
     @(39.3000 mm, 34.1520 mm): Reference 'TP1'
+    @(39.3000 mm, 32.8000 mm): Circle on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
     @(25.8000 mm, 21.8000 mm): Circle on B.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
-    @(39.3000 mm, 28.1520 mm): Reference 'TP3'
+    @(4.6800 mm, 96.3000 mm): Reference 'J20'
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(39.3000 mm, 34.1520 mm): Reference 'TP1'
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
     @(39.3000 mm, 31.1520 mm): Reference 'TP2'
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; Severity: warning
-    @(39.3000 mm, 34.1520 mm): Reference 'TP1'
+    @(39.3000 mm, 28.1520 mm): Reference 'TP3'
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(45.6000 mm, 11.0000 mm): Footprint TP22
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(39.3000 mm, 29.8000 mm): Footprint TP3
+    @(13.8000 mm, 96.3000 mm): Footprint J20
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
     @(17.8000 mm, 16.8000 mm): Footprint H3
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(39.3000 mm, 32.8000 mm): Footprint TP2
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(48.6000 mm, 3.0000 mm): Footprint H8
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(3.0000 mm, 3.0000 mm): Footprint H7
+    @(17.8000 mm, 74.8000 mm): Footprint H1
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
     @(3.0000 mm, 96.6000 mm): Footprint H5
@@ -56,73 +50,130 @@
     @(12.1000 mm, 38.2000 mm): Footprint TP11
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(8.8000 mm, 36.8000 mm): Footprint TP10
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(40.8000 mm, 16.8000 mm): Footprint H4
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(14.8000 mm, 93.8000 mm): Footprint J20
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(48.6000 mm, 96.6000 mm): Footprint H6
+    @(39.3000 mm, 26.8000 mm): Footprint TP4
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
     @(40.8000 mm, 74.8000 mm): Footprint H2
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(39.3000 mm, 35.8000 mm): Footprint TP1
-[lib_footprint_issues]: The current configuration does not include the library ''.
-    Local override; Severity: warning
-    @(39.3000 mm, 26.8000 mm): Footprint TP4
+    @(8.8000 mm, 36.8000 mm): Footprint TP10
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
     @(45.6000 mm, 8.0000 mm): Footprint TP21
 [lib_footprint_issues]: The current configuration does not include the library ''.
     Local override; Severity: warning
-    @(17.8000 mm, 74.8000 mm): Footprint H1
+    @(39.3000 mm, 35.8000 mm): Footprint TP1
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(39.3000 mm, 32.8000 mm): Footprint TP2
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(45.6000 mm, 11.0000 mm): Footprint TP22
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(48.6000 mm, 96.6000 mm): Footprint H6
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(3.0000 mm, 3.0000 mm): Footprint H7
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(39.3000 mm, 29.8000 mm): Footprint TP3
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(40.8000 mm, 16.8000 mm): Footprint H4
+[lib_footprint_issues]: The current configuration does not include the library ''.
+    Local override; Severity: warning
+    @(48.6000 mm, 3.0000 mm): Footprint H8
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(6.8150 mm, 98.1000 mm): Pad 2 [+5V] of J20 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(8.0850 mm, 98.1000 mm): Pad 4 [GND] of J20 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(9.3550 mm, 98.1000 mm): Pad 6 [USB1_DN] of J20 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(10.6250 mm, 98.1000 mm): Pad 8 [GND] of J20 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(11.8950 mm, 98.1000 mm): Pad 10 [USB2_DN] of J20 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(13.1650 mm, 98.1000 mm): Pad 12 [+3V3] of J20 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(14.4350 mm, 98.1000 mm): Pad 14 [NFC_MOSI] of J20 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(15.7050 mm, 98.1000 mm): Pad 16 [NFC_CS] of J20 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(16.9750 mm, 98.1000 mm): Pad 18 [GND] of J20 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(18.2450 mm, 98.1000 mm): Pad 20 [RF125_RX] of J20 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(19.5150 mm, 98.1000 mm): Pad 22 [GND] of J20 on F.Cu
+[copper_edge_clearance]: Board edge clearance violation (board setup constraints edge clearance 0.5000 mm; actual 0.4500 mm)
+    Rule: board setup constraints edge; Severity: error
+    @(48.6000 mm, 99.6000 mm): Line on Edge.Cuts
+    @(20.7850 mm, 98.1000 mm): Pad 24 [I2C_SCL] of J20 on F.Cu
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(3.0000 mm, 3.0000 mm): Arc on Edge.Cuts
+    @(3.0000 mm, -0.2000 mm): Reference 'H7'
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; Severity: warning
     @(48.6000 mm, 3.0000 mm): Arc on Edge.Cuts
     @(48.6000 mm, -0.2000 mm): Reference 'H8'
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; Severity: warning
-    @(3.0000 mm, 0.0000 mm): Line on Edge.Cuts
-    @(3.0000 mm, -0.2000 mm): Reference 'H7'
 
 ** Found 8 unconnected pads **
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(7.8150 mm, 92.0000 mm): Pad 1 [+5V] of J20 on F.Cu
-    @(7.8150 mm, 95.6000 mm): Pad 2 [+5V] of J20 on F.Cu
+    @(6.8150 mm, 94.5000 mm): Pad 1 [+5V] of J20 on F.Cu
+    @(6.8150 mm, 98.1000 mm): Pad 2 [+5V] of J20 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(11.6250 mm, 92.0000 mm): Pad 7 [GND] of J20 on F.Cu
-    @(9.0850 mm, 92.0000 mm): Pad 3 [GND] of J20 on F.Cu
+    @(10.6250 mm, 94.5000 mm): Pad 7 [GND] of J20 on F.Cu
+    @(8.0850 mm, 94.5000 mm): Pad 3 [GND] of J20 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(14.1650 mm, 92.0000 mm): Pad 11 [GND] of J20 on F.Cu
-    @(11.6250 mm, 92.0000 mm): Pad 7 [GND] of J20 on F.Cu
+    @(13.1650 mm, 94.5000 mm): Pad 11 [GND] of J20 on F.Cu
+    @(10.6250 mm, 94.5000 mm): Pad 7 [GND] of J20 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(9.0850 mm, 95.6000 mm): Pad 4 [GND] of J20 on F.Cu
-    @(11.6250 mm, 95.6000 mm): Pad 8 [GND] of J20 on F.Cu
+    @(8.0850 mm, 98.1000 mm): Pad 4 [GND] of J20 on F.Cu
+    @(10.6250 mm, 98.1000 mm): Pad 8 [GND] of J20 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(17.9750 mm, 95.6000 mm): Pad 18 [GND] of J20 on F.Cu
-    @(20.5150 mm, 95.6000 mm): Pad 22 [GND] of J20 on F.Cu
+    @(16.9750 mm, 98.1000 mm): Pad 18 [GND] of J20 on F.Cu
+    @(19.5150 mm, 98.1000 mm): Pad 22 [GND] of J20 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(11.6250 mm, 95.6000 mm): Pad 8 [GND] of J20 on F.Cu
-    @(11.6250 mm, 92.0000 mm): Pad 7 [GND] of J20 on F.Cu
+    @(10.6250 mm, 98.1000 mm): Pad 8 [GND] of J20 on F.Cu
+    @(10.6250 mm, 94.5000 mm): Pad 7 [GND] of J20 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
-    @(17.9750 mm, 95.6000 mm): Pad 18 [GND] of J20 on F.Cu
-    @(14.1650 mm, 92.0000 mm): Pad 11 [GND] of J20 on F.Cu
+    @(16.9750 mm, 98.1000 mm): Pad 18 [GND] of J20 on F.Cu
+    @(13.1650 mm, 94.5000 mm): Pad 11 [GND] of J20 on F.Cu
 [unconnected_items]: Missing connection between items
     Local override; Severity: error
     @(39.3000 mm, 32.8000 mm): Pad 1 [GND] of TP2 on F.Cu
-    @(14.1650 mm, 92.0000 mm): Pad 11 [GND] of J20 on F.Cu
+    @(13.1650 mm, 94.5000 mm): Pad 11 [GND] of J20 on F.Cu
 
 ** Found 0 Footprint errors **
 

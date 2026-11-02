@@ -227,7 +227,7 @@ var printTex=canvasTex(520,1020,function(c,w,h){
   box(g,54,1.2,12.4,"#22262a",0,50.4,14.3,shell); box(g,54,1.2,12.4,"#22262a",0,-50.4,14.3,shell);
   box(g,1.4,102,0.5,"#22262a",-26.3,0,20.65,shell); box(g,1.4,102,0.5,"#22262a",26.3,0,20.65,shell);
   box(g,54,1.4,0.5,"#22262a",0,50.3,20.65,shell); box(g,54,1.4,0.5,"#22262a",0,-50.3,20.65,shell);
-  for(var i=0;i<12;i++) cyl(g,0.45,1.3,"#050505",-9+(i%6)*1.6,-51.0,12+Math.floor(i/6)*1.6,"y");  // speaker holes
+  for(var i=0;i<12;i++) cyl(g,0.45,1.3,"#050505",-16+(i%6)*1.6,-51.0,12+Math.floor(i/6)*1.6,"y");  // speaker holes
   cyl(g,0.4,1.3,"#050505",-14,-51.0,12,"y");                                                       // mic hole
 })(G.caseF);
 
@@ -292,13 +292,13 @@ var gpioTex=canvasTex(52,512,function(c,w,h){ c.fillStyle="#151617"; c.fillRect(
   box(g,12.6,51,5.1,BLACK,-19.5,PY,11.95); plane(g,5.1,51,gpioTex,-25.81,PY,11.95,-Math.PI/2);   // GPIO out (угловое, 12.6 мм вглубь)
   [-24.2,-30.6,-37.0,-43.4].forEach(function(y,i){ cyl(g,2.5,6,i%3===0?"#4a1010":"#cfd8ff",-23.2,y,12.4,"x",{transparent:i%3!==0,opacity:.85}); cyl(g,2.5,2.5,i%3===0?"#4a1010":"#cfd8ff",-26.4,y,12.4,"x",{transparent:i%3!==0,opacity:.85},0.2); });  // IR LEDs
   box(g,3,5,6,"#111",-23.8,31,12.4); box(g,3,5,6,"#111",-23.8,39,12.4);          // IR receivers (над GPIO)
-  box(g,15,11,3,"#2a2a2a",-7,-44,10.9);                                                // speaker box
-  box(g,9,6.9,3.2,SILVER,8,-46.6,11,{metalness:.7,roughness:.3}); box(g,7.6,0.3,1.6,"#222",8,-50.1,11);   // USB-C (single)
+  box(g,15,11,3,"#2a2a2a",-12,-44,10.9);                                                // speaker box
+  box(g,9,6.9,3.2,SILVER,2,-46.6,11,{metalness:.7,roughness:.3}); box(g,7.6,0.3,1.6,"#222",2,-50.1,11);   // USB-C (single)
   box(g,3,3,0.9,CHIP,-6,47,9.9); cyl(g,0.9,0.6,"#111",6,47,9.7,"z");
   // right side: B1, B2, knob, B3, toy-car slide switch
-  [21.5,11,0.5].forEach(function(y){ box(g,6,6,4,"#d9d9d9",20.5,y,12.4); cyl(g,4.2,2.6,"#2b2e31",25.6,y,12.4,"x",{roughness:.45}); cyl(g,3.4,0.4,"#3b3f43",27,y,12.4,"x"); });
-  box(g,12,12,6.5,"#444",19,35,12.65); cyl(g,2,3,SILVER,26.3,35,12.4,"x",{metalness:.7});
-  cyl(g,7.5,8,"#3a3d40",31.7,35,12.4,"x",{metalness:.5,roughness:.35},undefined,48); cyl(g,6.3,0.6,"#55595d",35.9,35,12.4,"x",{metalness:.6}); box(g,0.5,0.8,4,"#e08a4f",36.2,37.5,12.4);
+  [19,8.5,-2].forEach(function(y){ box(g,6,6,4,"#d9d9d9",20.5,y,12.4); cyl(g,4.2,2.6,"#2b2e31",25.6,y,12.4,"x",{roughness:.45}); cyl(g,3.4,0.4,"#3b3f43",27,y,12.4,"x"); });
+  box(g,12,12,6.5,"#444",19,32,12.65); cyl(g,2,3,SILVER,26.3,32,12.4,"x",{metalness:.7});
+  cyl(g,7.5,8,"#3a3d40",31.7,32,12.4,"x",{metalness:.5,roughness:.35},undefined,48); cyl(g,6.3,0.6,"#55595d",35.9,32,12.4,"x",{metalness:.6}); box(g,0.5,0.8,4,"#e08a4f",36.2,34.5,12.4);
   box(g,4,9,4,"#2d6cc0",22.8,-30,12.4); box(g,3.2,2.6,2.4,"#e9e9e9",28.1,-28.2,12.4);   // slide switch body + lever
   // 4 SMA on the top edge, centred in thickness
   [-16.5,-5.5,5.5,16.5].forEach(function(x){ box(g,6.35,5,6.35,GOLD,x,50.6,8.9,{metalness:.85,roughness:.3}); });
