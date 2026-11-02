@@ -5,7 +5,7 @@
 NFC/RFID, ИК, USB-C зарядкой, USB-A портами и выведенной наверх гребёнкой
 на 40 GPIO для своих проектов.
 
-> **Актуальная концепция — v4 «пазл»:** Pi Zero WH втыкается в ядро, вокруг защёлкиваются платы-пазлы, при включении всё само проверяется;
+> **Актуальная концепция — v5, вертикальный как телефон:** два варианта сборки (пазл и сэндвич), Pi Zero WH втыкается в гнездо внутри, при включении всё само проверяется;
 > отпечаток почти как у самой Pi. Смотри [`docs/concept.md`](docs/concept.md) и
 > **3D-модель с телефона:** https://claude.ai/artifact/SPZszNhs2kebLbU7mErjtX
 >
@@ -45,7 +45,7 @@ NFC/RFID, ИК, USB-C зарядкой, USB-A портами и выведенн
 
 ## Документы
 
-- [`docs/concept.md`](docs/concept.md) — **v4 «пазл»**: платы, что можно/нельзя, распиновка.
+- [`docs/concept.md`](docs/concept.md) — **v5 вертикальный** (варианты А/Б) и v4: платы, что можно/нельзя, распиновка.
 - [`docs/shopping-list.md`](docs/shopping-list.md) и страница https://claude.ai/artifact/PkMxhhZDHSbbQT44wBgvSS — что купить, со ссылками на поиск
   по Ozon, Wildberries, Я.Маркету, AliExpress и ЧипДипу.
 - [`docs/hardware.md`](docs/hardware.md) — (v1) архитектура, распиновка всех 40 GPIO,
