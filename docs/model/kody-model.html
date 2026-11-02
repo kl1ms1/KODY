@@ -56,33 +56,42 @@ th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute
 .tag{font-family:var(--f-mono);font-size:12px;font-weight:600;white-space:nowrap}
 .tag.ok{color:var(--ok)} .tag.warn{color:var(--warn)} .tag.no{color:var(--no)}
 .note{color:var(--muted);font-size:13px;max-width:75ch}
-.usb{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
-.usb .pcard{border-left:4px solid var(--accent)}
+.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;counter-reset:st}
+.steps .pcard{border-left:4px solid var(--accent)}
+.steps .n{font-family:var(--f-mono);font-size:12px;color:var(--accent);font-weight:600}
+.cap{position:absolute;left:12px;right:12px;top:34px;font-size:14px;font-weight:600;color:var(--ink)}
+.cap small{display:block;font-weight:400;color:var(--muted);font-size:12px}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
 
 <div class="wrap">
   <header>
     <h1>KODY: пазл вокруг Pi Zero</h1>
-    <p>Версия 3. SDR убран. Сверху: GPIO сдвинута вперёд, за ней три мощные антенны (Sub-GHz, LoRa, 2.4 ГГц) и USB-C для данных. Справа USB-A. Снизу быстрая зарядка. Размеры примерные, ±1–2 мм.</p>
-    <div class="dims"><span>Pi Zero: 65 × 30 мм</span><span>KODY без антенн ≈ 69 × 34 × 22 мм</span><span>3 антенны SMA</span><span>USB-A + 2× USB-C</span></div>
+    <p>Версия 4. Сначала Pi Zero WH втыкается в ядро — плату с гнездом «мама» внутри. Потом по краям защёлкиваются остальные части пазла, и при включении KODY сама проверяет, что всё на месте. В «толстом месте» между Pi и экраном лежит большой аккумулятор. Размеры примерные, ±1–2 мм.</p>
+    <div class="dims"><span>Pi Zero: 65 × 30 мм</span><span>KODY ≈ 69 × 34 × 22 мм</span><span>Аккумулятор ≈ 1000 мА·ч</span><span>3 антенны SMA (съёмные)</span></div>
   </header>
 
   <div class="stage" id="stage">
     <canvas id="c" aria-label="3D-модель KODY. Тяни пальцем, чтобы вращать, щипок — масштаб"></canvas>
     <div class="labels" id="labels"></div>
     <div class="hint">Тяни — вращать · щипок — масштаб · тап по плате — описание</div>
+    <div class="cap" id="cap" hidden></div>
     <div class="info" id="info" hidden></div>
     <div class="toolbar">
-      <button class="primary" id="btnExplode">Разобрать</button>
+      <button class="primary" id="btnStep">Собрать по шагам</button>
+      <button id="btnExplode">Разобрать</button>
       <button id="btnCaps">Заглушки</button>
       <button data-view="front">Спереди</button>
       <button data-view="back">Сзади</button>
-      <button data-view="top">Сверху</button>
       <button data-view="iso">3/4</button>
       <button id="btnLabels">Подписи</button>
     </div>
   </div>
+
+  <section>
+    <h2>Как собирается</h2>
+    <div class="steps" id="steps"></div>
+  </section>
 
   <section>
     <h2>Платы пазла</h2>
@@ -90,35 +99,25 @@ th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute
   </section>
 
   <section>
-    <h2>Три USB: кто за что отвечает</h2>
-    <div class="usb">
-      <div class="pcard"><b>Снизу · USB-C · быстрая зарядка</b><small>Только питание. Заряд током около 1C (полный аккумулятор примерно за час), плюс полная защита: от перезаряда, переразряда, КЗ, перегрева (датчик температуры на аккумуляторе). Девайс работает от розетки, пока заряжается.</small></div>
-      <div class="pcard"><b>Сверху · USB-C · данные</b><small>Подключил к компьютеру — KODY видна как флешка / сетевая карта / COM-порт. Заодно медленно заряжает (до 0.5 А), чтобы не нагружать порт компьютера.</small></div>
-      <div class="pcard"><b>Справа · USB-A · для флешек и модулей</b><small>Обычный «квадратный» разъём без переходников: флешка, клавиатура, внешний модуль. Отдаёт до 0.5 А. Пока к верхнему USB-C подключён компьютер, USB-A отключается: у Pi Zero всего один USB, его переключает чип-коммутатор.</small></div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Что можно и что нельзя</h2>
+    <h2>Что реализуется, а что нет</h2>
     <div class="tbl"><table>
       <thead><tr><th>Хотелка</th><th>Вердикт</th><th>Как сделаем</th></tr></thead>
       <tbody>
-        <tr><td>3 антенны сверху рядом с GPIO</td><td><span class="tag ok">МОЖНО</span></td><td>В одну линию с гребёнкой (51 мм) три антенны не помещаются — ширина всего 69 мм. Поэтому ставим их рядом в глубину: GPIO у переднего края, антенны за ней у заднего.</td></tr>
-        <tr><td>Заглушки вместо антенн</td><td><span class="tag ok">МОЖНО</span></td><td>Заглушка-нагрузка SMA 50 Ом. Это не просто колпачок: если случайно включить передачу без антенны, усилитель не сгорит.</td></tr>
-        <tr><td>Мощные антенны / модули</td><td><span class="tag warn">С ОГОВОРКОЙ</span></td><td>Модули с усилителем: CC1101 + PA (до 100 мВт), LoRa SX1262 (160 мВт), NRF24 + PA/LNA. Без регистрации разрешено меньше (433 МГц ≈ 10 мВт, 868 МГц ≈ 25 мВт, 2.4 ГГц ≈ 100 мВт). По умолчанию прошивка держит законную мощность, «турбо» включается вручную.</td></tr>
-        <tr><td>USB-A без переходников</td><td><span class="tag ok">МОЖНО</span></td><td>Место нашлось: правый бок, над Pi, в зазоре гребёнки (там, где был сенсор). Цена: аккумулятор становится короче, ~450 мА·ч.</td></tr>
-        <tr><td>Быстрая зарядка снизу с защитой</td><td><span class="tag ok">МОЖНО</span></td><td>Контроллер заряда BQ25895 + отдельная защита аккумулятора (DW01A + ключи) + датчик температуры.</td></tr>
-        <tr><td>Данные + медленный заряд сверху</td><td><span class="tag ok">МОЖНО</span></td><td>Режим «USB-гаджет» у Pi + ограничение тока 0.5 А.</td></tr>
-        <tr><td>SDR</td><td><span class="tag no">УБРАН</span></td><td>По твоему решению. Можно подключить внешний через USB-A.</td></tr>
-        <tr><td>Батарея</td><td><span class="tag warn">КОМПРОМИСС</span></td><td>≈ 450 мА·ч: 1–2 часа активной работы, зарядка ≈ 1 час.</td></tr>
+        <tr><td>Сначала Pi в «маму» внутри, потом пазл по краям</td><td><span class="tag ok">ДА</span></td><td>Ядро — плата размером с Pi с гнездом 2×20 снизу. Pi WH втыкается в него, всё остальное стыкуется к краям ядра разъёмами 1.27 мм и прижимается 4 винтами через отверстия Pi.</td></tr>
+        <tr><td>Всё друг с другом взаимодействует и проверяется</td><td><span class="tag ok">ДА</span></td><td>В каждой части пазла крошечная память с её «паспортом». При включении KODY опрашивает все части и показывает, какие вставлены и всё ли на них работает. Программа уже написана.</td></tr>
+        <tr><td>Аккумулятор в толстом месте, через защиту на Pi</td><td><span class="tag ok">ДА</span></td><td>≈ 1000 мА·ч (7 мм толщиной) между Pi и ядром. Ток идёт: аккумулятор → защита → зарядка/5 В на нижней плате → ядро → Pi. ≈ 3–4 часа работы.</td></tr>
+        <tr><td>Тачскрин</td><td><span class="tag ok">ДА</span></td><td>1.9″ IPS 170×320 с ёмкостным тачем. Рамки по бокам ≈ 8 мм — серийного экрана ровно под Pi нет.</td></tr>
+        <tr><td>Слева 2 кнопки + SD-карта</td><td><span class="tag ok">ДА</span></td><td>SD-карту Pi достаём через окно в левой части.</td></tr>
+        <tr><td>Справа крутилка + такая же кнопка</td><td><span class="tag ok">ДА</span></td><td>Энкодер с ручкой, бесконечное вращение + нажатие. Скинь фото ручки — подгоню форму.</td></tr>
+        <tr><td>Гироскоп</td><td><span class="tag ok">ДА</span></td><td>LSM6DSO (акселерометр + гироскоп) на ядре: наклон, жесты, шагомер, «встряхни — отмена».</td></tr>
+        <tr><td>Вибромоторчик</td><td><span class="tag ok">ДА</span></td><td>На ядре. Из проектов: «пойман сигнал — вибрируй», «наклонил — вибрируй».</td></tr>
+        <tr><td>GPS, скорость</td><td><span class="tag ok">ДА, БЕЗ СИМ-КАРТЫ</span></td><td>Для GPS сим-карта не нужна: модуль сам ловит спутники. Скорость, координаты, точное время. Антенна внутри задней платы.</td></tr>
+        <tr><td>Сим-карта (мобильная связь)</td><td><span class="tag warn">ПОТОМ</span></td><td>LTE-модем с SIM займёт место одного из радиомодулей и в пике берёт до 2 А. Делать отдельной сменной задней платой.</td></tr>
+        <tr><td>Съёмные антенны SMA и заглушки</td><td><span class="tag ok">ДА</span></td><td>Антенны накручиваются и снимаются, вместо них — заглушки-нагрузки 50 Ом. Антенны можно не класть в комплект.</td></tr>
+        <tr><td>USB-A</td><td><span class="tag no">УБРАН</span></td><td>По твоему решению: на его место встала крутилка с кнопкой.</td></tr>
+        <tr><td>Тоньше</td><td><span class="tag warn">НЕТ</span></td><td>Толщину ≈ 22 мм задаёт гребёнка Pi WH (11 мм между Pi и ядром). Зато это место теперь занято аккумулятором.</td></tr>
       </tbody>
     </table></div>
-  </section>
-
-  <section>
-    <h2>Идеи вместо сенсора (правый бок, рядом с USB-A)</h2>
-    <p class="note">На правой плате после USB-A остаётся окно ≈ 14 × 18 мм (на модели — оранжевая зона). Что туда можно поставить:</p>
-    <div class="grid" id="ideas"></div>
   </section>
 </div>
 
@@ -126,55 +125,48 @@ th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute
 <script>
 (function(){
 "use strict";
+// step = order of assembly
 var PANELS = [
-  {id:"screen", name:"Экран (спереди)", color:"#2b2f33", explode:[0,22,0], label:[0,23,0],
-   short:"1.9″ IPS 170×320, ёмкостный тач",
-   items:["Экран 1.9″ IPS 170×320 (ST7789) по SPI","Ёмкостный тач (CST816) по I2C","Стыкуется с верхней платой разъёмом 1.27 мм"]},
-  {id:"spine", name:"Верх: GPIO + USB-C данные", color:"#c9961f", explode:[0,0,-18], label:[-6,16,-21],
-   short:"Pi вставляется сюда. GPIO сдвинута вперёд, USB-C для данных",
-   items:["Гнездо, в которое втыкается Pi Zero WH","40 GPIO наружу — низкое гнездо 2×20, сдвинуто к переднему краю и влево","USB-C (данные + медленная зарядка 0.5 А)","ИК-светодиод и ИК-приёмник","3 гнезда SMA под антенны — у заднего края"]},
-  {id:"ant", name:"Антенны", color:"#1b1d1f", explode:[0,0,-30], label:[-10,6,-62],
-   short:"Sub-GHz 433, LoRa 868, 2.4 ГГц. Или заглушки",
-   items:["Sub-GHz 433 МГц — CC1101 + усилитель (Ebyte E07-433M20S)","LoRa 868 МГц — SX1262 (Ebyte E22-900M22S)","2.4 ГГц — NRF24L01+ PA/LNA","Без антенны ставится заглушка-нагрузка 50 Ом","Кнопка «Заглушки» внизу показывает, как это выглядит"]},
-  {id:"left", name:"Кнопки (левый бок)", color:"#2a63ad", explode:[-20,0,0], label:[-38,12,0],
-   short:"2 большие кнопки, окно для SD-карты Pi",
-   items:["Две кнопки Ø9 мм, мягкий ход","Окно, чтобы доставать SD-карту Pi","Шипы-пазы для сборки пазла"]},
-  {id:"right", name:"USB-A (правый бок)", color:"#ad2f2f", explode:[22,0,0], label:[38,12,-4],
-   short:"Обычный USB-A + место под идею",
-   items:["USB-A для флешек и модулей, без переходников","Порт лежит над Pi, в зазоре гребёнки","Оранжевая зона — место под идею (список ниже на странице)"]},
-  {id:"bottom", name:"Низ: быстрая зарядка", color:"#d8d4c8", explode:[0,0,18], label:[0,12,20],
-   short:"USB-C зарядка с защитой, microSD №2, выключатель",
-   items:["USB-C только для зарядки: быстро, ≈ 1 час до полной","Защита аккумулятора: перезаряд, переразряд, КЗ, перегрев","Слот microSD №2 для своих файлов","Выключатель + индикатор заряда"]},
-  {id:"back", name:"Радио + NFC (сзади)", color:"#5e2d8c", explode:[0,-18,0], label:[0,-3,0],
-   short:"CC1101+PA, LoRa, NRF24+PA, NFC, 125 кГц, RP2040",
-   items:["RP2040 — управляет радио, NFC и ИК в реальном времени","CC1101 + PA, SX1262, NRF24 + PA/LNA — модули в экранах","Короткие кабели от модулей к антеннам сверху","ST25R3916: NFC чтение + эмуляция; катушка 125 кГц на внешней стороне","USB-хаб + коммутатор (Pi ↔ USB-A / USB-C данные)","Pogo-контакты к низу Pi: USB и питание без проводов"]},
-  {id:"battery", name:"Аккумулятор", color:"#7b8fa6", explode:[0,9,0], label:[-3,15,4],
-   short:"Li-Po ≈ 450 мА·ч, между Pi и экраном",
-   items:["Плоский Li-Po ≈ 42 × 18 × 4.5 мм","Стал короче, чтобы влез USB-A"]},
-  {id:"pi", name:"Raspberry Pi Zero W / WH", color:"#2e7d4a", explode:[0,0,0], label:[0,4,8],
-   short:"Твоя плата — сердце пазла",
-   items:["65 × 30 мм, гребёнка 40 pin","Подходит и Zero 2 W — без переделок"]}
+  {id:"pi", step:0, name:"Raspberry Pi Zero W / WH", color:"#2e7d4a", explode:[0,-6,0], label:[0,4,8],
+   short:"Твоя плата — с неё всё начинается", items:["65 × 30 мм, гребёнка 40 pin «папа»","Подходит и Zero 2 W — без переделок"]},
+  {id:"battery", step:1, name:"Аккумулятор", color:"#7b8fa6", explode:[0,9,0], label:[0,15,4],
+   short:"Li-Po ≈ 1000 мА·ч, лежит на Pi", items:["Плоский Li-Po ≈ 50 × 20 × 7 мм (типоразмер 702050)","Занимает «толстое место» между Pi и ядром","Провод — к нижней плате (защита + зарядка)"]},
+  {id:"core", step:2, name:"Ядро", color:"#1f6f78", explode:[0,16,0], label:[24,18,6],
+   short:"Гнездо «мама» внутри — в него втыкается Pi", items:["Гнездо 2×20 «мама» снизу: Pi WH втыкается сюда","Разъёмы по всем 4 краям — к ним цепляется пазл","Гироскоп LSM6DSO + вибромотор","EEPROM: Pi при загрузке знает, что она в KODY","4 стойки: Pi зажата между ядром и задней платой"]},
+  {id:"back", step:3, name:"Радио + NFC + GPS (сзади)", color:"#5e2d8c", explode:[0,-18,0], label:[0,-3,0],
+   short:"CC1101+PA, LoRa, NRF24+PA, NFC, 125 кГц, GPS, RP2040", items:["RP2040 — управляет радио, NFC, ИК и GPS в реальном времени, с Pi говорит по UART","CC1101 + усилитель, SX1262 (LoRa), NRF24 + PA/LNA","GPS-модуль + антенна внутри (скорость, координаты)","ST25R3916: NFC чтение + эмуляция; катушка 125 кГц снаружи","Прикручивается к ядру через отверстия Pi"]},
+  {id:"left", step:4, name:"Кнопки + SD (левый бок)", color:"#2a63ad", explode:[-20,0,0], label:[-38,12,0],
+   short:"2 большие кнопки и окно для SD-карты Pi", items:["Две кнопки Ø9 мм, мягкий ход","Окно для SD-карты Pi","Шипы-пазы + разъём к ядру"]},
+  {id:"right", step:4, name:"Крутилка + кнопка (правый бок)", color:"#ad2f2f", explode:[22,0,0], label:[42,12,-5],
+   short:"Энкодер с ручкой + такая же кнопка", items:["Крутилка: бесконечное вращение, нажатие","Кнопка Ø9 мм, как слева","Форму ручки подгоним по твоему фото"]},
+  {id:"top", step:5, name:"Верх: GPIO + антенны + USB-C данные", color:"#c9961f", explode:[0,0,-18], label:[-6,16,-21],
+   short:"40 GPIO наружу, 3 гнезда SMA, USB-C данные, ИК", items:["40 GPIO наружу — низкое гнездо 2×20 «мама»","3 гнезда SMA под съёмные антенны","USB-C: данные + медленная подзарядка","ИК-светодиод и ИК-приёмник"]},
+  {id:"bottom", step:5, name:"Низ: зарядка", color:"#d8d4c8", explode:[0,0,18], label:[0,12,20],
+   short:"USB-C быстрая зарядка, защита, microSD №2", items:["USB-C — быстрая зарядка (≈ 1 час)","Защита аккумулятора: перезаряд, переразряд, КЗ, перегрев","Повышение до 5 В для Pi","Слот microSD №2, выключатель, индикатор"]},
+  {id:"screen", step:6, name:"Экран с тачем (спереди)", color:"#2b2f33", explode:[0,30,0], label:[0,23,0],
+   short:"1.9″ IPS 170×320, ёмкостный тач", items:["Экран 1.9″ IPS 170×320 (ST7789)","Ёмкостный тач CST816","Защёлкивается на ядро"]},
+  {id:"ant", step:7, name:"Антенны (съёмные)", color:"#1b1d1f", explode:[0,0,-30], label:[-10,6,-62],
+   short:"Накручиваются на SMA, вместо них — заглушки", items:["Sub-GHz 433 МГц","LoRa 868 МГц","2.4 ГГц","Без антенны — заглушка-нагрузка 50 Ом (кнопка «Заглушки»)"]}
 ];
-var IDEAS = [
-  ["Мини-джойстик 5 направлений","Как крестовина у Flipper: вверх/вниз/влево/вправо/ОК большим пальцем. Удобно листать меню без тача.", true],
-  ["Колёсико прокрутки","Как в мышке, торчит из бока. Быстро листать списки и частоты.", true],
-  ["RGB-светодиод состояния","Мигает при приёме сигнала, светится при зарядке, моргает при передаче.", false],
-  ["Фонарик + УФ-светодиод","Яркий белый свет и ультрафиолет для проверки купюр и меток.", false],
-  ["Лазерный дальномер VL53L1X","Меряет расстояние до 4 м. Плата 5 × 5 мм.", false],
-  ["Датчик погоды BME280","Температура, влажность, давление — карманная метеостанция.", false],
-  ["Сканер отпечатка пальца","Маленький ёмкостный, ~10 мм. Блокировка девайса.", false],
-  ["Магнитный разъём для модулей","4 pogo-контакта + магнит: прищёлкнул модуль сбоку — он заработал.", false]
+var STEPS = [
+  ["Берёшь Pi Zero WH","Своей гребёнкой «папа» вверх."],
+  ["Кладёшь аккумулятор","Плоский Li-Po ложится на Pi рядом с гребёнкой."],
+  ["Втыкаешь Pi в ядро","Гребёнка Pi входит в гнездо «мама» на нижней стороне ядра."],
+  ["Прикручиваешь заднюю плату","4 винта через отверстия Pi: Pi зажата между ядром и задней платой."],
+  ["Защёлкиваешь бока","Слева кнопки + SD, справа крутилка + кнопка. Шипы входят в пазы, разъёмы — в ядро."],
+  ["Ставишь верх и низ","Сверху GPIO, антенные гнёзда и USB-C; снизу зарядка."],
+  ["Защёлкиваешь экран","Экран ложится на ядро спереди."],
+  ["Накручиваешь антенны и включаешь","Или заглушки. При включении KODY проверяет все платы."]
 ];
 
 var stage=document.getElementById("stage"), canvas=document.getElementById("c");
-var labelsEl=document.getElementById("labels"), info=document.getElementById("info");
+var labelsEl=document.getElementById("labels"), info=document.getElementById("info"), cap=document.getElementById("cap");
 var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// ideas list (does not need 3D)
-var ideasEl=document.getElementById("ideas");
-IDEAS.forEach(function(i){ var d=document.createElement("div"); d.className="pcard";
-  d.innerHTML=(i[2]?'<span class="pick">СОВЕТУЮ</span>':'')+'<b></b><small></small>';
-  d.querySelector("b").textContent=i[0]; d.querySelector("small").textContent=i[1]; ideasEl.appendChild(d); });
+var stepsEl=document.getElementById("steps");
+STEPS.forEach(function(s,i){ var d=document.createElement("div"); d.className="pcard";
+  d.innerHTML='<span class="n"></span><b></b><small></small>'; d.querySelector(".n").textContent="ШАГ "+(i+1);
+  d.querySelector("b").textContent=s[0]; d.querySelector("small").textContent=s[1]; stepsEl.appendChild(d); });
 
 if(typeof THREE==="undefined"){ stage.innerHTML='<p style="padding:20px">Не удалось загрузить 3D-библиотеку. Проверь интернет и обнови страницу.</p>'; return; }
 
@@ -190,14 +182,14 @@ var root=new THREE.Group(); root.rotation.x=Math.PI/2; scene.add(root);  // devi
 
 function mat(color,opts){ return new THREE.MeshStandardMaterial(Object.assign({color:color,roughness:0.6,metalness:0.05},opts||{})); }
 function box(g,w,h,d,color,x,y,z,opts){ var m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat(color,opts)); m.position.set(x,y,z); g.add(m); return m; }
-function cyl(g,r,h,color,x,y,z,axis,opts,r2){ var m=new THREE.Mesh(new THREE.CylinderGeometry(r2===undefined?r:r2,r,h,24),mat(color,opts)); m.position.set(x,y,z);
-  if(axis==="x") m.rotation.z=Math.PI/2; if(axis==="z") m.rotation.x=-Math.PI/2; g.add(m); return m; }
+function cyl(g,r,h,color,x,y,z,axis,opts,r2,seg){ var m=new THREE.Mesh(new THREE.CylinderGeometry(r2===undefined?r:r2,r,h,seg||24),mat(color,opts)); m.position.set(x,y,z);
+  if(axis==="x") m.rotation.z=-Math.PI/2; if(axis==="z") m.rotation.x=-Math.PI/2; g.add(m); return m; }
 function canvasTex(w,h,draw){ var c=document.createElement("canvas"); c.width=w; c.height=h; draw(c.getContext("2d"),w,h); var t=new THREE.CanvasTexture(c); t.anisotropy=4; return t; }
 function rr(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
 
-var GOLD="#c9a24a", SILVER="#b9bec4", BLACK="#151617";
+var GOLD="#c9a24a", SILVER="#b9bec4", BLACK="#151617", BRASS="#b8913a";
 var groups={};
-PANELS.forEach(function(p){ var g=new THREE.Group(); g.userData.panel=p; groups[p.id]=g; root.add(g); });
+PANELS.forEach(function(p){ var g=new THREE.Group(); groups[p.id]=g; p.cur=0; root.add(g); });
 
 // --- Raspberry Pi Zero (device coords: x 65, y = thickness toward screen, z 30; top edge at -z)
 (function(g){
@@ -214,77 +206,89 @@ PANELS.forEach(function(p){ var g=new THREE.Group(); g.userData.panel=p; groups[
   g.add(inst);
 })(groups.pi);
 
-// --- Battery (shorter, leaves room for USB-A on the right)
-box(groups.battery,42,4.5,18,"#7b8fa6",-3,11.65,0.5,{metalness:.4,roughness:.4});
-
-// --- Screen panel
+// --- Battery: the thick place between Pi and core
 (function(g){
-  box(g,65,1,31,"#2b2f33",0,17.4,0);
-  box(g,49,2.4,26.5,BLACK,0,19.1,0);
+  box(g,49,7,20,"#7b8fa6",0.5,13.1,2,{metalness:.4,roughness:.4});
+  box(g,6,0.6,3,"#cc3333",-20,16.9,12.5); box(g,6,0.6,3,"#222",-14,16.9,12.5);
+})(groups.battery);
+
+// --- Core: internal female socket, IMU, vibro, standoffs, edge connectors
+(function(g){
+  box(g,65,1,31,"#1f6f78",0,17.4,0);
+  box(g,51,8.5,5.1,BLACK,0,12.65,-12.95);                        // female socket the Pi plugs into
+  box(g,3,0.9,3,"#222",27,16.45,6);                              // IMU
+  cyl(g,4,2.7,SILVER,-28.5,15.5,8,"y",{metalness:.6});           // vibro coin
+  [[-29,-11.5],[29,-11.5],[-29,11.5],[29,11.5]].forEach(function(h){ cyl(g,1.6,11,BRASS,h[0],11.4,h[1],"y",{metalness:.7,roughness:.4},undefined,6); });
+  [[-31.8,0,1,3,10],[31.8,0,1,3,10],[0,-15,24,3,1.2],[0,15,24,3,1.2]].forEach(function(c){ box(g,c[2],c[3],c[4],BLACK,c[0],18.5,c[1]); }); // edge connectors
+})(groups.core);
+
+// --- Screen
+(function(g){
+  box(g,60,0.6,29,"#2b2f33",0,18.2,0);
+  box(g,49,2.4,26.5,BLACK,0,19.7,0);
   var tex=canvasTex(680,362,function(c,w,h){
     c.fillStyle="#0b0f14"; c.fillRect(0,0,w,h);
     c.fillStyle="#9fb3c8"; c.font="600 22px system-ui,sans-serif"; c.fillText("KODY",18,32);
-    c.textAlign="right"; c.fillText("12:53  ▮▮▮  78%",w-18,32); c.textAlign="left";
-    var items=["Sub-GHz","NFC","125 кГц","ИК","LoRa","Проекты"], cols=3, cw=(w-48)/cols, ch=128;
+    c.textAlign="right"; c.fillText("GPS 42 км/ч   ▮▮▮ 96%",w-18,32); c.textAlign="left";
+    var items=["Sub-GHz","NFC","GPS","ИК","LoRa","Проекты"], cols=3, cw=(w-48)/cols, ch=128;
     items.forEach(function(t,i){ var x=16+(i%cols)*(cw+8), y=52+Math.floor(i/cols)*(ch+10);
-      rr(c,x,y,cw,ch,16); c.fillStyle=i===0?"#e08a4f":"#1b2430"; c.fill();
-      c.fillStyle=i===0?"#fff":"#d6e0ea"; c.font="600 30px system-ui,sans-serif"; c.fillText(t,x+16,y+ch-22);
+      rr(c,x,y,cw,ch,16); c.fillStyle=i===2?"#e08a4f":"#1b2430"; c.fill();
+      c.fillStyle=i===2?"#fff":"#d6e0ea"; c.font="600 30px system-ui,sans-serif"; c.fillText(t,x+16,y+ch-22);
       c.beginPath(); c.arc(x+34,y+38,16,0,7); c.fillStyle="#ffffff26"; c.fill(); });
   });
   var scr=new THREE.Mesh(new THREE.PlaneGeometry(42.7,22.7),new THREE.MeshBasicMaterial({map:tex}));
-  scr.rotation.x=-Math.PI/2; scr.position.set(0,20.32,0); g.add(scr);
+  scr.rotation.x=-Math.PI/2; scr.position.set(0,20.92,0); g.add(scr);
 })(groups.screen);
 
-// --- Top board: GPIO (front strip, shifted left), USB-C data (front strip, right), SMA + IR (back strip)
+// --- Top: GPIO (front strip), USB-C data, SMA x3 (back strip), IR
 var GPIO_X=-5.5;
 (function(g){
   box(g,66,21.5,1,"#c9961f",0,10.75,-16.5);
-  box(g,51,8.5,5.1,BLACK,0,12.65,-12.95);                    // inner socket the Pi plugs into
-  box(g,51,5.1,3,BLACK,GPIO_X,16,-18.5);                     // outer low-profile 2x20 female
+  box(g,51,5.1,3,BLACK,GPIO_X,16,-18.5);
   var holes=canvasTex(512,52,function(c,w,h){ c.fillStyle="#151617"; c.fillRect(0,0,w,h); c.fillStyle="#000";
     for(var i=0;i<20;i++) for(var r=0;r<2;r++){ c.fillRect(8+i*25.2,9+r*24,9,9); } });
   var face=new THREE.Mesh(new THREE.PlaneGeometry(51,5.1),new THREE.MeshBasicMaterial({map:holes}));
   face.rotation.y=Math.PI; face.position.set(GPIO_X,16,-20.01); g.add(face);
-  box(g,9,3.2,4,SILVER,28.5,16,-17.5,{metalness:.7,roughness:.3}); // USB-C data
+  box(g,9,3.2,4,SILVER,28.5,16,-17.5,{metalness:.7,roughness:.3});
   box(g,7.6,1.6,0.3,"#222",28.5,16,-19.55);
-  [-26,-10,6].forEach(function(x){ cyl(g,3.2,2,GOLD,x,5.5,-18,"z",{metalness:.85,roughness:.3}); }); // SMA bases (nut)
-  cyl(g,1.5,2.5,"#cfd8ff",18,5.5,-18.2,"z",{transparent:true,opacity:.75,roughness:.1}); // IR LED
-  box(g,4,4,2.5,"#111",24,5.5,-18.2);                                                    // IR receiver
-})(groups.spine);
+  [-26,-10,6].forEach(function(x){ cyl(g,3.2,2,GOLD,x,5.5,-18,"z",{metalness:.85,roughness:.3},undefined,6); });
+  cyl(g,1.5,2.5,"#cfd8ff",18,5.5,-18.2,"z",{transparent:true,opacity:.75,roughness:.1});
+  box(g,4,4,2.5,"#111",24,5.5,-18.2);
+})(groups.top);
 
-// --- Antennas (or 50-ohm caps): along -z (world up)
+// --- Antennas / 50-ohm caps
 var antennaMeshes=[], capMeshes=[];
 (function(g){
-  var spec=[[-26,62,"Sub-GHz 433"],[-10,52,"LoRa 868"],[6,36,"2.4 ГГц"]];
-  spec.forEach(function(s){ var x=s[0], L=s[1];
-    var thread=cyl(g,3.1,5,GOLD,x,5.5,-21.5,"z",{metalness:.85,roughness:.3});
+  [[-26,62],[-10,52],[6,36]].forEach(function(s){ var x=s[0], L=s[1];
+    cyl(g,3.1,5,GOLD,x,5.5,-21.5,"z",{metalness:.85,roughness:.3});
     var a1=cyl(g,4.6,9,"#202224",x,5.5,-28.5,"z",{roughness:.7});
     var a2=cyl(g,4.0,L,"#202224",x,5.5,-33-L/2,"z",{roughness:.75},3.4);
     var tip=cyl(g,3.4,1.5,"#2a2c2e",x,5.5,-33-L-0.75,"z",{roughness:.7});
     antennaMeshes.push(a1,a2,tip);
-    var cap=cyl(g,4.2,7,GOLD,x,5.5,-27.5,"z",{metalness:.85,roughness:.3});
-    var capTop=cyl(g,3.4,1,"#2b2b2b",x,5.5,-31.5,"z");
-    cap.visible=capTop.visible=false; capMeshes.push(cap,capTop);
+    var c1=cyl(g,4.2,7,GOLD,x,5.5,-27.5,"z",{metalness:.85,roughness:.3});
+    var c2=cyl(g,3.4,1,"#2b2b2b",x,5.5,-31.5,"z");
+    c1.visible=c2.visible=false; capMeshes.push(c1,c2);
   });
 })(groups.ant);
 
-// --- Left panel (buttons)
+// --- Left: 2 buttons + SD window
 (function(g){
   box(g,1,21.5,31,"#2a63ad",-33.75,10.75,0);
   [-7,7].forEach(function(z){ cyl(g,4.5,2.6,"#2b2e31",-35.5,11,z,"x",{roughness:.45}); cyl(g,3.6,0.4,"#3b3f43",-36.9,11,z,"x"); });
   box(g,0.6,2,12,BLACK,-34.3,5.2,0);
 })(groups.left);
 
-// --- Right panel: USB-A over the Pi, inside the header gap; idea zone
+// --- Right: knob + button
 (function(g){
   box(g,1,21.5,31,"#ad2f2f",33.75,10.75,0);
-  box(g,14,6.2,13.2,SILVER,26.9,12.6,-2,{metalness:.7,roughness:.3});   // USB-A shell
-  box(g,0.4,4.6,11.6,"#0d0d0d",34.15,12.6,-2);                          // opening
-  box(g,0.5,1.8,10.4,"#e9e6df",34.2,13.5,-2);                           // tongue
-  box(g,0.8,18,14,"#e08a4f",34.4,10.75,8.5,{transparent:true,opacity:.55}); // idea zone
+  cyl(g,2,2,SILVER,35.2,11,-5,"x",{metalness:.7});                         // shaft
+  cyl(g,7.5,7,"#3a3d40",39.5,11,-5,"x",{metalness:.5,roughness:.35},undefined,40); // knob, knurled
+  cyl(g,6.3,0.6,"#55595d",43.3,11,-5,"x",{metalness:.6,roughness:.25});
+  box(g,0.5,4,0.8,"#e08a4f",43.6,13.5,-5);                                  // indicator
+  cyl(g,4.5,2.6,"#2b2e31",35.5,11,9,"x",{roughness:.45}); cyl(g,3.6,0.4,"#3b3f43",36.9,11,9,"x");
 })(groups.right);
 
-// --- Bottom panel: fast-charge USB-C, microSD #2, switch, charge LED
+// --- Bottom: fast-charge USB-C, protection, microSD #2, switch
 (function(g){
   box(g,66,21.5,1,"#d8d4c8",0,10.75,16.5);
   box(g,9,3.2,6.9,SILVER,0,12.1,13.05,{metalness:.7,roughness:.3});
@@ -296,17 +300,17 @@ var antennaMeshes=[], capMeshes=[];
   cyl(g,1,0.6,"#4cd964",-10,12,17.2,"z",{emissive:"#1a5a26"});
 })(groups.bottom);
 
-// --- Back panel (radio + NFC)
+// --- Back: radio + NFC + GPS
 (function(g){
   box(g,65,1,31,"#5e2d8c",0,0.5,0);
-  box(g,17,2.2,14,SILVER,-21,2.1,5,{metalness:.7,roughness:.35});  // CC1101 + PA
-  box(g,14,2.4,20,SILVER,-1,2.2,4,{metalness:.7,roughness:.35});   // SX1262
-  box(g,15,2.2,12,SILVER,19,2.1,6,{metalness:.7,roughness:.35});   // NRF24 PA/LNA
-  box(g,7,0.9,7,"#222",-22,1.45,-9);                                // RP2040
-  box(g,5,0.9,5,"#222",22,1.45,-9);                                 // ST25R3916
-  box(g,4,0.9,4,"#222",12,1.45,-9);                                 // USB hub + switch
-  for(var i=0;i<6;i++) cyl(g,0.5,3.6,GOLD,-14+i*2.54,2.8,-12.8,"y",{metalness:.8});
-  cyl(g,0.5,3.6,GOLD,12,2.8,13.8,"y",{metalness:.8}); cyl(g,0.5,3.6,GOLD,14.5,2.8,13.8,"y",{metalness:.8});
+  box(g,17,2.2,13,SILVER,-21,2.1,6,{metalness:.7,roughness:.35});   // CC1101 + PA
+  box(g,14,2.4,19,SILVER,-1,2.2,4.5,{metalness:.7,roughness:.35});  // SX1262
+  box(g,15,2.2,11,SILVER,19,2.1,7,{metalness:.7,roughness:.35});    // NRF24 PA/LNA
+  box(g,7,0.9,7,"#222",-14,1.45,-9);                                 // RP2040
+  box(g,5,0.9,5,"#222",-4,1.45,-9);                                  // ST25R3916
+  box(g,10,1.6,10,SILVER,10,1.8,-8,{metalness:.7,roughness:.35});   // GPS module
+  box(g,12,2,12,"#d8c9a3",24,2,-8,{roughness:.5});                   // GPS chip antenna
+  [[-29,-11.5],[29,-11.5],[-29,11.5],[29,11.5]].forEach(function(h){ cyl(g,1.6,3.5,BRASS,h[0],2.75,h[1],"y",{metalness:.7,roughness:.4},undefined,6); });
   var coil=canvasTex(650,310,function(c,w,h){ c.fillStyle="#5e2d8c"; c.fillRect(0,0,w,h);
     c.strokeStyle="#d89a5a"; c.lineWidth=7;
     for(var i=0;i<6;i++){ rr(c,40+i*16,50+i*16,420-i*32,210-i*32,28); c.stroke(); }
@@ -325,7 +329,7 @@ var showLabels=true;
 
 // --- camera orbit
 var target=new THREE.Vector3(0,22,10.7), sph={r:230,theta:0.62,phi:1.2}, goal={r:230,theta:0.62,phi:1.2};
-var VIEWS={front:{theta:0,phi:Math.PI/2}, back:{theta:Math.PI,phi:Math.PI/2}, top:{theta:0.25,phi:0.35}, iso:{theta:0.62,phi:1.2}};
+var VIEWS={front:{theta:0,phi:Math.PI/2}, back:{theta:Math.PI,phi:Math.PI/2}, iso:{theta:0.62,phi:1.2}};
 function applyCam(){ var s=Math.sin(sph.phi); camera.position.set(target.x+sph.r*s*Math.sin(sph.theta), target.y+sph.r*Math.cos(sph.phi), target.z+sph.r*s*Math.cos(sph.theta)); camera.lookAt(target); }
 
 var pointers=new Map(), dragMoved=0, pinchStart=0, rStart=230;
@@ -341,7 +345,8 @@ canvas.addEventListener("wheel",function(e){ e.preventDefault(); goal.r=Math.min
 
 var ray=new THREE.Raycaster(), ndc=new THREE.Vector2();
 function pick(e){ var r=canvas.getBoundingClientRect(); ndc.set(((e.clientX-r.left)/r.width)*2-1, -((e.clientY-r.top)/r.height)*2+1);
-  ray.setFromCamera(ndc,camera); var hits=ray.intersectObjects(root.children,true).filter(function(h){return h.object.visible;}); select(hits[0]?hits[0].object.userData.panelId:null); }
+  ray.setFromCamera(ndc,camera); var hits=ray.intersectObjects(root.children,true).filter(function(h){ var o=h.object; while(o){ if(!o.visible) return false; o=o.parent; } return true; });
+  select(hits[0]?hits[0].object.userData.panelId:null); }
 function select(id){
   PANELS.forEach(function(p){ groups[p.id].traverse(function(o){ if(!o.isMesh) return; var m=o.material;
     var dim = id && p.id!==id; m.transparent = dim ? true : m.userData.baseTransparent; m.opacity = dim ? 0.18 : m.userData.baseOpacity;
@@ -360,8 +365,21 @@ PANELS.forEach(function(p){ var b=document.createElement("button"); b.className=
   b.querySelector("b").appendChild(document.createTextNode(p.name)); b.querySelector("small").textContent=p.short;
   b.onclick=function(){ select(p.id); stage.scrollIntoView({behavior:reduce?"auto":"smooth",block:"center"}); }; cards.appendChild(b); });
 
-var explode=0, explodeGoal=0, baseR=230, btnEx=document.getElementById("btnExplode");
-btnEx.onclick=function(){ explodeGoal=explodeGoal?0:1; btnEx.textContent=explodeGoal?"Собрать":"Разобрать"; goal.r=baseR*(explodeGoal?1.35:1); };
+// --- modes: assembled / exploded / step-by-step
+var mode="built", step=STEPS.length-1, baseR=230;
+var btnEx=document.getElementById("btnExplode"), btnStep=document.getElementById("btnStep");
+function targetFor(p){ if(mode==="exploded") return 1; if(mode==="steps") return p.step<=step ? 0 : 1; return 0; }
+function visibleFor(p){ return mode!=="steps" || p.step<=step; }
+function showCap(){ if(mode!=="steps"){ cap.hidden=true; return; } var s=STEPS[step]; cap.hidden=false;
+  cap.innerHTML=""; cap.appendChild(document.createTextNode("Шаг "+(step+1)+"/"+STEPS.length+": "+s[0]));
+  var sm=document.createElement("small"); sm.textContent=s[1]; cap.appendChild(sm); }
+btnEx.onclick=function(){ mode = mode==="exploded" ? "built" : "exploded"; btnEx.textContent = mode==="exploded"?"Собрать":"Разобрать";
+  btnStep.textContent="Собрать по шагам"; goal.r=baseR*(mode==="exploded"?1.35:1); showCap(); };
+btnStep.onclick=function(){
+  if(mode!=="steps"){ mode="steps"; step=0; } else if(step<STEPS.length-1){ step++; } else { mode="built"; }
+  PANELS.forEach(function(p){ if(mode==="steps" && p.step===step && step>0) p.cur=1; });
+  btnStep.textContent = mode!=="steps" ? "Собрать по шагам" : (step<STEPS.length-1 ? "Следующий шаг" : "Готово");
+  btnEx.textContent="Разобрать"; goal.r=baseR; showCap(); };
 var caps=false, btnCaps=document.getElementById("btnCaps");
 btnCaps.onclick=function(){ caps=!caps; antennaMeshes.forEach(function(m){m.visible=!caps;}); capMeshes.forEach(function(m){m.visible=caps;}); btnCaps.textContent=caps?"Антенны":"Заглушки"; };
 document.querySelectorAll("[data-view]").forEach(function(b){ b.onclick=function(){ var v=VIEWS[b.dataset.view]; goal.theta=v.theta; goal.phi=v.phi; }; });
@@ -372,21 +390,23 @@ syncBg(); if(window.matchMedia) window.matchMedia("(prefers-color-scheme: dark)"
 new MutationObserver(syncBg).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
 
 function resize(){ var w=stage.clientWidth, h=stage.clientHeight; renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
-  baseR = 230*(w<520 ? 1.3 : 1); goal.r = Math.max(goal.r, baseR*(explodeGoal?1.35:1)); }
+  baseR = 230*(w<520 ? 1.3 : 1); goal.r = Math.max(goal.r, baseR*(mode==="exploded"?1.35:1)); }
 new ResizeObserver(resize).observe(stage); resize();
 
 var tmp=new THREE.Vector3();
 function frame(){
-  var k = reduce ? 1 : 0.12;
-  explode += (explodeGoal-explode)*k; if(Math.abs(explodeGoal-explode)<1e-3) explode=explodeGoal;
+  var k = reduce ? 1 : 0.1, spread=0;
   sph.r += (goal.r-sph.r)*k; sph.theta += (goal.theta-sph.theta)*k; sph.phi += (goal.phi-sph.phi)*k;
-  PANELS.forEach(function(p){ var e=p.explode; groups[p.id].position.set(e[0]*explode,e[1]*explode,e[2]*explode); });
-  target.y = 22 + 20*explode;
+  PANELS.forEach(function(p){ var t=targetFor(p); p.cur += (t-p.cur)*k; if(Math.abs(t-p.cur)<1e-3) p.cur=t;
+    var e=p.explode; groups[p.id].position.set(e[0]*p.cur,e[1]*p.cur,e[2]*p.cur); groups[p.id].visible=visibleFor(p); if(groups[p.id].visible && mode!=="steps") spread=Math.max(spread,p.cur); });
+  if(mode==="steps" && step<STEPS.length-1) spread=-0.9;
+  target.y = 22 + 20*spread;
   applyCam(); renderer.render(scene,camera);
   var w=stage.clientWidth, h=stage.clientHeight;
   if(showLabels) PANELS.forEach(function(p,i){ var L=p.label, g=groups[p.id];
     tmp.set(L[0],L[1],L[2]).add(g.position); root.localToWorld(tmp); tmp.project(camera);
-    var n=labelNodes[i], vis = tmp.z<1 && (p.id!=="battery" && p.id!=="pi" || explode>0.5);
+    var hiddenInside = (p.id==="battery"||p.id==="pi"||p.id==="core") && mode==="built";
+    var n=labelNodes[i], vis = g.visible && tmp.z<1 && !hiddenInside;
     n.style.display = vis ? "" : "none"; n.style.left=((tmp.x+1)/2*w)+"px"; n.style.top=((1-tmp.y)/2*h)+"px"; });
   requestAnimationFrame(frame);
 }

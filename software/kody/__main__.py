@@ -12,6 +12,7 @@ from .board import detect
 from .hal import make_pwm_led
 from .lamp import PRESETS, Lamp, LampPreset, wiring_advice
 from .pins import PinUnavailable, user_pins
+from . import panels
 
 
 def choose(title: str, options: list[str]) -> int | None:
@@ -94,12 +95,17 @@ def main(argv: list[str]) -> int:
           f"SDR-водопад {'вкл' if profile.sdr_waterfall else 'выкл'}")
     if profile.simulated:
         simulate = True
+    # при включении — самопроверка пазла
+    print(panels.report(panels.run(bool(simulate))))
     projects = ["Лампочка"]
     try:
         while True:
-            top = choose("KODY — главное меню", ["Проекты"])
+            top = choose("KODY — главное меню", ["Проекты", "Проверка пазла"])
             if top is None:
                 return 0
+            if top == 1:
+                print(panels.report(panels.run(bool(simulate))))
+                continue
             p = choose("Проекты", projects)
             if p == 0:
                 lamp_project(simulate)

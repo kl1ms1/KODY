@@ -1,7 +1,8 @@
-"""Карта 40-пиновой гребёнки KODY v2 «пазл» (см. docs/concept.md).
+"""Карта 40-пиновой гребёнки KODY v4 «пазл» (см. docs/concept.md).
 
-Всё радио, NFC/RFID и ИК висят на RP2040 задней платы и общаются с Pi по USB,
-поэтому для своих проектов свободно 11 GPIO.
+Радио, NFC/RFID, ИК и GPS висят на RP2040 задней платы и общаются с Pi по UART.
+Для своих проектов свободно 6 GPIO (BCM 7, 18–21, 26) + шины I2C и SPI0.
+Если отключить вибромотор в настройках, освобождается ещё BCM 12.
 
 Каждый пин помечен статусом:
   FREE     — свободен, можно брать для своих проектов;
@@ -37,13 +38,13 @@ class Pin:
 PINS: dict[int, Pin] = {
     p.bcm: p
     for p in [
-        Pin(0, 27, "ID EEPROM HAT (SDA)", PinStatus.RESERVED),
-        Pin(1, 28, "ID EEPROM HAT (SCL)", PinStatus.RESERVED),
-        Pin(2, 3, "I2C1 SDA (тач, зарядка)", PinStatus.SHARED),
-        Pin(3, 5, "I2C1 SCL (тач, зарядка)", PinStatus.SHARED),
-        Pin(4, 7, "Прерывание тача экрана", PinStatus.RESERVED),
-        Pin(5, 29, "Кнопка B1 (левая плата)", PinStatus.RESERVED),
-        Pin(6, 31, "Кнопка B2 (левая плата)", PinStatus.RESERVED),
+        Pin(0, 27, "ID EEPROM ядра (SDA)", PinStatus.RESERVED),
+        Pin(1, 28, "ID EEPROM ядра (SCL)", PinStatus.RESERVED),
+        Pin(2, 3, "I2C1 SDA (тач, гироскоп, зарядка, EEPROM плат)", PinStatus.SHARED),
+        Pin(3, 5, "I2C1 SCL (тач, гироскоп, зарядка, EEPROM плат)", PinStatus.SHARED),
+        Pin(4, 7, "Прерывание тача", PinStatus.RESERVED),
+        Pin(5, 29, "Кнопка B1 (левый бок)", PinStatus.RESERVED),
+        Pin(6, 31, "Кнопка B2 (левый бок)", PinStatus.RESERVED),
         Pin(7, 26, "SPI0 CE1", PinStatus.FREE),
         Pin(8, 24, "SPI0 CE0 — экран", PinStatus.RESERVED),
         Pin(9, 21, "SPI0 MISO", PinStatus.SHARED),
@@ -51,20 +52,20 @@ PINS: dict[int, Pin] = {
         Pin(11, 23, "SPI0 SCLK (экран)", PinStatus.SHARED),
         Pin(12, 32, "PWM0 — вибромотор", PinStatus.RESERVED, "haptics"),
         Pin(13, 33, "PWM1 — подсветка экрана", PinStatus.RESERVED),
-        Pin(14, 8, "UART TX", PinStatus.FREE),
-        Pin(15, 10, "UART RX", PinStatus.FREE),
-        Pin(16, 36, "—", PinStatus.FREE),
-        Pin(17, 11, "—", PinStatus.FREE),
+        Pin(14, 8, "UART TX → RP2040 (радио, NFC, ИК, GPS)", PinStatus.RESERVED),
+        Pin(15, 10, "UART RX ← RP2040", PinStatus.RESERVED),
+        Pin(16, 36, "Кнопка B3 (правый бок)", PinStatus.RESERVED),
+        Pin(17, 11, "Крутилка A", PinStatus.RESERVED),
         Pin(18, 12, "—", PinStatus.FREE),
         Pin(19, 35, "—", PinStatus.FREE),
         Pin(20, 38, "—", PinStatus.FREE),
         Pin(21, 40, "—", PinStatus.FREE),
-        Pin(22, 15, "RP2040 BOOTSEL (задняя плата)", PinStatus.RESERVED),
-        Pin(23, 16, "RP2040 RUN (задняя плата)", PinStatus.RESERVED),
+        Pin(22, 15, "RP2040 BOOTSEL", PinStatus.RESERVED),
+        Pin(23, 16, "RP2040 RUN", PinStatus.RESERVED),
         Pin(24, 18, "Экран D/C", PinStatus.RESERVED),
         Pin(25, 22, "Экран RESET", PinStatus.RESERVED),
         Pin(26, 37, "—", PinStatus.FREE),
-        Pin(27, 13, "—", PinStatus.FREE),
+        Pin(27, 13, "Крутилка B", PinStatus.RESERVED),
     ]
 }
 

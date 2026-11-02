@@ -12,7 +12,7 @@ class PinsTest(unittest.TestCase):
         self.assertEqual(len({p.phys for p in PINS.values()}), 28)
 
     def test_free_pins(self):
-        self.assertEqual([p.bcm for p in user_pins()], [14, 15, 17, 18, 27, 7, 19, 16, 26, 20, 21])
+        self.assertEqual([p.bcm for p in user_pins()], [18, 7, 19, 26, 20, 21])
 
     def test_reserved_and_shared_rejected(self):
         for bcm in (8, 2, 0, 99):
