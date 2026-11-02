@@ -1,7 +1,7 @@
 <title>KODY v9</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Unbounded:wght@500;700&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
 /* Layout: full-width 3D stage on top, then spec sections stacking on phone. PCB-lab feel. */
 :root{
@@ -82,7 +82,7 @@ th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute
   <header>
     <h1>KODY v9</h1>
     <p>Две свои платы, Raspberry Pi Zero WH, экран 3.5″ 60 Гц с плавным тачем, аккумулятор ≈ 2200 мА·ч на ~3 часа, крутилка без упора (выше кнопок), переключатель питания, мощный ИК-порт и прозрачный корпус с логотипом. Ни одного провода, все 40 GPIO свободны. Размеры примерные, ±1 мм.</p>
-    <div class="dims"><span>≈ 52 × 102 × 20.5 мм</span><span>Экран 3.5″ 480×800, 60 Гц</span><span>≈ 3 часа работы</span><span>1 USB-C: данные + быстрая зарядка</span><span>40/40 GPIO</span></div>
+    <div class="dims"><span>≈ 54 × 102 × 22 мм</span><span>Экран 3.5″ 480×800, 60 Гц</span><span>≈ 3 часа работы</span><span>1 USB-C: данные + быстрая зарядка</span><span>40/40 GPIO</span></div>
   </header>
 
   <div class="chips" role="group" aria-label="Посмотреть деталь" id="viewChips"><span class="lab">Посмотреть</span></div>
@@ -145,7 +145,7 @@ var PARTS = [
   {id:"hdmi", step:2, name:"Переходник mini-HDMI → шлейф", color:"#e09a3a", explode:[12,0,-9], label:[13,-18,7], short:"Вставляется в Pi, шлейф — в переднюю плату", items:["Готовая деталь, паять не нужно"]},
   {id:"front", step:3, name:"Передняя плата", color:"#1f6f78", explode:[0,0,13], label:[-6,46,11], short:"Питание, управление, звук, мост экрана, всё радио, ИК", items:["Снизу: рация SA818, CC1101, LoRa SX1262, NRF24, ESP32-C5, GPS, RP2350","Снизу: питание как UPS-Lite, STM32, мост LT6911C → экран","Сверху: гнездо для Pi насквозь, GPIO наружу, большой ИК-порт","Сверху: аккумулятор, динамик, один USB-C (данные + быстрая зарядка)","Справа сверху вниз: крутилка, 3 кнопки, переключатель питания","Верхний торец: 4 гнезда SMA посередине толщины"]},
   {id:"screws", step:3, name:"4 винта M2", color:"#9aa0a6", explode:[0,0,34], label:[8,-27,13], short:"Зажимают Pi между платами", items:["Pi не выскочит из гнезда"]},
-  {id:"battery", step:4, name:"Аккумулятор ≈ 2200 мА·ч", color:"#7b8fa6", explode:[0,0,20], label:[0,-8,14], short:"7 × 28 × 79 мм, 3 лепестка, ≈ 3 часа", items:["Лепестки +, −, датчик температуры — без проводов","Защита и зарядка — на передней плате"]},
+  {id:"battery", step:4, name:"Аккумулятор ≈ 2000 мА·ч", color:"#7b8fa6", explode:[0,0,20], label:[0,-8,14], short:"8.5 × 24 × 70 мм, ≈ 2000 мА·ч, ≈ 3 часа", items:["Лепестки +, −, датчик температуры — без проводов","Защита и зарядка — на передней плате"]},
   {id:"screen", step:5, name:"Экран 3.5″ с тачем", color:"#202326", explode:[0,0,30], label:[0,-30,20], short:"IPS 480×800, 60 Гц, ёмкостный тач", items:["Портретный, тонкие рамки по бокам","Тач 5 касаний — плавная линия","Без мерцания, автояркость","Шлейф защёлкивается в переднюю плату"]},
   {id:"caseF", step:6, name:"Корпус: передняя рамка", color:"#cfe0ea", explode:[0,0,44], label:[20,46,19], short:"Экран вклеен в рамку", items:["4 винта к задней части","Окно под GPIO слева; ИК светит сквозь прозрачный пластик"]},
   {id:"ant", step:7, name:"Антенны", color:"#1b1d1f", explode:[0,30,0], label:[0,110,9], short:"LoRa · Рация · 2.4 ГГц · GPS", items:["Посередине толщины","Съёмные, SMA-male; вместо любой — заглушка 50 Ом"]}
@@ -201,7 +201,7 @@ var HOLES=[[-11.5,-29],[11.5,-29],[-11.5,29],[11.5,29]];
 var G={}; PARTS.forEach(function(p){ var g=new THREE.Group(); G[p.id]=g; p.cur=0; root.add(g); });
 
 // ---------- v9 geometry. Outline x ±26, y ±51, z −1 … 19.4 (≈ 20.5 мм). Pi centre at (PX, PY).
-var PX=-4.9, PY=4;
+var PX=3.5, PY=4;
 var HOLES9=HOLES.map(function(h){ return [h[0]+PX,h[1]+PY]; });
 var shell={color:"#dfe8ef",roughness:.08,metalness:.0,transparent:true,opacity:.22,depthWrite:false};
 var printTex=canvasTex(520,1020,function(c,w,h){
@@ -217,42 +217,48 @@ var printTex=canvasTex(520,1020,function(c,w,h){
   c.fillStyle="rgba(231,236,239,.6)"; c.font="600 22px ui-monospace,Menlo,monospace"; c.fillText("[ NFC · 125 kHz ]",w/2,720);
   c.font="500 18px ui-monospace,Menlo,monospace"; c.fillText("SUB-GHZ · LORA · 2.4G · GPS · IR",w/2,960);
 });
-(function(g){ box(g,52,102,1,"#22262a",0,0,-0.5,shell);
-  box(g,1.2,102,8.6,"#22262a",-25.4,0,3.8,shell); box(g,1.2,102,8.6,"#22262a",25.4,0,3.8,shell);
-  box(g,52,1.2,8.6,"#22262a",0,50.4,3.8,shell); box(g,52,1.2,8.6,"#22262a",0,-50.4,3.8,shell);
+(function(g){ box(g,54,102,1,"#22262a",0,0,-0.5,shell);
+  box(g,1.2,102,8.6,"#22262a",-26.4,0,3.8,shell); box(g,1.2,102,8.6,"#22262a",26.4,0,3.8,shell);
+  box(g,54,1.2,8.6,"#22262a",0,50.4,3.8,shell); box(g,54,1.2,8.6,"#22262a",0,-50.4,3.8,shell);
 })(G.caseB);
-(function(g){ box(g,1.2,15,10.9,"#22262a",-25.4,-43.5,13.55,shell); box(g,1.2,2.6,10.9,"#22262a",-25.4,-22.7,13.55,shell); box(g,1.2,21.6,10.9,"#22262a",-25.4,40.2,13.55,shell); box(g,1.2,50.8,3.5,"#22262a",-25.4,4,17.3,shell); box(g,1.2,102,10.9,"#22262a",25.4,0,13.55,shell);
-  box(g,52,1.2,10.9,"#22262a",0,50.4,13.55,shell); box(g,52,1.2,10.9,"#22262a",0,-50.4,13.55,shell);
-  box(g,1.4,102,0.5,"#22262a",-25.3,0,19.15,shell); box(g,1.4,102,0.5,"#22262a",25.3,0,19.15,shell);
-  box(g,52,1.4,0.5,"#22262a",0,50.3,19.15,shell); box(g,52,1.4,0.5,"#22262a",0,-50.3,19.15,shell);
-  for(var i=0;i<12;i++) cyl(g,0.45,1.3,"#050505",-14+(i%6)*1.6,-51.0,12+Math.floor(i/6)*1.6,"y");  // speaker holes
-  cyl(g,0.4,1.3,"#050505",19,-51.0,12,"y");                                                      // mic hole
-  
+(function(g){ // left wall: openings for GPIO (y −20…28) and IR LEDs (y −46…−21)
+  box(g,1.2,4.6,12.4,"#22262a",-26.4,-48.7,14.3,shell); box(g,1.2,22,12.4,"#22262a",-26.4,40,14.3,shell); box(g,1.2,72,4.5,"#22262a",-26.4,-10,18.25,shell);
+  box(g,1.2,102,12.4,"#22262a",26.4,0,14.3,shell);
+  box(g,54,1.2,12.4,"#22262a",0,50.4,14.3,shell); box(g,54,1.2,12.4,"#22262a",0,-50.4,14.3,shell);
+  box(g,1.4,102,0.5,"#22262a",-26.3,0,20.65,shell); box(g,1.4,102,0.5,"#22262a",26.3,0,20.65,shell);
+  box(g,54,1.4,0.5,"#22262a",0,50.3,20.65,shell); box(g,54,1.4,0.5,"#22262a",0,-50.3,20.65,shell);
+  for(var i=0;i<12;i++) cyl(g,0.45,1.3,"#050505",-9+(i%6)*1.6,-51.0,12+Math.floor(i/6)*1.6,"y");  // speaker holes
+  cyl(g,0.4,1.3,"#050505",-14,-51.0,12,"y");                                                       // mic hole
 })(G.caseF);
 
 // back board 0 … 1.2
-var coilTex=canvasTex(520,1020,function(c,w,h){ c.fillStyle="#121416"; c.fillRect(0,0,w,h);
-  // logo: hexagon + K made of PCB traces + antenna waves
-  var cx=w/2, cy=270, R=150; c.lineWidth=10; c.strokeStyle="#d9a640"; c.beginPath();
-  for(var k=0;k<6;k++){ var a=Math.PI/6+k*Math.PI/3; c[k?"lineTo":"moveTo"](cx+R*Math.cos(a),cy+R*Math.sin(a)); } c.closePath(); c.stroke();
-  c.lineWidth=16; c.lineCap="round"; c.strokeStyle="#e7ecef";
-  c.beginPath(); c.moveTo(cx-55,cy-85); c.lineTo(cx-55,cy+85); c.stroke();
-  c.beginPath(); c.moveTo(cx-55,cy+5); c.lineTo(cx+20,cy-70); c.lineTo(cx+60,cy-70); c.stroke();
-  c.beginPath(); c.moveTo(cx-30,cy-15); c.lineTo(cx+20,cy+70); c.lineTo(cx+60,cy+70); c.stroke();
-  c.fillStyle="#d9a640"; [[cx+60,cy-70],[cx+60,cy+70],[cx-55,cy-85],[cx-55,cy+85]].forEach(function(p){ c.beginPath(); c.arc(p[0],p[1],13,0,7); c.fill(); c.fillStyle="#121416"; c.beginPath(); c.arc(p[0],p[1],5,0,7); c.fill(); c.fillStyle="#d9a640"; });
-  c.lineWidth=7; c.strokeStyle="#5fbf7f"; for(var r=0;r<3;r++){ c.beginPath(); c.arc(cx+60,cy-70,30+r*22,-Math.PI/2.4,-Math.PI/12); c.stroke(); }
-  c.fillStyle="#e7ecef"; c.font="800 64px ui-monospace,Menlo,monospace"; c.textAlign="center"; c.fillText("KODY",cx,cy+R+70);
-  c.fillStyle="#8a949c"; c.font="500 18px ui-monospace,Menlo,monospace"; c.fillText("SUB-GHZ · LORA · 2.4G · GPS · NFC · IR",cx,cy+R+105);
-  // NFC and 125 kHz coils (copper under the mask)
-  c.strokeStyle="#b98a4a"; c.lineWidth=6; c.lineCap="butt";
-  for(var i=0;i<5;i++){ rr(c,90+i*16,640+i*16,340-i*32,300-i*32,30); c.stroke(); }
-  c.lineWidth=4; for(var j=0;j<4;j++){ c.beginPath(); c.arc(cx,790,44-j*10,0,7); c.stroke(); }
-  c.fillStyle="#8a949c"; c.font="500 16px ui-monospace,Menlo,monospace"; c.fillText("NFC / RFID — приложи сюда",cx,970); });
+function drawBack(c,w,h){ c.fillStyle="#111315"; c.fillRect(0,0,w,h);
+  // большая катушка 125 кГц по периметру всей задней панели
+  c.strokeStyle="#6b5534"; c.lineWidth=5; for(var i=0;i<3;i++){ rr(c,18+i*9,18+i*9,w-36-i*18,h-36-i*18,26); c.stroke(); }
+  // катушка NFC в нижней половине
+  c.strokeStyle="#7a6340"; c.lineWidth=5; for(var j=0;j<4;j++){ rr(c,70+j*12,560+j*12,w-140-j*24,330-j*24,24); c.stroke(); }
+  // чёрный череп
+  var cx=w/2, cy=250;
+  c.save(); c.fillStyle="#050607"; c.strokeStyle="#4a5056"; c.lineWidth=4;
+  c.beginPath(); c.ellipse(cx,cy,118,125,0,Math.PI*0.92,Math.PI*2.08); c.lineTo(cx+70,cy+150); c.lineTo(cx-70,cy+150); c.closePath(); c.fill(); c.stroke();
+  c.beginPath(); rr(c,cx-72,cy+140,144,62,18); c.fill(); c.stroke();
+  c.fillStyle="#000"; c.strokeStyle="#5fbf7f"; c.lineWidth=2.5;
+  [[-48,20],[48,20]].forEach(function(e){ c.beginPath(); c.ellipse(cx+e[0],cy+e[1],34,40,e[0]<0?0.25:-0.25,0,7); c.fill(); c.stroke(); });
+  c.beginPath(); c.moveTo(cx,cy+70); c.lineTo(cx-17,cy+108); c.lineTo(cx+17,cy+108); c.closePath(); c.fill(); c.strokeStyle="#4a5056"; c.stroke();
+  c.strokeStyle="#2c3136"; c.lineWidth=4; for(var t=-3;t<=3;t++){ c.beginPath(); c.moveTo(cx+t*18,cy+146); c.lineTo(cx+t*18,cy+198); c.stroke(); }
+  c.strokeStyle="#22262a"; c.lineWidth=3; c.beginPath(); c.moveTo(cx-30,cy-110); c.lineTo(cx-10,cy-70); c.lineTo(cx-28,cy-40); c.stroke();
+  c.restore();
+  // надпись
+  c.fillStyle="#e7ecef"; c.textAlign="center"; c.font='400 112px "Black Ops One", "Impact", sans-serif'; c.fillText("KODY",cx,520);
+  c.fillStyle="#5fbf7f"; c.font='500 17px ui-monospace,Menlo,monospace'; c.fillText("SUB-GHZ · LORA · 2.4G · GPS · NFC · IR",cx,548);
+  c.fillStyle="#6c757d"; c.font='500 15px ui-monospace,Menlo,monospace'; c.fillText("NFC / 125 кГц — прикладывай сюда",cx,960); }
+var coilTex=canvasTex(520,1020,drawBack);
+if(document.fonts && document.fonts.load){ document.fonts.load('400 112px "Black Ops One"').then(function(){ drawBack(coilTex.image.getContext("2d"),520,1020); coilTex.needsUpdate=true; }).catch(function(){}); }
 (function(g){
-  box(g,49.6,99.6,1.2,"#121416",0,0,0.6); plane(g,49.6,99.6,coilTex,0,0,-0.02,Math.PI);
+  box(g,51.6,99.6,1.2,"#121416",0,0,0.6); plane(g,51.6,99.6,coilTex,0,0,-0.02,Math.PI);
   box(g,36,32,0.3,"#2e2e2e",0,-14,1.35);
   box(g,5,5,0.9,CHIP,-4,-18,1.65); box(g,6,6,0.9,CHIP,10,22,1.65); box(g,3,3,0.9,CHIP,14,30,1.65); box(g,3,3,0.9,CHIP,18,30,1.65);
-  box(g,3,12,7.2,BLACK,-22.5,0,4.8);                                                  // B2B link
+  box(g,15,3,7.2,BLACK,-11,-44,4.8);                                                  // B2B link
   [0,1,2,3].forEach(function(i){ cyl(g,0.5,2.4,GOLD,10+PX,10+PY+i*2.5,2.4,"z",{metalness:.85}); });
   HOLES9.forEach(function(h){ cyl(g,1.8,2.4,BRASS,h[0],h[1],2.4,"z",{metalness:.7,roughness:.4},undefined,6); });
 })(G.back);
@@ -273,34 +279,35 @@ var coilTex=canvasTex(520,1020,function(c,w,h){ c.fillStyle="#121416"; c.fillRec
 // Front board 8.4 … 9.4
 var gpioTex=canvasTex(52,512,function(c,w,h){ c.fillStyle="#151617"; c.fillRect(0,0,w,h); c.fillStyle="#000"; for(var i=0;i<20;i++) for(var r=0;r<2;r++) c.fillRect(9+r*24,8+i*25.2,9,9); });
 (function(g){ var can={metalness:.7,roughness:.35};
-  box(g,49.6,99.6,1,"#1f6f78",0,0,8.9);
+  box(g,51.6,99.6,1,"#1f6f78",0,0,8.9);
   // underside: radio + power (≤ 2 мм над Pi, или за её пределами)
   box(g,33,20,3.4,SILVER,6,-40,6.7,can);                                              // SA818 (рация) — ниже Pi
   box(g,8,8,2,SILVER,16,40,7.4,can); box(g,12,12,2,SILVER,-3,30,7.4,can);              // CC1101, SX1262
   box(g,10,10,2,SILVER,-4,-14,7.4,can); box(g,13,16,2,SILVER,18,-24,7.4,can);         // NRF24, ESP32-C5
   box(g,7,7,0.9,CHIP,-14,44,7.95); box(g,10,10,2,SILVER,4,44,7.4,can);                // RP2350, GPS
   box(g,4,4,0.9,CHIP,18,-6,7.95); box(g,5,5,1.8,"#6b6f74",18,0,7.5,{metalness:.5}); box(g,4,4,0.9,CHIP,18,8,7.95); box(g,7,7,0.9,CHIP,-14,-33,7.95);
-  box(g,3,12,3.6,BLACK,-22.5,0,6.6);
+  box(g,15,3,3.6,BLACK,-11,-44,6.6);
   // top side layer 9.4 … 16.4
   box(g,5.1,51,5,BLACK,-12.95+PX,PY,11.9);                                             // socket: Pi pins pass through
-  box(g,4.4,51,5.1,BLACK,-22.6,PY,11.95); plane(g,5.1,51,gpioTex,-25.81,PY,11.95,-Math.PI/2);   // GPIO out
-  [-32.5,-30.5,-28.5,-26.5].forEach(function(y,i){ cyl(g,1.6,4,i%3===0?"#4a1010":"#cfd8ff",-23.6,y,11.5,"x",{transparent:i%3!==0,opacity:.85}); });  // IR LEDs
-  box(g,3,3,4,"#111",-23.8,-24.2,13.6); box(g,3,3,4,"#111",-23.8,-34.6,13.6);          // IR receivers
+  box(g,12.6,51,5.1,BLACK,-19.5,PY,11.95); plane(g,5.1,51,gpioTex,-25.81,PY,11.95,-Math.PI/2);   // GPIO out (угловое, 12.6 мм вглубь)
+  [-24.2,-30.6,-37.0,-43.4].forEach(function(y,i){ cyl(g,2.5,6,i%3===0?"#4a1010":"#cfd8ff",-23.2,y,12.4,"x",{transparent:i%3!==0,opacity:.85}); cyl(g,2.5,2.5,i%3===0?"#4a1010":"#cfd8ff",-26.4,y,12.4,"x",{transparent:i%3!==0,opacity:.85},0.2); });  // IR LEDs
+  box(g,3,5,6,"#111",-23.8,31,12.4); box(g,3,5,6,"#111",-23.8,39,12.4);          // IR receivers (над GPIO)
   box(g,15,11,3,"#2a2a2a",-7,-44,10.9);                                                // speaker box
   box(g,9,6.9,3.2,SILVER,8,-46.6,11,{metalness:.7,roughness:.3}); box(g,7.6,0.3,1.6,"#222",8,-50.1,11);   // USB-C (single)
   box(g,3,3,0.9,CHIP,-6,47,9.9); cyl(g,0.9,0.6,"#111",6,47,9.7,"z");
   // right side: B1, B2, knob, B3, toy-car slide switch
-  [10,0,-10].forEach(function(y){ box(g,6,6,4,"#d9d9d9",20.5,y,12.4); cyl(g,4.2,2.6,"#2b2e31",25.6,y,12.4,"x",{roughness:.45}); cyl(g,3.4,0.4,"#3b3f43",27,y,12.4,"x"); });
-  box(g,12,12,6.5,"#444",18,24,12.65); cyl(g,2,3,SILVER,25.3,24,12.4,"x",{metalness:.7});
-  cyl(g,7.5,8,"#3a3d40",30.7,24,12.4,"x",{metalness:.5,roughness:.35},undefined,48); cyl(g,6.3,0.6,"#55595d",34.9,24,12.4,"x",{metalness:.6}); box(g,0.5,0.8,4,"#e08a4f",35.2,26.5,12.4);
-  box(g,4,9,4,"#2d6cc0",21.8,-24,12.4); box(g,3.2,2.6,2.4,"#e9e9e9",27.1,-22.2,12.4);   // slide switch body + lever
+  [21.5,11,0.5].forEach(function(y){ box(g,6,6,4,"#d9d9d9",20.5,y,12.4); cyl(g,4.2,2.6,"#2b2e31",25.6,y,12.4,"x",{roughness:.45}); cyl(g,3.4,0.4,"#3b3f43",27,y,12.4,"x"); });
+  box(g,12,12,6.5,"#444",19,35,12.65); cyl(g,2,3,SILVER,26.3,35,12.4,"x",{metalness:.7});
+  cyl(g,7.5,8,"#3a3d40",31.7,35,12.4,"x",{metalness:.5,roughness:.35},undefined,48); cyl(g,6.3,0.6,"#55595d",35.9,35,12.4,"x",{metalness:.6}); box(g,0.5,0.8,4,"#e08a4f",36.2,37.5,12.4);
+  box(g,4,9,4,"#2d6cc0",22.8,-30,12.4); box(g,3.2,2.6,2.4,"#e9e9e9",28.1,-28.2,12.4);   // slide switch body + lever
   // 4 SMA on the top edge, centred in thickness
-  [-18,-6,6,18].forEach(function(x){ box(g,6.35,5,6.35,GOLD,x,50.6,8.9,{metalness:.85,roughness:.3}); });
+  [-16.5,-5.5,5.5,16.5].forEach(function(x){ box(g,6.35,5,6.35,GOLD,x,50.6,8.9,{metalness:.85,roughness:.3}); });
+  [11,14,17,20].forEach(function(x,i){ box(g,1.6,0.8,0.5,i<3?"#4cd964":"#2a4a2f",x,-38,9.65,{emissive:i<3?"#1f7a35":"#000"}); });   // индикатор заряда
 })(G.front);
 (function(g){ HOLES9.forEach(function(h){ cyl(g,1.1,10,"#9aa0a6",h[0],h[1],4.6,"z",{metalness:.8}); cyl(g,2,1,"#9aa0a6",h[0],h[1],9.9,"z",{metalness:.8}); }); })(G.screws);
 
 // Battery 9.6 … 16.6
-(function(g){ box(g,28,79,7,"#7b8fa6",-1,3.5,13.1,{metalness:.4,roughness:.4}); box(g,28,79,0.1,"#d98b2b",-1,3.5,9.55);
+(function(g){ box(g,24,70,8.5,"#7b8fa6",8.5,0,13.85,{metalness:.4,roughness:.4}); box(g,24,70,0.1,"#d98b2b",8.5,0,9.55);
   [-6,-1,4].forEach(function(x){ box(g,3,3,0.3,"#cfd3d6",x,44.5,9.6,{metalness:.8}); }); })(G.battery);
 
 // Screen 16.7 … 18.9
@@ -319,13 +326,13 @@ var landTex=canvasTex(800,480,function(c,w,h){ c.fillStyle="#0b0f14"; c.fillRect
   c.fillStyle="#e08a4f"; c.font="700 48px system-ui,sans-serif"; c.fillText("ПРИЁМ  −48 дБм",22,440); });
 landTex.center.set(.5,.5); landTex.rotation=Math.PI/2;
 var screenMesh;
-(function(g){ box(g,46,80,0.3,"#555",0,2,16.75); box(g,49,88,1.6,"#111",0,2,17.7); box(g,49.6,99.6,0.7,"#0c0d0f",0,0,18.85,{roughness:.15,metalness:.3});
-  box(g,10,3,5,"#e09a3a",-6,47,14.4);
-  screenMesh=plane(g,45.7,76.2,uiTex,0,3,19.22); })(G.screen);
+(function(g){ box(g,46,80,0.3,"#555",0,2,18.25); box(g,49,88,1.6,"#111",0,2,19.2); box(g,51.6,99.6,0.7,"#0c0d0f",0,0,20.35,{roughness:.15,metalness:.3});
+  box(g,10,3,6.5,"#e09a3a",-2,46,15.15);
+  screenMesh=plane(g,45.7,76.2,uiTex,0,3,20.72); })(G.screen);
 
 // Antennas: from the front board's top edge, centred in thickness
 var antList={ant:[],cap:[]};
-(function(g){ [[-18,70,4.0],[-6,84,4.2],[6,44,3.6],[18,16,4.6]].forEach(function(s,i){ var x=s[0], L=s[1], r=s[2], z=8.9, y0=53.1;
+(function(g){ [[-16.5,70,4.0],[-5.5,84,4.2],[5.5,44,3.6],[16.5,16,4.6]].forEach(function(s,i){ var x=s[0], L=s[1], r=s[2], z=8.9, y0=53.1;
   cyl(g,3.1,4,GOLD,x,y0+2,z,"y",{metalness:.85,roughness:.3});
   var a1=cyl(g,r,7,"#202224",x,y0+7.5,z,"y",{roughness:.7}), a2=cyl(g,r-0.4,L,"#202224",x,y0+11+L/2,z,"y",{roughness:.75},i===3?r-0.4:r-1.2), tip=cyl(g,i===3?r-0.4:r-1.2,1.2,"#2a2c2e",x,y0+11+L+0.6,z,"y");
   var c1=cyl(g,4,6,GOLD,x,y0+7,z,"y",{metalness:.85,roughness:.3}), c2=cyl(g,3.2,1,"#2b2b2b",x,y0+10.5,z,"y"); c1.visible=c2.visible=false;
