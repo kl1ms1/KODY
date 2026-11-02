@@ -38,10 +38,10 @@ class Pin:
 PINS: dict[int, Pin] = {
     p.bcm: p
     for p in [
-        Pin(0, 27, "ID EEPROM ядра (SDA)", PinStatus.RESERVED),
-        Pin(1, 28, "ID EEPROM ядра (SCL)", PinStatus.RESERVED),
-        Pin(2, 3, "I2C1 SDA (тач, гироскоп, зарядка, EEPROM плат)", PinStatus.SHARED),
-        Pin(3, 5, "I2C1 SCL (тач, гироскоп, зарядка, EEPROM плат)", PinStatus.SHARED),
+        Pin(0, 27, "ID EEPROM основной платы (SDA)", PinStatus.RESERVED),
+        Pin(1, 28, "ID EEPROM основной платы (SCL)", PinStatus.RESERVED),
+        Pin(2, 3, "I2C1 SDA (тач, гироскоп, компас, свет, зарядка, вибро, часы)", PinStatus.SHARED),
+        Pin(3, 5, "I2C1 SCL (общая шина датчиков)", PinStatus.SHARED),
         Pin(4, 7, "Прерывание тача", PinStatus.RESERVED),
         Pin(5, 29, "Кнопка B1 (левый бок)", PinStatus.RESERVED),
         Pin(6, 31, "Кнопка B2 (левый бок)", PinStatus.RESERVED),
@@ -50,7 +50,7 @@ PINS: dict[int, Pin] = {
         Pin(9, 21, "SPI0 MISO", PinStatus.SHARED),
         Pin(10, 19, "SPI0 MOSI (экран)", PinStatus.SHARED),
         Pin(11, 23, "SPI0 SCLK (экран)", PinStatus.SHARED),
-        Pin(12, 32, "PWM0 — вибромотор", PinStatus.RESERVED, "haptics"),
+        Pin(12, 32, "Вибро: запуск DRV2605L (IN/TRIG)", PinStatus.RESERVED, "haptics"),
         Pin(13, 33, "PWM1 — подсветка экрана", PinStatus.RESERVED),
         Pin(14, 8, "UART TX → RP2040 (радио, NFC, ИК, GPS)", PinStatus.RESERVED),
         Pin(15, 10, "UART RX ← RP2040", PinStatus.RESERVED),

@@ -1,11 +1,11 @@
-"""Самопроверка пазла: какие платы вставлены и всё ли на них отвечает.
+"""Самопроверка KODY: какие модули на месте и всё ли на них отвечает.
 
 Как KODY узнаёт свои платы:
-  * Ядро (плата с гнездом, в которое вставлена Pi) несёт стандартный HAT
-    EEPROM на пинах ID_SD/ID_SC. Linux читает его при загрузке и кладёт имя
-    в /proc/device-tree/hat/product.
-  * Каждая плата пазла несёт крошечный EEPROM 24C02 на общей шине I2C со
-    своим адресом (0x50…0x55). Отвечает адрес — плата вставлена.
+  * Основная плата (в неё вставлена Pi) несёт стандартный HAT EEPROM на пинах
+    ID_SD/ID_SC. Linux читает его при загрузке и кладёт имя в
+    /proc/device-tree/hat/product.
+  * Экран узнаём по контроллеру тача, блок питания — по чипу зарядки,
+    радио-картридж — по его EEPROM 24C02 (0x55).
   * Дополнительно проверяются главные микросхемы на плате (тач, зарядка,
     гироскоп). Если EEPROM отвечает, а микросхема нет — плата вставлена,
     но с ней что-то не так (плохой контакт, брак пайки).
@@ -19,7 +19,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 
 HAT_PRODUCT_PATH = "/proc/device-tree/hat/product"
-CORE_PRODUCT = "KODY Core"
+CORE_PRODUCT = "KODY Main"
 
 
 class Status(Enum):
@@ -38,20 +38,20 @@ class Device:
 class Panel:
     key: str
     name: str
-    eeprom: int | None              # адрес EEPROM платы на I2C1 (None — особая проверка)
+    presence: int | None            # адрес I2C, по которому видно, что модуль на месте (None — HAT EEPROM)
     devices: tuple[Device, ...] = ()
 
 
+# Вариант «сэндвич»: основная плата (с блоком питания UPS), экран, радио-картридж.
 PANELS: tuple[Panel, ...] = (
-    Panel("core", "Ядро (гнездо для Pi, гироскоп, вибро)", None,
-          (Device(0x6B, "гироскоп LSM6DSO"),)),
-    Panel("screen", "Экран с тачем (спереди)", 0x50, (Device(0x15, "тач CST816"),)),
-    Panel("left", "Кнопки + SD (левый бок)", 0x51),
-    Panel("right", "Крутилка + кнопка (правый бок)", 0x52),
-    Panel("top", "GPIO + антенны + USB-C данные (верх)", 0x53),
-    Panel("power", "Зарядка + аккумулятор (низ)", 0x54,
-          (Device(0x6A, "зарядка BQ25895"), Device(0x36, "датчик заряда MAX17048"))),
-    Panel("back", "Радио + NFC + GPS (сзади)", 0x55),
+    Panel("main", "Основная плата (гнездо Pi, кнопки, крутилка, датчики)", None,
+          (Device(0x6B, "гироскоп LSM6DSV16X"), Device(0x1E, "компас LIS2MDL"),
+           Device(0x10, "датчик света VEML7700"), Device(0x5A, "вибро-драйвер DRV2605L"),
+           Device(0x52, "часы RV-3028"))),
+    Panel("power", "Питание UPS (зарядка, защита, аккумулятор)", 0x6A,
+          (Device(0x36, "датчик заряда MAX17048"),)),
+    Panel("screen", "Экран с тачем", 0x15),
+    Panel("radio", "Радио-картридж (CC1101, LoRa, NRF24, NFC, GPS)", 0x55),
 )
 
 
@@ -66,15 +66,15 @@ def check(i2c_present: set[int], hat_product: str | None, rp2040_ok: bool | None
     """Чистая функция: по найденным адресам I2C и ответам решить, что вставлено."""
     results = []
     for p in PANELS:
-        if p.key == "core":
+        if p.presence is None:
             present = bool(hat_product) and hat_product.strip("\x00 \n") == CORE_PRODUCT
         else:
-            present = p.eeprom in i2c_present
+            present = p.presence in i2c_present
         if not present:
             results.append(Result(p, Status.MISSING))
             continue
         problems = [f"не отвечает {d.name} (0x{d.addr:02X})" for d in p.devices if d.addr not in i2c_present]
-        if p.key == "back" and rp2040_ok is False:
+        if p.key == "radio" and rp2040_ok is False:
             problems.append("RP2040 не отвечает по UART")
         results.append(Result(p, Status.PARTIAL if problems else Status.OK, problems))
     return results
@@ -116,12 +116,12 @@ def simulated_inputs(missing: frozenset[str] = frozenset()):
     for p in PANELS:
         if p.key in missing:
             continue
-        if p.key == "core":
+        if p.presence is None:
             hat = CORE_PRODUCT
         else:
-            present.add(p.eeprom)
+            present.add(p.presence)
         present.update(d.addr for d in p.devices)
-    return present, hat, "back" not in missing
+    return present, hat, "radio" not in missing
 
 
 def run(simulate: bool) -> list[Result]:
@@ -136,10 +136,10 @@ def report(results: list[Result]) -> str:
     lines = []
     for r in results:
         mark = {"OK": "✔", "НЕТ": "✘"}.get(r.status.value, "!")
-        lines.append(f" {mark} {r.panel.name:<42} {r.status.value}")
+        lines.append(f" {mark} {r.panel.name:<58} {r.status.value}")
         lines += [f"     └ {p}" for p in r.problems]
     ok = sum(r.status is Status.OK for r in results)
-    lines.append(f"\n Итого: {ok} из {len(results)} плат в порядке")
+    lines.append(f"\n Итого: {ok} из {len(results)} модулей в порядке")
     return "\n".join(lines)
 
 
