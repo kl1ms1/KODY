@@ -81,7 +81,7 @@ th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute
 <div class="wrap">
   <header>
     <h1>KODY v9</h1>
-    <p>Две свои платы, Raspberry Pi Zero WH, экран 3.5″ 60 Гц с плавным тачем, аккумулятор ≈ 2200 мА·ч на ~3 часа, крутилка без упора, переключатель питания и мощный ИК-порт. Ни одного провода, все 40 GPIO свободны. Размеры примерные, ±1 мм.</p>
+    <p>Две свои платы, Raspberry Pi Zero WH, экран 3.5″ 60 Гц с плавным тачем, аккумулятор ≈ 2200 мА·ч на ~3 часа, крутилка без упора (выше кнопок), переключатель питания, мощный ИК-порт и прозрачный корпус с логотипом. Ни одного провода, все 40 GPIO свободны. Размеры примерные, ±1 мм.</p>
     <div class="dims"><span>≈ 52 × 102 × 20.5 мм</span><span>Экран 3.5″ 480×800, 60 Гц</span><span>≈ 3 часа работы</span><span>1 USB-C: данные + быстрая зарядка</span><span>40/40 GPIO</span></div>
   </header>
 
@@ -139,15 +139,15 @@ th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute
 "use strict";
 // Frame: X = width, Y = height (up), Z = thickness (screen toward +Z)
 var PARTS = [
-  {id:"caseB", step:0, name:"Корпус: задняя часть с принтом", color:"#22262a", explode:[0,0,-34], label:[-18,-42,-2], short:"Нейлон PA12, хакерский принт сзади", items:["Принт УФ-печатью или лазером — без металлической краски над NFC","NFC и 125 кГц работают сквозь 1 мм пластика","Решётка динамика и отверстие микрофона снизу"]},
-  {id:"back", step:1, name:"Задняя плата: NFC, RFID, USB-хаб", color:"#5e2d8c", explode:[0,0,-22], label:[0,0,-1], short:"ST25R3916 + катушка NFC, 125 кГц, USB-хаб, pogo к Pi", items:["ST25R3916 — NFC 13.56 МГц, чтение и эмуляция","Катушка 125 кГц — домофонные ключи","Ферритовая плёнка под катушками","USB-хаб: Pi ↔ радио, Wi-Fi, USB-C","Pogo-контакты к площадкам снизу Pi","Разъём плата-плата к передней"]},
+  {id:"caseB", step:0, name:"Корпус: задняя часть", color:"#cfe0ea", explode:[0,0,-34], label:[-18,-42,-2], short:"Прозрачная смола (SLA), видно платы и логотип", items:["Прозрачная смола, печать SLA на заводе","Логотип KODY нанесён на саму заднюю плату (шелкография) — видно сквозь корпус","NFC и 125 кГц работают сквозь 1 мм пластика","Решётка динамика и отверстие микрофона снизу"]},
+  {id:"back", step:1, name:"Задняя плата: NFC, RFID, USB-хаб", color:"#121416", explode:[0,0,-22], label:[0,0,-1], short:"ST25R3916 + катушка NFC, 125 кГц, USB-хаб, pogo к Pi", items:["ST25R3916 — NFC 13.56 МГц, чтение и эмуляция","Катушка 125 кГц — домофонные ключи","Ферритовая плёнка под катушками","USB-хаб: Pi ↔ радио, Wi-Fi, USB-C","Pogo-контакты к площадкам снизу Pi","Разъём плата-плата к передней"]},
   {id:"pi", step:2, name:"Raspberry Pi Zero 2 WH", color:"#2e7d4a", explode:[0,0,-9], label:[-8,-4,6], short:"Лежит на задней плате, pogo упираются в площадки", items:["Гребёнка проходит насквозь через переднюю плату","Термопрокладка с процессора на переднюю плату"]},
   {id:"hdmi", step:2, name:"Переходник mini-HDMI → шлейф", color:"#e09a3a", explode:[12,0,-9], label:[13,-18,7], short:"Вставляется в Pi, шлейф — в переднюю плату", items:["Готовая деталь, паять не нужно"]},
-  {id:"front", step:3, name:"Передняя плата", color:"#1f6f78", explode:[0,0,13], label:[-6,46,11], short:"Питание, управление, звук, мост экрана, всё радио, ИК", items:["Снизу: рация SA818, CC1101, LoRa SX1262, NRF24, ESP32-C5, GPS, RP2350","Снизу: питание как UPS-Lite, STM32, мост LT6911C → экран","Сверху: гнездо для Pi насквозь, GPIO наружу, большой ИК-порт","Сверху: аккумулятор, динамик, один USB-C (данные + быстрая зарядка)","Справа: кнопка, кнопка, крутилка, кнопка, переключатель питания","Верхний торец: 4 гнезда SMA посередине толщины"]},
+  {id:"front", step:3, name:"Передняя плата", color:"#1f6f78", explode:[0,0,13], label:[-6,46,11], short:"Питание, управление, звук, мост экрана, всё радио, ИК", items:["Снизу: рация SA818, CC1101, LoRa SX1262, NRF24, ESP32-C5, GPS, RP2350","Снизу: питание как UPS-Lite, STM32, мост LT6911C → экран","Сверху: гнездо для Pi насквозь, GPIO наружу, большой ИК-порт","Сверху: аккумулятор, динамик, один USB-C (данные + быстрая зарядка)","Справа сверху вниз: крутилка, 3 кнопки, переключатель питания","Верхний торец: 4 гнезда SMA посередине толщины"]},
   {id:"screws", step:3, name:"4 винта M2", color:"#9aa0a6", explode:[0,0,34], label:[8,-27,13], short:"Зажимают Pi между платами", items:["Pi не выскочит из гнезда"]},
   {id:"battery", step:4, name:"Аккумулятор ≈ 2200 мА·ч", color:"#7b8fa6", explode:[0,0,20], label:[0,-8,14], short:"7 × 28 × 79 мм, 3 лепестка, ≈ 3 часа", items:["Лепестки +, −, датчик температуры — без проводов","Защита и зарядка — на передней плате"]},
   {id:"screen", step:5, name:"Экран 3.5″ с тачем", color:"#202326", explode:[0,0,30], label:[0,-30,20], short:"IPS 480×800, 60 Гц, ёмкостный тач", items:["Портретный, тонкие рамки по бокам","Тач 5 касаний — плавная линия","Без мерцания, автояркость","Шлейф защёлкивается в переднюю плату"]},
-  {id:"caseF", step:6, name:"Корпус: передняя рамка", color:"#22262a", explode:[0,0,44], label:[20,46,19], short:"Экран вклеен в рамку", items:["4 винта к задней части","Чёрное ИК-окно слева, под GPIO"]},
+  {id:"caseF", step:6, name:"Корпус: передняя рамка", color:"#cfe0ea", explode:[0,0,44], label:[20,46,19], short:"Экран вклеен в рамку", items:["4 винта к задней части","Окно под GPIO слева; ИК светит сквозь прозрачный пластик"]},
   {id:"ant", step:7, name:"Антенны", color:"#1b1d1f", explode:[0,30,0], label:[0,110,9], short:"LoRa · Рация · 2.4 ГГц · GPS", items:["Посередине толщины","Съёмные, SMA-male; вместо любой — заглушка 50 Ом"]}
 ];
 var STEPS = [
@@ -203,7 +203,7 @@ var G={}; PARTS.forEach(function(p){ var g=new THREE.Group(); G[p.id]=g; p.cur=0
 // ---------- v9 geometry. Outline x ±26, y ±51, z −1 … 19.4 (≈ 20.5 мм). Pi centre at (PX, PY).
 var PX=-4.9, PY=4;
 var HOLES9=HOLES.map(function(h){ return [h[0]+PX,h[1]+PY]; });
-var shell={color:"#22262a",roughness:.85};
+var shell={color:"#dfe8ef",roughness:.08,metalness:.0,transparent:true,opacity:.22,depthWrite:false};
 var printTex=canvasTex(520,1020,function(c,w,h){
   c.fillStyle="#16191c"; c.fillRect(0,0,w,h);
   c.font="600 15px ui-monospace,Menlo,monospace"; var glyphs="01アイウエカキクケサシスセ<>/{}#$";
@@ -217,26 +217,39 @@ var printTex=canvasTex(520,1020,function(c,w,h){
   c.fillStyle="rgba(231,236,239,.6)"; c.font="600 22px ui-monospace,Menlo,monospace"; c.fillText("[ NFC · 125 kHz ]",w/2,720);
   c.font="500 18px ui-monospace,Menlo,monospace"; c.fillText("SUB-GHZ · LORA · 2.4G · GPS · IR",w/2,960);
 });
-(function(g){ box(g,52,102,1,"#22262a",0,0,-0.5,shell); plane(g,52,102,printTex,0,0,-1.02,Math.PI);
+(function(g){ box(g,52,102,1,"#22262a",0,0,-0.5,shell);
   box(g,1.2,102,8.6,"#22262a",-25.4,0,3.8,shell); box(g,1.2,102,8.6,"#22262a",25.4,0,3.8,shell);
   box(g,52,1.2,8.6,"#22262a",0,50.4,3.8,shell); box(g,52,1.2,8.6,"#22262a",0,-50.4,3.8,shell);
 })(G.caseB);
-(function(g){ box(g,1.2,102,10.9,"#22262a",-25.4,0,13.55,shell); box(g,1.2,102,10.9,"#22262a",25.4,0,13.55,shell);
+(function(g){ box(g,1.2,15,10.9,"#22262a",-25.4,-43.5,13.55,shell); box(g,1.2,2.6,10.9,"#22262a",-25.4,-22.7,13.55,shell); box(g,1.2,21.6,10.9,"#22262a",-25.4,40.2,13.55,shell); box(g,1.2,50.8,3.5,"#22262a",-25.4,4,17.3,shell); box(g,1.2,102,10.9,"#22262a",25.4,0,13.55,shell);
   box(g,52,1.2,10.9,"#22262a",0,50.4,13.55,shell); box(g,52,1.2,10.9,"#22262a",0,-50.4,13.55,shell);
   box(g,1.4,102,0.5,"#22262a",-25.3,0,19.15,shell); box(g,1.4,102,0.5,"#22262a",25.3,0,19.15,shell);
   box(g,52,1.4,0.5,"#22262a",0,50.3,19.15,shell); box(g,52,1.4,0.5,"#22262a",0,-50.3,19.15,shell);
   for(var i=0;i<12;i++) cyl(g,0.45,1.3,"#050505",-14+(i%6)*1.6,-51.0,12+Math.floor(i/6)*1.6,"y");  // speaker holes
   cyl(g,0.4,1.3,"#050505",19,-51.0,12,"y");                                                      // mic hole
-  box(g,0.6,11,7,"#3a0d0d",-26.05,-29.5,11.5,{transparent:true,opacity:.85,roughness:.1});        // IR window (black-red)
+  
 })(G.caseF);
 
 // back board 0 … 1.2
-var coilTex=canvasTex(520,1020,function(c,w,h){ c.fillStyle="#5e2d8c"; c.fillRect(0,0,w,h); c.strokeStyle="#d89a5a"; c.lineWidth=8;
-  for(var i=0;i<5;i++){ rr(c,90+i*18,560+i*18,340-i*36,300-i*36,30); c.stroke(); }
-  c.lineWidth=5; for(var j=0;j<4;j++){ c.beginPath(); c.arc(260,710,46-j*10,0,7); c.stroke(); }
-  c.fillStyle="#f1ecf7"; c.font="600 28px system-ui,sans-serif"; c.textAlign="center"; c.fillText("NFC 13.56 МГц",260,600); c.fillText("125 кГц",260,800); });
+var coilTex=canvasTex(520,1020,function(c,w,h){ c.fillStyle="#121416"; c.fillRect(0,0,w,h);
+  // logo: hexagon + K made of PCB traces + antenna waves
+  var cx=w/2, cy=270, R=150; c.lineWidth=10; c.strokeStyle="#d9a640"; c.beginPath();
+  for(var k=0;k<6;k++){ var a=Math.PI/6+k*Math.PI/3; c[k?"lineTo":"moveTo"](cx+R*Math.cos(a),cy+R*Math.sin(a)); } c.closePath(); c.stroke();
+  c.lineWidth=16; c.lineCap="round"; c.strokeStyle="#e7ecef";
+  c.beginPath(); c.moveTo(cx-55,cy-85); c.lineTo(cx-55,cy+85); c.stroke();
+  c.beginPath(); c.moveTo(cx-55,cy+5); c.lineTo(cx+20,cy-70); c.lineTo(cx+60,cy-70); c.stroke();
+  c.beginPath(); c.moveTo(cx-30,cy-15); c.lineTo(cx+20,cy+70); c.lineTo(cx+60,cy+70); c.stroke();
+  c.fillStyle="#d9a640"; [[cx+60,cy-70],[cx+60,cy+70],[cx-55,cy-85],[cx-55,cy+85]].forEach(function(p){ c.beginPath(); c.arc(p[0],p[1],13,0,7); c.fill(); c.fillStyle="#121416"; c.beginPath(); c.arc(p[0],p[1],5,0,7); c.fill(); c.fillStyle="#d9a640"; });
+  c.lineWidth=7; c.strokeStyle="#5fbf7f"; for(var r=0;r<3;r++){ c.beginPath(); c.arc(cx+60,cy-70,30+r*22,-Math.PI/2.4,-Math.PI/12); c.stroke(); }
+  c.fillStyle="#e7ecef"; c.font="800 64px ui-monospace,Menlo,monospace"; c.textAlign="center"; c.fillText("KODY",cx,cy+R+70);
+  c.fillStyle="#8a949c"; c.font="500 18px ui-monospace,Menlo,monospace"; c.fillText("SUB-GHZ · LORA · 2.4G · GPS · NFC · IR",cx,cy+R+105);
+  // NFC and 125 kHz coils (copper under the mask)
+  c.strokeStyle="#b98a4a"; c.lineWidth=6; c.lineCap="butt";
+  for(var i=0;i<5;i++){ rr(c,90+i*16,640+i*16,340-i*32,300-i*32,30); c.stroke(); }
+  c.lineWidth=4; for(var j=0;j<4;j++){ c.beginPath(); c.arc(cx,790,44-j*10,0,7); c.stroke(); }
+  c.fillStyle="#8a949c"; c.font="500 16px ui-monospace,Menlo,monospace"; c.fillText("NFC / RFID — приложи сюда",cx,970); });
 (function(g){
-  box(g,49.6,99.6,1.2,"#5e2d8c",0,0,0.6); plane(g,49.6,99.6,coilTex,0,0,-0.02,Math.PI);
+  box(g,49.6,99.6,1.2,"#121416",0,0,0.6); plane(g,49.6,99.6,coilTex,0,0,-0.02,Math.PI);
   box(g,36,32,0.3,"#2e2e2e",0,-14,1.35);
   box(g,5,5,0.9,CHIP,-4,-18,1.65); box(g,6,6,0.9,CHIP,10,22,1.65); box(g,3,3,0.9,CHIP,14,30,1.65); box(g,3,3,0.9,CHIP,18,30,1.65);
   box(g,3,12,7.2,BLACK,-22.5,0,4.8);                                                  // B2B link
@@ -277,9 +290,9 @@ var gpioTex=canvasTex(52,512,function(c,w,h){ c.fillStyle="#151617"; c.fillRect(
   box(g,9,6.9,3.2,SILVER,8,-46.6,11,{metalness:.7,roughness:.3}); box(g,7.6,0.3,1.6,"#222",8,-50.1,11);   // USB-C (single)
   box(g,3,3,0.9,CHIP,-6,47,9.9); cyl(g,0.9,0.6,"#111",6,47,9.7,"z");
   // right side: B1, B2, knob, B3, toy-car slide switch
-  [24,14,-10].forEach(function(y){ box(g,6,6,4,"#d9d9d9",20.5,y,12.4); cyl(g,4.2,2.6,"#2b2e31",25.6,y,12.4,"x",{roughness:.45}); cyl(g,3.4,0.4,"#3b3f43",27,y,12.4,"x"); });
-  box(g,12,12,6.5,"#444",18,2,12.65); cyl(g,2,3,SILVER,25.3,2,12.4,"x",{metalness:.7});
-  cyl(g,7.5,8,"#3a3d40",30.7,2,12.4,"x",{metalness:.5,roughness:.35},undefined,48); cyl(g,6.3,0.6,"#55595d",34.9,2,12.4,"x",{metalness:.6}); box(g,0.5,0.8,4,"#e08a4f",35.2,4.5,12.4);
+  [10,0,-10].forEach(function(y){ box(g,6,6,4,"#d9d9d9",20.5,y,12.4); cyl(g,4.2,2.6,"#2b2e31",25.6,y,12.4,"x",{roughness:.45}); cyl(g,3.4,0.4,"#3b3f43",27,y,12.4,"x"); });
+  box(g,12,12,6.5,"#444",18,24,12.65); cyl(g,2,3,SILVER,25.3,24,12.4,"x",{metalness:.7});
+  cyl(g,7.5,8,"#3a3d40",30.7,24,12.4,"x",{metalness:.5,roughness:.35},undefined,48); cyl(g,6.3,0.6,"#55595d",34.9,24,12.4,"x",{metalness:.6}); box(g,0.5,0.8,4,"#e08a4f",35.2,26.5,12.4);
   box(g,4,9,4,"#2d6cc0",21.8,-24,12.4); box(g,3.2,2.6,2.4,"#e9e9e9",27.1,-22.2,12.4);   // slide switch body + lever
   // 4 SMA on the top edge, centred in thickness
   [-18,-6,6,18].forEach(function(x){ box(g,6.35,5,6.35,GOLD,x,50.6,8.9,{metalness:.85,roughness:.3}); });
