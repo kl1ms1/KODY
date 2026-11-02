@@ -12,17 +12,17 @@ class PinsTest(unittest.TestCase):
         self.assertEqual(len({p.phys for p in PINS.values()}), 28)
 
     def test_free_pins(self):
-        self.assertEqual([p.bcm for p in user_pins()], [14, 15, 7, 16, 26])
+        self.assertEqual([p.bcm for p in user_pins()], [14, 15, 17, 18, 7, 19, 16, 26, 20, 21])
 
     def test_reserved_and_shared_rejected(self):
         for bcm in (8, 2, 0, 99):
             with self.assertRaises(PinUnavailable):
                 check_user_pin(bcm)
 
-    def test_disabling_lora_frees_its_pins(self):
+    def test_disabling_haptics_frees_vibro_pin(self):
         with self.assertRaises(PinUnavailable):
-            check_user_pin(18)
-        self.assertEqual(check_user_pin(18, frozenset({"lora"})).phys, 12)
+            check_user_pin(12)
+        self.assertEqual(check_user_pin(12, frozenset({"haptics"})).phys, 32)
 
 
 class AdviceTest(unittest.TestCase):

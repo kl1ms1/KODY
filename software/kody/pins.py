@@ -1,4 +1,7 @@
-"""Карта 40-пиновой гребёнки KODY (см. docs/hardware.md, раздел 4).
+"""Карта 40-пиновой гребёнки KODY v2 «пазл» (см. docs/concept.md).
+
+Всё радио, NFC/RFID и ИК висят на RP2040 задней платы и общаются с Pi по USB,
+поэтому для своих проектов свободно 10 GPIO.
 
 Каждый пин помечен статусом:
   FREE     — свободен, можно брать для своих проектов;
@@ -36,32 +39,32 @@ PINS: dict[int, Pin] = {
     for p in [
         Pin(0, 27, "ID EEPROM HAT (SDA)", PinStatus.RESERVED),
         Pin(1, 28, "ID EEPROM HAT (SCL)", PinStatus.RESERVED),
-        Pin(2, 3, "I2C1 SDA (тач)", PinStatus.SHARED),
-        Pin(3, 5, "I2C1 SCL (тач)", PinStatus.SHARED),
-        Pin(4, 7, "Прерывание тача", PinStatus.RESERVED),
-        Pin(5, 29, "RP2040 RUN", PinStatus.RESERVED),
-        Pin(6, 31, "RP2040 BOOTSEL", PinStatus.RESERVED),
+        Pin(2, 3, "I2C1 SDA (тач, слайдер, батарея)", PinStatus.SHARED),
+        Pin(3, 5, "I2C1 SCL (тач, слайдер, батарея)", PinStatus.SHARED),
+        Pin(4, 7, "Прерывание тача экрана", PinStatus.RESERVED),
+        Pin(5, 29, "Кнопка B1 (левая плата)", PinStatus.RESERVED),
+        Pin(6, 31, "Кнопка B2 (левая плата)", PinStatus.RESERVED),
         Pin(7, 26, "SPI0 CE1", PinStatus.FREE),
         Pin(8, 24, "SPI0 CE0 — экран", PinStatus.RESERVED),
         Pin(9, 21, "SPI0 MISO", PinStatus.SHARED),
         Pin(10, 19, "SPI0 MOSI (экран)", PinStatus.SHARED),
         Pin(11, 23, "SPI0 SCLK (экран)", PinStatus.SHARED),
-        Pin(12, 32, "PWM0 — пищалка", PinStatus.RESERVED),
+        Pin(12, 32, "PWM0 — вибромотор (сенсорная плата)", PinStatus.RESERVED, "haptics"),
         Pin(13, 33, "PWM1 — подсветка экрана", PinStatus.RESERVED),
         Pin(14, 8, "UART TX", PinStatus.FREE),
         Pin(15, 10, "UART RX", PinStatus.FREE),
-        Pin(16, 36, "SPI1 CE2", PinStatus.FREE),
-        Pin(17, 11, "SPI1 CE1 — microSD №2", PinStatus.RESERVED, "sd2"),
-        Pin(18, 12, "SPI1 CE0 — LoRa SX1262", PinStatus.RESERVED, "lora"),
-        Pin(19, 35, "SPI1 MISO", PinStatus.SHARED),
-        Pin(20, 38, "SPI1 MOSI", PinStatus.SHARED),
-        Pin(21, 40, "SPI1 SCLK", PinStatus.SHARED),
-        Pin(22, 15, "SX1262 BUSY", PinStatus.RESERVED, "lora"),
-        Pin(23, 16, "SX1262 DIO1", PinStatus.RESERVED, "lora"),
+        Pin(16, 36, "—", PinStatus.FREE),
+        Pin(17, 11, "—", PinStatus.FREE),
+        Pin(18, 12, "—", PinStatus.FREE),
+        Pin(19, 35, "—", PinStatus.FREE),
+        Pin(20, 38, "—", PinStatus.FREE),
+        Pin(21, 40, "—", PinStatus.FREE),
+        Pin(22, 15, "RP2040 BOOTSEL (задняя плата)", PinStatus.RESERVED),
+        Pin(23, 16, "RP2040 RUN (задняя плата)", PinStatus.RESERVED),
         Pin(24, 18, "Экран D/C", PinStatus.RESERVED),
         Pin(25, 22, "Экран RESET", PinStatus.RESERVED),
         Pin(26, 37, "—", PinStatus.FREE),
-        Pin(27, 13, "SX1262 RESET", PinStatus.RESERVED, "lora"),
+        Pin(27, 13, "Прерывание сенсорного слайдера", PinStatus.RESERVED),
     ]
 }
 

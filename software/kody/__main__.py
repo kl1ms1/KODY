@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import sys
 
+from .board import detect
 from .hal import make_pwm_led
 from .lamp import PRESETS, Lamp, LampPreset, wiring_advice
 from .pins import PinUnavailable, user_pins
@@ -87,6 +88,12 @@ def lamp_project(simulate: bool | None) -> None:
 
 def main(argv: list[str]) -> int:
     simulate = True if "--sim" in argv else None
+    profile, model = detect()
+    print(f"KODY: плата — {model.strip(chr(0)) if model else profile.name}; "
+          f"профиль «{profile.key}»: {profile.cores} ядер, интерфейс {profile.ui_fps} FPS, "
+          f"SDR-водопад {'вкл' if profile.sdr_waterfall else 'выкл'}")
+    if profile.simulated:
+        simulate = True
     projects = ["Лампочка"]
     try:
         while True:

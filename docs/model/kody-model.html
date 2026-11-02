@@ -1,0 +1,347 @@
+<title>KODY Пазл</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: full-width 3D stage on top, then a two-column (stacking on phone) spec sheet. PCB-lab feel. */
+:root{
+  --bg:#eef0ed; --panel:#ffffff; --ink:#18201b; --muted:#5b665e; --line:#d3d8d2;
+  --accent:#b8612a; --ok:#2f7d4a; --warn:#b07a12; --no:#a33a2e; --stage:#dfe3de;
+  --chip:#18201bcc; --chip-ink:#f3f5f2;
+  --f-display:"Unbounded", "Golos Text", system-ui, sans-serif;
+  --f-body:"Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111613; --panel:#19201b; --ink:#e7ece7; --muted:#9aa69d; --line:#2a332d;
+  --accent:#e08a4f; --ok:#5fbf7f; --warn:#d9a640; --no:#e06a5c; --stage:#0c100e;
+  --chip:#000000b3; --chip-ink:#f3f5f2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111613; --panel:#19201b; --ink:#e7ece7; --muted:#9aa69d; --line:#2a332d;
+  --accent:#e08a4f; --ok:#5fbf7f; --warn:#d9a640; --no:#e06a5c; --stage:#0c100e;
+  --chip:#000000b3; --chip-ink:#f3f5f2; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px;display:flex;flex-direction:column;gap:22px}
+header h1{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,5vw,38px);letter-spacing:-.01em;margin:0;text-wrap:balance}
+header p{margin:6px 0 0;color:var(--muted);max-width:62ch}
+.dims{font-family:var(--f-mono);font-size:13px;color:var(--ink);display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.dims span{border:1px solid var(--line);border-radius:6px;padding:3px 8px;background:var(--panel)}
+.stage{position:relative;background:var(--stage);border:1px solid var(--line);border-radius:14px;overflow:hidden;height:min(68vh,560px);min-height:360px;touch-action:none;user-select:none}
+.stage canvas{display:block;width:100%;height:100%}
+.labels{position:absolute;inset:0;pointer-events:none}
+.lbl{position:absolute;transform:translate(-50%,-50%);background:var(--chip);color:var(--chip-ink);font-family:var(--f-mono);font-size:11px;padding:2px 7px;border-radius:999px;white-space:nowrap}
+.toolbar{position:absolute;left:10px;right:10px;bottom:10px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.toolbar button{font-family:var(--f-body);font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:7px 13px;cursor:pointer}
+.toolbar button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.toolbar button:focus-visible,.pcard:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.hint{position:absolute;top:10px;left:12px;font-size:12px;color:var(--muted)}
+.info{position:absolute;top:10px;right:10px;width:min(300px,calc(100% - 20px));background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;box-shadow:0 6px 24px #0002}
+.info h3{margin:0 0 4px;font-family:var(--f-display);font-size:15px;font-weight:500}
+.info ul{margin:6px 0 0;padding-left:18px}
+.info .x{position:absolute;top:6px;right:8px;border:0;background:none;color:var(--muted);font-size:18px;cursor:pointer}
+h2{font-family:var(--f-display);font-weight:500;font-size:20px;margin:0 0 10px;text-wrap:balance}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.pcard{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer;text-align:left;font:inherit;color:inherit;display:flex;flex-direction:column;gap:4px;min-width:0}
+.pcard .sw{width:12px;height:12px;border-radius:3px;display:inline-block;margin-right:8px;vertical-align:-1px}
+.pcard b{font-weight:600}
+.pcard small{color:var(--muted);font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+.tbl{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.tag{font-family:var(--f-mono);font-size:12px;font-weight:600;white-space:nowrap}
+.tag.ok{color:var(--ok)} .tag.warn{color:var(--warn)} .tag.no{color:var(--no)}
+.note{color:var(--muted);font-size:13px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>KODY: пазл вокруг Pi Zero</h1>
+    <p>Шесть маленьких плат обнимают Raspberry Pi Zero W со всех сторон. Вставил Pi в «хребет» — спереди экран, по бокам кнопки и сенсор, сверху GPIO, сзади радио и NFC. Размеры примерные, ±1–2 мм.</p>
+    <div class="dims"><span>Pi Zero: 65 × 30 мм</span><span>KODY без корпуса ≈ 69 × 34 × 22 мм</span><span>6 плат + аккумулятор</span></div>
+  </header>
+
+  <div class="stage" id="stage">
+    <canvas id="c" aria-label="3D-модель KODY. Тяни пальцем, чтобы вращать, щипок — масштаб"></canvas>
+    <div class="labels" id="labels"></div>
+    <div class="hint" id="hint">Тяни — вращать · щипок — масштаб · тап по плате — описание</div>
+    <div class="info" id="info" hidden></div>
+    <div class="toolbar">
+      <button class="primary" id="btnExplode">Разобрать</button>
+      <button data-view="front">Спереди</button>
+      <button data-view="back">Сзади</button>
+      <button data-view="side">Сбоку</button>
+      <button data-view="iso">3/4</button>
+      <button id="btnLabels">Подписи</button>
+    </div>
+  </div>
+
+  <section>
+    <h2>Платы пазла</h2>
+    <div class="grid" id="cards"></div>
+  </section>
+
+  <section>
+    <h2>Что можно и что нельзя в размере Pi Zero</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Хотелка</th><th>Вердикт</th><th>Как сделаем</th></tr></thead>
+      <tbody>
+        <tr><td>Отпечаток не больше Pi Zero</td><td><span class="tag ok">МОЖНО</span></td><td>Боковые платы добавляют ~2 мм с каждой стороны: ≈ 69 × 34 мм. Толщина ≈ 22 мм — её задаёт гребёнка Pi WH (11 мм между платами).</td></tr>
+        <tr><td>Вставил Pi — и всё заработало</td><td><span class="tag ok">МОЖНО</span></td><td>Pi вставляется в «хребет». Задняя плата берёт USB и питание подпружиненными контактами (pogo) снизу Pi — без проводов.</td></tr>
+        <tr><td>Тачскрин, много герц</td><td><span class="tag warn">КОМПРОМИСС</span></td><td>Серийного экрана ровно 65 × 30 нет. Берём 1.9″ IPS 170 × 320 с ёмкостным тачем: 30–50 FPS даже на Zero W. Рамки по бокам ≈ 8 мм. «Без рамок» — только заказной экран на партию.</td></tr>
+        <tr><td>Кнопки сбоку, большие</td><td><span class="tag ok">МОЖНО</span></td><td>Две кнопки Ø9 мм с мягким ходом на левой плате.</td></tr>
+        <tr><td>Сенсор «как у Apple» сбоку</td><td><span class="tag ok">МОЖНО</span></td><td>Ёмкостный слайдер дорожками прямо на плате + нажатие + вибромотор для «щелчков».</td></tr>
+        <tr><td>GPIO сверху «мамой»</td><td><span class="tag ok">МОЖНО</span></td><td>Все 40 пинов выходят на низкое гнездо 2×20 на верхнем торце.</td></tr>
+        <tr><td>CC1101, LoRa, NRF24 сзади</td><td><span class="tag ok">МОЖНО</span></td><td>Модули на задней плате, антенны — маленькие разъёмы MMCX (как SMA, только в 3 раза меньше).</td></tr>
+        <tr><td>Своя плата NFC + RFID 125 кГц</td><td><span class="tag ok">МОЖНО</span></td><td>ST25R3916 (чтение + эмуляция) и катушки прямо на внешней стороне задней платы.</td></tr>
+        <tr><td>ИК</td><td><span class="tag ok">МОЖНО</span></td><td>ИК-светодиод и приёмник на торце «хребта».</td></tr>
+        <tr><td>Второй слот microSD</td><td><span class="tag ok">МОЖНО</span></td><td>На нижней плате, рядом с USB-C.</td></tr>
+        <tr><td>SDR внутри</td><td><span class="tag no">НЕ ВЛЕЗЕТ (v1)</span></td><td>Донгл RTL-SDR сам больше Pi. В v1 — внешний SDR в USB-C. В v2 можно развести чип SDR на задней плате — это самая сложная часть.</td></tr>
+        <tr><td>USB-A «квадратный»</td><td><span class="tag no">НЕ ВЛЕЗЕТ</span></td><td>Он 14 мм в глубину при ширине устройства 30 мм. Вместо него USB-C, переходник USB-C → USB-A в комплекте.</td></tr>
+        <tr><td>Большие антенны SMA</td><td><span class="tag warn">КОМПРОМИСС</span></td><td>MMCX + короткие антенны. Одну SMA можно оставить для Sub-GHz.</td></tr>
+        <tr><td>Батарея</td><td><span class="tag warn">КОМПРОМИСС</span></td><td>Помещается ~500–800 мА·ч (лежит между Pi и экраном) — это 1.5–3 часа работы.</td></tr>
+        <tr><td>Механическая крутилка</td><td><span class="tag warn">ЗАМЕНЕНА</span></td><td>Вместо неё сенсорный слайдер. Можно поставить маленькое колёсико на место одной из кнопок.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Одна прошивка для Zero W / WH и Zero 2 W: программа сама узнаёт плату и включает подходящий режим. Гребёнка у них одинаковая, пазл подходит к обеим.</p>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+"use strict";
+var PANELS = [
+  {id:"screen", name:"Экран (спереди)", color:"#2b2f33", explode:[0,22,0], label:[0,23,0],
+   short:"1.9″ IPS 170×320, ёмкостный тач, подсветка",
+   items:["Экран 1.9″ IPS 170×320 (ST7789) по SPI","Ёмкостный тач (CST816) по I2C","Стыкуется с «хребтом» разъёмом 1.27 мм"]},
+  {id:"spine", name:"Хребет + GPIO (сверху)", color:"#c9961f", explode:[0,0,-18], label:[0,12,-20],
+   short:"Pi вставляется сюда, 40 пинов наружу",
+   items:["Гнездо, в которое втыкается Pi Zero WH","Все 40 GPIO наружу — низкое гнездо 2×20 «мама»","ИК-светодиод + ИК-приёмник на торце","EEPROM — Pi узнаёт, что вставлена в KODY"]},
+  {id:"left", name:"Кнопки (левый бок)", color:"#2a63ad", explode:[-20,0,0], label:[-38,12,0],
+   short:"2 большие кнопки, окно для SD-карты Pi",
+   items:["Две кнопки Ø9 мм, мягкий ход","Окно, чтобы доставать SD-карту Pi","Шипы-пазы для сборки пазла"]},
+  {id:"right", name:"Сенсор (правый бок)", color:"#ad2f2f", explode:[20,0,0], label:[38,12,0],
+   short:"Слайдер как Camera Control у Apple",
+   items:["Ёмкостный слайдер 22 мм — листать пальцем","Нажатие на слайдер = «ОК»","Вибромотор: тактильные «щелчки» при листании"]},
+  {id:"bottom", name:"Питание (снизу)", color:"#d8d4c8", explode:[0,0,18], label:[0,12,20],
+   short:"USB-C, зарядка, microSD №2, выключатель",
+   items:["USB-C: зарядка и подключение внешнего SDR / флешек","Контроллер заряда + 5 В для Pi","Слот microSD №2 для своих файлов","Выключатель питания"]},
+  {id:"back", name:"Радио + NFC (сзади)", color:"#5e2d8c", explode:[0,-18,0], label:[0,-3,0],
+   short:"CC1101, LoRa, NRF24, NFC, 125 кГц, RP2040",
+   items:["RP2040 — управляет всем радио в реальном времени","CC1101 (Sub-GHz), SX1262 (LoRa), NRF24 (2.4 ГГц)","ST25R3916: NFC чтение + эмуляция; катушка 125 кГц","3 антенных выхода MMCX","Pogo-контакты к низу Pi: USB + питание без проводов"]},
+  {id:"battery", name:"Аккумулятор", color:"#7b8fa6", explode:[0,9,0], label:[0,15,4],
+   short:"Li-Po ~600 мА·ч, лежит между Pi и экраном",
+   items:["Плоский Li-Po ≈ 48 × 18 × 4.5 мм","Лежит над Pi, рядом с гребёнкой"]},
+  {id:"pi", name:"Raspberry Pi Zero W / WH", color:"#2e7d4a", explode:[0,0,0], label:[0,4,8],
+   short:"Твоя плата — сердце пазла",
+   items:["65 × 30 мм, гребёнка 40 pin","Подходит и Zero 2 W — без переделок"]}
+];
+
+var stage=document.getElementById("stage"), canvas=document.getElementById("c");
+var labelsEl=document.getElementById("labels"), info=document.getElementById("info");
+var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if(typeof THREE==="undefined"){ stage.innerHTML='<p style="padding:20px">Не удалось загрузить 3D-библиотеку. Проверь интернет и обнови страницу.</p>'; return; }
+
+var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:false});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+var scene=new THREE.Scene();
+var camera=new THREE.PerspectiveCamera(35,1,1,2000);
+scene.add(new THREE.HemisphereLight(0xffffff,0x445044,0.85));
+var sun=new THREE.DirectionalLight(0xffffff,0.75); sun.position.set(80,140,120); scene.add(sun);
+var fill=new THREE.DirectionalLight(0xffffff,0.35); fill.position.set(-90,-40,-120); scene.add(fill);
+
+var root=new THREE.Group(); root.rotation.x=Math.PI/2; scene.add(root);  // device +Y (screen) -> world +Z, device top (-Z) -> world +Y
+
+function mat(color,opts){ var m=new THREE.MeshStandardMaterial(Object.assign({color:color,roughness:0.6,metalness:0.05},opts||{})); return m; }
+function box(g,w,h,d,color,x,y,z,opts){ var m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat(color,opts)); m.position.set(x,y,z); g.add(m); return m; }
+function cyl(g,r,h,color,x,y,z,axis,opts){ var m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,24),mat(color,opts)); m.position.set(x,y,z);
+  if(axis==="x") m.rotation.z=Math.PI/2; if(axis==="z") m.rotation.x=Math.PI/2; g.add(m); return m; }
+function canvasTex(w,h,draw){ var c=document.createElement("canvas"); c.width=w; c.height=h; draw(c.getContext("2d"),w,h); var t=new THREE.CanvasTexture(c); t.anisotropy=4; return t; }
+function rr(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+
+var GOLD="#c9a24a", SILVER="#b9bec4", BLACK="#151617";
+var groups={};
+PANELS.forEach(function(p){ var g=new THREE.Group(); g.userData.panel=p; groups[p.id]=g; root.add(g); });
+
+// --- Raspberry Pi Zero (device coords: x 65, y = thickness/front, z 30; top edge at -z)
+(function(g){
+  box(g,65,1.4,30,"#2e7d4a",0,5.2,0);
+  box(g,12,1.2,12,"#222",-4,6.5,2);                     // SoC
+  box(g,12,1.4,11,SILVER,-26,6.6,1,{metalness:.6});     // SD slot
+  box(g,11,3.2,7,SILVER,-20.1,7.5,11.5,{metalness:.6}); // mini-HDMI
+  box(g,8,2.6,5,SILVER,8.9,7.2,12.5,{metalness:.6});    // micro-USB OTG
+  box(g,8,2.6,5,SILVER,21.5,7.2,12.5,{metalness:.6});   // micro-USB PWR
+  box(g,50.8,2.5,5.08,BLACK,0,7.15,-11.5);              // header plastic
+  var pinGeo=new THREE.BoxGeometry(0.64,11,0.64), pm=mat(GOLD,{metalness:.8,roughness:.35});
+  var inst=new THREE.InstancedMesh(pinGeo,pm,40), m4=new THREE.Matrix4(), k=0;
+  for(var i=0;i<20;i++) for(var r=0;r<2;r++){ m4.makeTranslation(-24.13+2.54*i,11.4,r?-10.23:-12.77); inst.setMatrixAt(k++,m4); }
+  g.add(inst);
+})(groups.pi);
+
+// --- Battery
+box(groups.battery,48,4.5,18,"#7b8fa6",1,11.65,0.5,{metalness:.4,roughness:.4});
+
+// --- Screen panel (front)
+(function(g){
+  box(g,65,1,31,"#2b2f33",0,17.4,0);
+  box(g,49,2.4,26.5,BLACK,0,19.1,0);
+  var tex=canvasTex(680,362,function(c,w,h){
+    c.fillStyle="#0b0f14"; c.fillRect(0,0,w,h);
+    c.fillStyle="#9fb3c8"; c.font="600 22px system-ui,sans-serif"; c.fillText("KODY",18,32);
+    c.textAlign="right"; c.fillText("12:53  ▮▮▮  78%",w-18,32); c.textAlign="left";
+    var items=["Sub-GHz","NFC","125 кГц","ИК","LoRa","Проекты"], cols=3, cw=(w-48)/cols, ch=128;
+    items.forEach(function(t,i){ var x=16+(i%cols)*(cw+8), y=52+Math.floor(i/cols)*(ch+10);
+      rr(c,x,y,cw,ch,16); c.fillStyle=i===5?"#e08a4f":"#1b2430"; c.fill();
+      c.fillStyle=i===5?"#fff":"#d6e0ea"; c.font="600 30px system-ui,sans-serif"; c.fillText(t,x+16,y+ch-22);
+      c.beginPath(); c.arc(x+34,y+38,16,0,7); c.fillStyle=i===5?"#fff3":"#ffffff22"; c.fill(); });
+  });
+  var scr=new THREE.Mesh(new THREE.PlaneGeometry(42.7,22.7),new THREE.MeshBasicMaterial({map:tex}));
+  scr.rotation.x=-Math.PI/2; scr.position.set(0,20.32,0); g.add(scr);
+})(groups.screen);
+
+// --- Spine / GPIO (top edge, plane XY at z=-16.5)
+(function(g){
+  box(g,66,21,1,"#c9961f",0,10.75,-16.5);
+  box(g,51,8.5,5.1,BLACK,0,12.65,-12.95);               // right-angle socket the Pi plugs into
+  box(g,51,5.1,3,BLACK,0,11,-18.5);                     // outer low-profile 2x20 female
+  var holes=canvasTex(512,52,function(c,w,h){ c.fillStyle="#151617"; c.fillRect(0,0,w,h); c.fillStyle="#000";
+    for(var i=0;i<20;i++) for(var r=0;r<2;r++){ c.fillRect(8+i*25.2,9+r*24,9,9); } });
+  var face=new THREE.Mesh(new THREE.PlaneGeometry(51,5.1),new THREE.MeshBasicMaterial({map:holes}));
+  face.rotation.y=Math.PI; face.position.set(0,11,-20.01); g.add(face);
+  var led=cyl(g,1.5,2.5,"#cfd8ff",29,15,-18.2,"z",{transparent:true,opacity:.75,roughness:.1});
+  var rx=box(g,4,4,2.5,"#111",29,8.5,-18.2);
+})(groups.spine);
+
+// --- Left panel (buttons), plane YZ at x=-33.75
+(function(g){
+  box(g,1,21.5,31,"#2a63ad",-33.75,10.75,0);
+  [-7,7].forEach(function(z){ cyl(g,4.5,2.6,"#2b2e31",-35.5,11,z,"x",{roughness:.45}); cyl(g,3.6,0.4,"#3b3f43",-36.9,11,z,"x"); });
+  box(g,0.6,2,12,BLACK,-34.3,5.2,0); // SD window
+})(groups.left);
+
+// --- Right panel (slider), plane YZ at x=+33.75
+(function(g){
+  box(g,1,21.5,31,"#ad2f2f",33.75,10.75,0);
+  box(g,0.8,6,22,"#e9e6df",34.6,11,0,{roughness:.15,metalness:.1});
+  for(var i=-3;i<=3;i++) box(g,0.2,4.2,0.25,"#b9b4aa",35.05,11,i*2.6);
+  cyl(g,4,2.7,SILVER,30.5,12.5,-8,"x",{metalness:.6}); // vibro
+})(groups.right);
+
+// --- Bottom panel (power), plane XY at z=+16.5
+(function(g){
+  box(g,66,21.5,1,"#d8d4c8",0,10.75,16.5);
+  box(g,9,3.2,6.9,SILVER,0,12.1,13.05,{metalness:.7,roughness:.3});   // USB-C
+  box(g,7.6,1.6,0.3,"#222",0,12.1,17.05);
+  box(g,12,1.5,4.5,SILVER,20,15.2,14.2,{metalness:.6});                // microSD #2
+  box(g,11,0.8,0.3,"#222",20,15.2,17.05);
+  box(g,6,2.5,2,"#333",-20,12,17.6);                                    // power switch
+  box(g,2.4,1.6,1.4,"#ff7a3d",-20,12,18.8);
+})(groups.bottom);
+
+// --- Back panel (radio + NFC), plane XZ at y=0.5
+(function(g){
+  box(g,65,1,31,"#5e2d8c",0,0.5,0);
+  box(g,7,0.9,7,"#222",-14,1.45,-4);                                  // RP2040
+  box(g,12,2,9,SILVER,-23,2,6,{metalness:.7,roughness:.35});           // CC1101
+  box(g,14,2.4,20,SILVER,2,2.2,4,{metalness:.7,roughness:.35});        // SX1262 E22
+  box(g,6,1.2,6,SILVER,16,1.6,-6,{metalness:.7,roughness:.35});        // NRF24
+  box(g,5,0.9,5,"#222",-14,1.45,8);                                    // ST25R3916
+  for(var i=0;i<6;i++) cyl(g,0.5,3.6,GOLD,-14+i*2.54,2.8,-12.8,"y",{metalness:.8}); // pogo to header joints
+  cyl(g,0.5,3.6,GOLD,12,2.8,13.5,"y",{metalness:.8}); cyl(g,0.5,3.6,GOLD,14.5,2.8,13.5,"y",{metalness:.8}); // pogo to USB pads
+  var coil=canvasTex(650,310,function(c,w,h){ c.fillStyle="#5e2d8c"; c.fillRect(0,0,w,h);
+    c.strokeStyle="#d89a5a"; c.lineWidth=7;
+    for(var i=0;i<6;i++){ rr(c,40+i*16,50+i*16,420-i*32,210-i*32,28); c.stroke(); }
+    c.lineWidth=5; for(var j=0;j<4;j++){ c.beginPath(); c.arc(545,175,62-j*12,0,7); c.stroke(); }
+    c.fillStyle="#f1ecf7"; c.font="600 30px system-ui,sans-serif"; c.textAlign="center";
+    c.fillText("NFC 13.56 МГц",250,165); c.fillText("125 кГц",545,180); c.font="600 24px system-ui,sans-serif"; c.fillText("KODY",545,275); });
+  coil.center.set(.5,.5); coil.rotation=Math.PI;
+  var face=new THREE.Mesh(new THREE.PlaneGeometry(65,31),new THREE.MeshBasicMaterial({map:coil}));
+  face.rotation.x=Math.PI/2; face.position.set(0,-0.02,0); g.add(face);
+  [-26,-19,26].forEach(function(x){ cyl(g,1.6,3,GOLD,x,-1.5,-11,"y",{metalness:.85,roughness:.3}); });
+})(groups.back);
+
+// --- per-panel material bookkeeping
+PANELS.forEach(function(p){ groups[p.id].traverse(function(o){ if(o.isMesh){ o.userData.panelId=p.id; var m=o.material; m.userData.baseOpacity=m.opacity; m.userData.baseTransparent=m.transparent; if(m.emissive) m.userData.baseEmissive=m.emissive.getHex(); }}); });
+
+// --- labels
+var labelNodes=PANELS.map(function(p){ var d=document.createElement("div"); d.className="lbl"; d.textContent=p.name.replace(/ \(.+\)/,""); labelsEl.appendChild(d); return d; });
+var showLabels=true;
+
+// --- camera orbit
+var target=new THREE.Vector3(0,0,10.7), sph={r:150,theta:0.62,phi:1.18}, goal={r:150,theta:0.62,phi:1.18};
+var VIEWS={front:{theta:0,phi:Math.PI/2}, back:{theta:Math.PI,phi:Math.PI/2}, side:{theta:Math.PI/2,phi:1.35}, iso:{theta:0.62,phi:1.18}};
+function applyCam(){ var s=Math.sin(sph.phi); camera.position.set(target.x+sph.r*s*Math.sin(sph.theta), target.y+sph.r*Math.cos(sph.phi), target.z+sph.r*s*Math.cos(sph.theta)); camera.lookAt(target); }
+
+var pointers=new Map(), dragMoved=0, pinchStart=0, rStart=150;
+canvas.addEventListener("pointerdown",function(e){ canvas.setPointerCapture(e.pointerId); pointers.set(e.pointerId,{x:e.clientX,y:e.clientY}); dragMoved=0;
+  if(pointers.size===2){ var a=Array.from(pointers.values()); pinchStart=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y); rStart=goal.r; } });
+canvas.addEventListener("pointermove",function(e){ if(!pointers.has(e.pointerId)) return; var p=pointers.get(e.pointerId), dx=e.clientX-p.x, dy=e.clientY-p.y;
+  p.x=e.clientX; p.y=e.clientY;
+  if(pointers.size===1){ dragMoved+=Math.abs(dx)+Math.abs(dy); goal.theta-=dx*0.008; goal.phi=Math.min(Math.PI-0.05,Math.max(0.05,goal.phi-dy*0.008)); sph.theta=goal.theta; sph.phi=goal.phi; }
+  else if(pointers.size===2){ dragMoved+=10; var a=Array.from(pointers.values()), d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y); if(pinchStart>0){ goal.r=Math.min(400,Math.max(60,rStart*pinchStart/d)); sph.r=goal.r; } } });
+function up(e){ var was=pointers.size; pointers.delete(e.pointerId); if(was===1 && dragMoved<6) pick(e); }
+canvas.addEventListener("pointerup",up); canvas.addEventListener("pointercancel",function(e){pointers.delete(e.pointerId);});
+canvas.addEventListener("wheel",function(e){ e.preventDefault(); goal.r=Math.min(400,Math.max(60,goal.r*(1+e.deltaY*0.001))); },{passive:false});
+
+// --- picking / selection
+var ray=new THREE.Raycaster(), ndc=new THREE.Vector2(), selected=null;
+function pick(e){ var r=canvas.getBoundingClientRect(); ndc.set(((e.clientX-r.left)/r.width)*2-1, -((e.clientY-r.top)/r.height)*2+1);
+  ray.setFromCamera(ndc,camera); var hit=ray.intersectObjects(root.children,true)[0]; select(hit?hit.object.userData.panelId:null); }
+function select(id){
+  selected=id;
+  PANELS.forEach(function(p){ groups[p.id].traverse(function(o){ if(!o.isMesh) return; var m=o.material;
+    var dim = id && p.id!==id; m.transparent = dim ? true : m.userData.baseTransparent; m.opacity = dim ? 0.18 : m.userData.baseOpacity;
+    if(m.emissive) m.emissive.setHex(p.id===id ? 0x2a1a0a : m.userData.baseEmissive); m.needsUpdate=true; }); });
+  if(!id){ info.hidden=true; return; }
+  var p=PANELS.filter(function(q){return q.id===id;})[0];
+  info.innerHTML='<button class="x" aria-label="Закрыть">×</button><h3></h3><div class="note"></div><ul></ul>';
+  info.querySelector("h3").textContent=p.name; info.querySelector(".note").textContent=p.short;
+  var ul=info.querySelector("ul"); p.items.forEach(function(t){ var li=document.createElement("li"); li.textContent=t; ul.appendChild(li); });
+  info.querySelector(".x").onclick=function(){ select(null); }; info.hidden=false;
+}
+
+// --- cards
+var cards=document.getElementById("cards");
+PANELS.forEach(function(p){ var b=document.createElement("button"); b.className="pcard"; b.type="button";
+  b.innerHTML='<b><span class="sw"></span></b><small></small>'; b.querySelector(".sw").style.background=p.color;
+  b.querySelector("b").appendChild(document.createTextNode(p.name)); b.querySelector("small").textContent=p.short;
+  b.onclick=function(){ select(p.id); stage.scrollIntoView({behavior:reduce?"auto":"smooth",block:"center"}); }; cards.appendChild(b); });
+
+// --- explode
+var explode=0, explodeGoal=0, btnEx=document.getElementById("btnExplode");
+btnEx.onclick=function(){ explodeGoal=explodeGoal?0:1; btnEx.textContent=explodeGoal?"Собрать":"Разобрать"; goal.r=baseR*(explodeGoal?1.6:1); };
+document.querySelectorAll("[data-view]").forEach(function(b){ b.onclick=function(){ var v=VIEWS[b.dataset.view]; goal.theta=v.theta; goal.phi=v.phi; }; });
+document.getElementById("btnLabels").onclick=function(){ showLabels=!showLabels; labelsEl.hidden=!showLabels; };
+
+// --- theme-aware background
+function syncBg(){ var c=getComputedStyle(document.documentElement).getPropertyValue("--stage").trim()||"#dfe3de"; renderer.setClearColor(new THREE.Color(c),1); }
+syncBg(); if(window.matchMedia) window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",syncBg);
+new MutationObserver(syncBg).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+
+function resize(){ var w=stage.clientWidth, h=stage.clientHeight; renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
+  baseR = 150*(w<520 ? 1.35 : 1); goal.r = Math.max(goal.r, baseR*(explodeGoal?1.6:1)); }
+var baseR=150;
+new ResizeObserver(resize).observe(stage); resize();
+
+var tmp=new THREE.Vector3();
+function frame(){
+  var k = reduce ? 1 : 0.12;
+  explode += (explodeGoal-explode)*k; if(Math.abs(explodeGoal-explode)<1e-3) explode=explodeGoal;
+  sph.r += (goal.r-sph.r)*k; sph.theta += (goal.theta-sph.theta)*k; sph.phi += (goal.phi-sph.phi)*k;
+  PANELS.forEach(function(p){ var e=p.explode; groups[p.id].position.set(e[0]*explode,e[1]*explode,e[2]*explode); });
+  applyCam(); renderer.render(scene,camera);
+  var w=stage.clientWidth, h=stage.clientHeight;
+  if(showLabels) PANELS.forEach(function(p,i){ var L=p.label, g=groups[p.id];
+    tmp.set(L[0],L[1],L[2]).add(g.position); root.localToWorld(tmp); tmp.project(camera);
+    var n=labelNodes[i], vis = tmp.z<1 && (p.id!=="battery" && p.id!=="pi" || explode>0.5);
+    n.style.display = vis ? "" : "none"; n.style.left=((tmp.x+1)/2*w)+"px"; n.style.top=((1-tmp.y)/2*h)+"px"; });
+  requestAnimationFrame(frame);
+}
+frame();
+})();
+</script>
