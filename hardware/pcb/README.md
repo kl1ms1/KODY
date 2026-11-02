@@ -1,6 +1,6 @@
 # Платы KODY v9 — этап 1 (механика и разъёмы)
 
-**Наглядно, что где и зачем:** https://claude.ai/artifact/ — страница `docs/pcb/kody-pcb-guide.html` (генерируется `tools/gen_pcb_guide.py`).
+**Наглядно, что где и зачем:** https://claude.ai/artifact/89wcDY2xsGRGSkXmGNxgyf — страница `docs/pcb/kody-pcb-guide.html` (генерируется `tools/gen_pcb_guide.py`).
 
 Изменения: радиомодули стоят у своих антенн (NRF24, GPS, LoRa — наверху); рация SA818 и CC1101 — внизу, к антенне «Рация 433» короткий кабель с защёлками; ESP32-C5 убран (Wi-Fi/Bluetooth у Pi свои); контуры и подписи всех модулей нарисованы шелкографией на самой плате.
 
