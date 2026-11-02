@@ -95,12 +95,12 @@ def main(argv: list[str]) -> int:
           f"SDR-водопад {'вкл' if profile.sdr_waterfall else 'выкл'}")
     if profile.simulated:
         simulate = True
-    # при включении — самопроверка пазла
+    # при включении — самопроверка модулей
     print(panels.report(panels.run(bool(simulate))))
     projects = ["Лампочка"]
     try:
         while True:
-            top = choose("KODY — главное меню", ["Проекты", "Проверка пазла"])
+            top = choose("KODY — главное меню", ["Проекты", "Самопроверка"])
             if top is None:
                 return 0
             if top == 1:

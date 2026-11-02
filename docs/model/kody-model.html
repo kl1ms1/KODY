@@ -1,4 +1,4 @@
-<title>KODY Сэндвич</title>
+<title>KODY v7</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
@@ -69,15 +69,23 @@ th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute
 .seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .rec{background:var(--panel);border:1px solid var(--accent);border-radius:12px;padding:14px 16px}
 .rec b{font-family:var(--f-display);font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{font-family:var(--f-body);font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chips button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.chips .lab{font-size:12px;color:var(--muted);align-self:center;margin-right:4px;letter-spacing:.06em;text-transform:uppercase}
+.toolbar.out{position:static;justify-content:flex-start;margin-top:-12px}
 </style>
 
 
 <div class="wrap">
   <header>
-    <h1>KODY Сэндвич</h1>
-    <p>Вертикальный, как телефон. Pi Zero WH втыкается в основную плату, сзади — плоский аккумулятор размером с Pi и сменный радио-картридж. Повернёшь боком — экран повернётся сам по гироскопу. Размеры примерные, ±1–2 мм.</p>
-    <div class="dims"><span>≈ 34 × 70 × 29 мм с корпусом</span><span>Аккумулятор 503050 ≈ 1000 мА·ч</span><span>Питание как UPS-Lite</span><span>3 антенны SMA</span></div>
+    <h1>KODY v7: финальная сборка</h1>
+    <p>Две свои платы, Raspberry Pi Zero WH, экран от смартфона с плавным тачем, аккумулятор с защитой и ударопрочный корпус с бампером. Ни одного провода. Все 40 пинов GPIO свободны. Размеры примерные, ±1–2 мм.</p>
+    <div class="dims"><span>≈ 36 × 72 × 30 мм</span><span>Экран ≈ 2.5″, 60 Гц</span><span>4 антенны SMA</span><span>IP54</span><span>40/40 GPIO</span></div>
   </header>
+
+  <div class="chips" role="group" aria-label="Посмотреть деталь" id="viewChips"><span class="lab">Посмотреть</span></div>
 
   <div class="stage" id="stage">
     <canvas id="c" aria-label="3D-модель KODY. Тяни пальцем, чтобы вращать, щипок — масштаб"></canvas>
@@ -85,46 +93,43 @@ th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute
     <div class="hint">Тяни — вращать · щипок — масштаб · тап по детали — описание</div>
     <div class="cap" id="cap" hidden></div>
     <div class="info" id="info" hidden></div>
-    <div class="toolbar">
-      <button class="primary" id="btnRotate">Повернуть боком</button>
-      <button id="btnStep">Собрать по шагам</button>
-      <button id="btnExplode">Разобрать</button>
-      <button id="btnCase">Без корпуса</button>
-      <button id="btnCaps">Заглушки</button>
-      <button data-view="front">Спереди</button>
-      <button data-view="back">Сзади</button>
-      <button data-view="side">Сбоку</button>
-      <button data-view="iso">3/4</button>
-      <button id="btnLabels">Подписи</button>
-    </div>
+  </div>
+    <div class="toolbar out">
+    <button class="primary" id="btnStep">Собрать по шагам</button>
+    <button id="btnPrev" hidden>Назад</button>
+    <button id="btnExplode">Разобрать</button>
+    <button id="btnRotate">Повернуть боком</button>
+    <button id="btnCaps">Заглушки</button>
+    <button data-view="front">Спереди</button>
+    <button data-view="back">Сзади</button>
+    <button data-view="side">Сбоку</button>
+    <button data-view="top">Сверху</button>
+    <button data-view="iso">3/4</button>
+    <button id="btnLabels">Подписи</button>
   </div>
 
   <section>
-    <h2>Как собирается</h2>
+    <h2>Сборка по шагам</h2>
     <div class="steps" id="steps"></div>
   </section>
 
   <section>
-    <h2>Из чего состоит</h2>
+    <h2>Детали</h2>
     <div class="grid" id="cards"></div>
   </section>
 
   <section>
-    <h2>Дальность антенн</h2>
+    <h2>4 антенны</h2>
     <div class="tbl"><table>
-      <thead><tr><th>Радио</th><th>Антенна</th><th>Прямая видимость</th><th>Город</th></tr></thead>
+      <thead><tr><th>Гнездо</th><th>Чип</th><th>Зачем</th><th>Дальность</th></tr></thead>
       <tbody>
-        <tr><td>LoRa 868 (SX1262)</td><td>868 МГц, 5 dBi, ~20 см</td><td><b>5–15 км</b> даже по закону</td><td>1–3 км</td></tr>
-        <tr><td>Sub-GHz 433 (CC1101 + усилитель)</td><td>«как у рации», ~40 см (Nagoya NA-771 SMA-M)</td><td>0.5–1 км при 10 мВт, <b>1.5–2 км</b> в «турбо» 100 мВт</td><td>200–500 м</td></tr>
-        <tr><td>2.4 ГГц (NRF24 PA/LNA)</td><td>2.4 ГГц, 5 dBi</td><td>0.8–1 км</td><td>100–300 м</td></tr>
+        <tr><td>LoRa 868</td><td>SX1262 или «полевой» 1 Вт</td><td>Чат и координаты в поле, Meshtastic</td><td>5–15 км прямая видимость</td></tr>
+        <tr><td>Рация 433 / UHF</td><td>BK4819 (как в Quansheng UV-K5) + CC1101 через переключатель</td><td>Голос на каналах LPD/PMR, приём 18–660 и 840–1300 МГц, пульты 433</td><td>1–2 км с антенной «как у рации»</td></tr>
+        <tr><td>2.4 ГГц</td><td>NRF24L01+ PA/LNA</td><td>Мыши, клавиатуры, дроны на 2.4 ГГц</td><td>≈ 1 км</td></tr>
+        <tr><td>GPS</td><td>u-blox MAX-M10S</td><td>Скорость, координаты, время</td><td>Везде под открытым небом</td></tr>
       </tbody>
     </table></div>
-    <p class="note">Гнёзда на KODY — SMA-female, антенны берём SMA-male (штырёк внутри). По умолчанию мощность в рамках закона, «турбо» включает владелец.</p>
-  </section>
-
-  <section>
-    <h2>Wi-Fi без капризов</h2>
-    <p class="note">Встроенный Wi-Fi Pi работает только для интернета: обычный режим, автопереподключение, сторож. Все Wi-Fi/Bluetooth-инструменты — на отдельном чипе ESP32-C5 (2.4 + 5 ГГц), поэтому интернет не отваливается, как на Pwnagotchi.</p>
+    <p class="note">Wi-Fi и Bluetooth — отдельный чип ESP32-C5 со своей антенной внутри. Вместо любой антенны — заглушка 50 Ом.</p>
   </section>
 </div>
 
@@ -132,41 +137,48 @@ th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute
 <script>
 (function(){
 "use strict";
-// Vertical frame: X = width, Y = height (up), Z = thickness (screen toward +Z). Front stack is shifted by DZ for the battery layer.
-var DZ=5.5;
-var PANELS = [
-  {id:"pi", step:0, z:DZ, name:"Raspberry Pi Zero W / WH", color:"#2e7d4a", explode:[0,0,-6], label:[2,-6,6], short:"Стоит вертикально: гребёнка слева, SD внизу", items:["Втыкается в основную плату гребёнкой","Подходит и Zero 2 W"]},
-  {id:"main", step:1, z:DZ, name:"Основная плата", color:"#1f6f78", explode:[0,0,16], label:[-4,26,22], short:"Гнездо Pi снизу; кнопки, крутилка, USB-C, GPIO по краям", items:["Гнездо 2×20 «мама» — Pi втыкается сюда","Справа крутилка + 3 кнопки, слева GPIO, снизу 2× USB-C","Гироскоп LSM6DSV16X, компас, датчик света, часы","Вибро DRV2605L + LRA — чёткие «щелчки»","Мелочь паяет завод, мы — только крупные разъёмы"]},
-  {id:"ups", step:1, z:DZ, name:"Питание UPS", color:"#e08a4f", explode:[0,0,16], label:[7,-14,16], short:"Зарядка, защита аккумулятора, 5 В для Pi", items:["BQ25895: зарядка + power-path — воткнул/выдернул зарядку, Pi не моргнула","Защита DW01A + FS8205A: перезаряд, переразряд, КЗ","Датчик температуры на аккумуляторе","MAX17048: проценты заряда","При 3 % Pi выключается аккуратно"]},
-  {id:"extra", step:1, z:DZ, name:"ESP32-C5 + приколы", color:"#b7a65a", explode:[0,0,16], label:[6,14,16], short:"Wi-Fi/BT-инструменты, динамик, место под новое", items:["ESP32-C5: Wi-Fi 2.4 + 5 ГГц и Bluetooth для инструментов","Динамик и микрофон","Свободное место под новые идеи"]},
-  {id:"battery", step:2, z:0, name:"Аккумулятор 503050", color:"#7b8fa6", explode:[0,0,-12], label:[-6,-18,7], short:"Плоский, размером с Pi: ≈ 1000 мА·ч", items:["5 × 30 × 50 мм — между крепёжными отверстиями Pi","Припаян тремя проводами к основной плате: +, −, датчик t°","Под ним каптоновая плёнка — пайка Pi не проколет","≈ 4–5 часов на Zero W"]},
-  {id:"radio", step:3, z:0, name:"Радио-картридж (сзади)", color:"#5e2d8c", explode:[0,0,-24], label:[0,0,-2], short:"CC1101, LoRa, NRF24, NFC, 125 кГц, GPS, ИК + 3 SMA", items:["RP2040 управляет радио в реальном времени","Ферритовый лист — чтобы аккумулятор не глушил NFC","GPS-антенна у верха — смотрит в небо","Шлейф к основной плате + 4 длинных винта"]},
-  {id:"screen", step:4, z:DZ, name:"Экран 1.9″ с тачем", color:"#2b2f33", explode:[0,0,30], label:[0,-14,24], short:"IPS 170×320, ёмкостный тач, автоповорот", items:["Поворачивает картинку по гироскопу","Автояркость по датчику света","Опция: AMOLED 1.91″ 240×536"]},
-  {id:"caseB", step:5, z:0, name:"Корпус: задняя часть", color:"#d9d4c7", explode:[0,0,-40], label:[-12,-30,-2], short:"3D-печать", items:["Окна под NFC, GPIO, USB-C, SD-карту Pi"]},
-  {id:"caseF", step:5, z:DZ, name:"Корпус: передняя рамка", color:"#d9d4c7", explode:[0,0,40], label:[12,30,23], short:"Рамка вокруг экрана, 2 винта", items:["Окошко датчика света"]},
-  {id:"ant", step:6, z:0, name:"Антенны (съёмные)", color:"#1b1d1f", explode:[0,30,0], label:[0,80,4], short:"SMA-male, или заглушки 50 Ом", items:["Sub-GHz 433, LoRa 868, 2.4 ГГц","Чем длиннее антенна — тем дальше"]}
+// Frame: X = width, Y = height (up), Z = thickness (screen toward +Z)
+var PARTS = [
+  {id:"caseB", step:0, name:"Корпус: задняя часть", color:"#3d4440", explode:[0,0,-40], label:[-14,-30,-3], short:"Жёсткий нейлон PA12, печать на заводе", items:["Окна под NFC, USB-C, GPIO","Стойки с латунными резьбовыми вставками"]},
+  {id:"back", step:1, name:"Задняя плата: радио", color:"#5e2d8c", explode:[0,0,-24], label:[0,6,-1], short:"Рация, LoRa, 2.4 ГГц, GPS, NFC, 125 кГц, Wi-Fi, USB-хаб", items:["RP2350 — мозг радио","BK4819 — рация 433 / UHF (как в UV-K5) + CC1101 для пультов","SX1262 — LoRa до 15 км","NRF24 PA/LNA — 2.4 ГГц","ESP32-C5 — Wi-Fi 2.4/5 ГГц и Bluetooth","GPS MAX-M10S","ST25R3916 — NFC с эмуляцией, катушка 125 кГц","4 гнезда SMA сверху, USB-C снизу","Pogo-контакты к Pi: USB + питание"]},
+  {id:"pi", step:2, name:"Raspberry Pi Zero WH", color:"#2e7d4a", explode:[0,0,-10], label:[-2,-6,9], short:"Ставится на заднюю плату, pogo упираются в площадки", items:["Гребёнка — к передней плате","Снизу площадки USB и питания — к задней плате"]},
+  {id:"hdmi", step:2, name:"Переходник mini-HDMI → шлейф", color:"#e09a3a", explode:[10,0,-10], label:[19,-20,12], short:"Вставляется в Pi, шлейф — в переднюю плату", items:["Готовая деталь, паять не нужно","Картинка 60 Гц на экран"]},
+  {id:"front", step:3, name:"Передняя плата: питание и управление", color:"#1f6f78", explode:[0,0,16], label:[-4,30,20], short:"UPS, кнопки, крутилка, датчики, GPIO, экран", items:["Гнездо для Pi снизу (впаяно на заводе)","Питание как UPS-Lite: зарядка, защита, power-path, 5 В","STM32 — кнопки, крутилка, вибро, кнопка питания","Гироскоп, датчик света, часы, динамик","Мост HDMI → экран","Справа по центру: кнопка, кнопка, крутилка, кнопка","Слева: все 40 GPIO с защитой от статики","Снизу: USB-C быстрой зарядки"]},
+  {id:"screws", step:3, name:"4 винта M2", color:"#9aa0a6", explode:[0,0,40], label:[13,-29,24], short:"Насквозь через Pi: зажимают сэндвич", items:["Pi не выскочит из гнезда при ударе"]},
+  {id:"battery", step:4, name:"Аккумулятор", color:"#7b8fa6", explode:[0,0,26], label:[3,-8,26], short:"≈ 900–1000 мА·ч, 3 лепестка паяются к плате", items:["Лепестки +, −, датчик температуры — без проводов","Лежит на каптоне, приклеен"]},
+  {id:"screen", step:5, name:"Экран 2.5″ с тачем", color:"#202326", explode:[0,0,40], label:[0,-16,30], short:"От смартфона: 60 Гц, тач 120 Гц, стекло", items:["Матрица + тач + стекло — один модуль с завода","Тач опрашивается 120 раз/с — плавная линия","Без мерцания: DC-подсветка, автояркость","Шлейф защёлкивается в переднюю плату"]},
+  {id:"caseF", step:6, name:"Корпус: рамка + уплотнитель", color:"#3d4440", explode:[0,0,54], label:[14,32,30], short:"Стекло утоплено на 0.5 мм ниже края", items:["Уплотнитель по шву — брызги и снег","Экран вклеен в рамку рамочным скотчем"]},
+  {id:"bumper", step:7, name:"Резиновый бампер", color:"#e08a4f", explode:[0,0,62], label:[-19,36,14], short:"TPU на углах — держит падения", items:["Углы и рёбра принимают удар","Мембраны на кнопках, заглушка на GPIO"]},
+  {id:"ant", step:8, name:"Антенны", color:"#1b1d1f", explode:[0,34,0], label:[0,95,1], short:"LoRa · Рация · 2.4 ГГц · GPS", items:["Съёмные, SMA-male","Вместо любой — заглушка 50 Ом"]}
 ];
 var STEPS = [
-  ["Берёшь Pi Zero WH","Гребёнкой к основной плате."],
-  ["Втыкаешь Pi в основную плату","Все кнопки, крутилка, USB-C, GPIO и питание уже на ней."],
-  ["Кладёшь аккумулятор на спину Pi","Он уже припаян проводами к основной плате, под ним каптон."],
-  ["Ставишь радио-картридж","Шлейф к основной плате + 4 винта через отверстия Pi."],
-  ["Подключаешь экран","Шлейф к основной плате."],
-  ["Закрываешь корпус","Задняя часть + передняя рамка, 2 винта."],
-  ["Накручиваешь антенны","Или заглушки — и включаешь: KODY проверит все модули."]
+  ["Задняя часть корпуса","Обе платы пришли с завода с уже впаянными деталями, даже гнёзда."],
+  ["Кладёшь заднюю плату","Лицом вниз, на стойки корпуса. 4 гнезда SMA выходят в окна сверху."],
+  ["Ставишь Pi и вставляешь переходник HDMI","Отверстия Pi — на стойки. Pogo-контакты сами упираются в площадки снизу Pi."],
+  ["Надеваешь переднюю плату","Гребёнка Pi — в гнездо, нажать до упора. Шлейф HDMI — в разъём. 4 винта насквозь."],
+  ["Аккумулятор","Наклеить на каптон, припаять 3 лепестка к площадкам. Всё, больше паять нечего."],
+  ["Экран","Шлейф экрана защёлкнуть в разъём на передней плате."],
+  ["Рамка с уплотнителем","Экран вклеен в рамку. Рамку на корпус, 4 винта."],
+  ["Бампер","Надеть резиновый бампер, заглушку на GPIO."],
+  ["Антенны","Накрутить нужные, на остальные — заглушки 50 Ом."],
+  ["Включить","KODY проверит все модули и покажет результат."]
 ];
+var VIEWCHIPS = [["all","Всё"],["pi","Raspberry Pi"],["front","Передняя плата"],["battery","Аккумулятор"],["screen","Экран"],["back","Задняя плата"],["case","Корпус"],["ant","Антенны"]];
 
 var stage=document.getElementById("stage"), canvas=document.getElementById("c");
 var labelsEl=document.getElementById("labels"), info=document.getElementById("info"), cap=document.getElementById("cap");
 var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-var select=function(){};
+var select=function(){}, focusOn=function(){};
 (function(){ var stepsEl=document.getElementById("steps"), cards=document.getElementById("cards");
   STEPS.forEach(function(s,i){ var d=document.createElement("div"); d.className="pcard"; d.innerHTML='<span class="n"></span><b></b><small></small>';
     d.querySelector(".n").textContent="ШАГ "+(i+1); d.querySelector("b").textContent=s[0]; d.querySelector("small").textContent=s[1]; stepsEl.appendChild(d); });
-  PANELS.forEach(function(p){ var b=document.createElement("button"); b.className="pcard"; b.type="button";
+  PARTS.forEach(function(p){ var b=document.createElement("button"); b.className="pcard"; b.type="button";
     b.innerHTML='<b><span class="sw"></span></b><small></small>'; b.querySelector(".sw").style.background=p.color;
     b.querySelector("b").appendChild(document.createTextNode(p.name)); b.querySelector("small").textContent=p.short;
     b.onclick=function(){ select(p.id); stage.scrollIntoView({behavior:reduce?"auto":"smooth",block:"center"}); }; cards.appendChild(b); });
+  var chips=document.getElementById("viewChips");
+  VIEWCHIPS.forEach(function(v){ var b=document.createElement("button"); b.type="button"; b.textContent=v[1]; b.dataset.focus=v[0]; b.setAttribute("aria-pressed", v[0]==="all");
+    b.onclick=function(){ focusOn(v[0]); chips.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed", x===b); }); }; chips.appendChild(b); });
 })();
 
 if(typeof THREE==="undefined"){ stage.innerHTML='<p style="padding:20px">Не удалось загрузить 3D-библиотеку. Проверь интернет и обнови страницу.</p>'; return; }
@@ -176,7 +188,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
 var scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(35,1,1,3000);
 scene.add(new THREE.HemisphereLight(0xffffff,0x445044,0.85));
 var sun=new THREE.DirectionalLight(0xffffff,0.75); sun.position.set(90,120,140); scene.add(sun);
-var fill=new THREE.DirectionalLight(0xffffff,0.35); fill.position.set(-90,-40,-120); scene.add(fill);
+var fill=new THREE.DirectionalLight(0xffffff,0.4); fill.position.set(-90,-40,-120); scene.add(fill);
 var root=new THREE.Group(); scene.add(root);
 
 function mat(color,opts){ return new THREE.MeshStandardMaterial(Object.assign({color:color,roughness:0.6,metalness:0.05},opts||{})); }
@@ -185,199 +197,203 @@ function cyl(g,r,h,color,x,y,z,axis,opts,r2,seg){ var m=new THREE.Mesh(new THREE
   if(axis==="x") m.rotation.z=-Math.PI/2; if(axis==="z") m.rotation.x=Math.PI/2; g.add(m); return m; }
 function canvasTex(w,h,draw){ var c=document.createElement("canvas"); c.width=w; c.height=h; draw(c.getContext("2d"),w,h); var t=new THREE.CanvasTexture(c); t.anisotropy=4; return t; }
 function rr(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
-var GOLD="#c9a24a", SILVER="#b9bec4", BLACK="#151617", BRASS="#b8913a";
+function plane(g,w,h,tex,x,y,z,ry){ var m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:tex})); m.position.set(x,y,z); if(ry) m.rotation.y=ry; g.add(m); return m; }
+var GOLD="#c9a24a", SILVER="#b9bec4", BLACK="#151617", BRASS="#b8913a", CHIP="#1d1f22";
 var HOLES=[[-11.5,-29],[11.5,-29],[-11.5,29],[11.5,29]];
+var G={}; PARTS.forEach(function(p){ var g=new THREE.Group(); G[p.id]=g; p.cur=0; root.add(g); });
 
-// ---------- shared builders
-function buildPi(g){
-  box(g,30,65,1.4,"#2e7d4a",0,0,5.2);
-  box(g,12,12,1.2,"#222",-2,-4,6.5);
-  box(g,11,12,1.4,SILVER,1,-26,6.6,{metalness:.6});
-  box(g,7,11,3.2,SILVER,11.5,-20.1,7.5,{metalness:.6});
-  box(g,5,8,2.6,SILVER,12.5,8.9,7.2,{metalness:.6});
-  box(g,5,8,2.6,SILVER,12.5,21.5,7.2,{metalness:.6});
-  box(g,5.08,50.8,2.5,BLACK,-11.5,0,7.15);
+// ---------- Back case + front frame + bumper
+var shell={color:"#3d4440",roughness:.85};
+(function(g){ box(g,36,72,1.2,"#3d4440",0,0,-1.9,shell);
+  box(g,1.2,72,14,"#3d4440",-17.4,0,5.7,shell); box(g,1.2,72,14,"#3d4440",17.4,0,5.7,shell);
+  box(g,36,1.2,14,"#3d4440",0,35.4,5.7,shell); box(g,36,1.2,14,"#3d4440",0,-35.4,5.7,shell);
+  HOLES.forEach(function(h){ cyl(g,2.2,1.2,"#4a524d",h[0],h[1],-0.7,"z"); });
+})(G.caseB);
+(function(g){ box(g,1.2,72,13.8,"#3d4440",-17.4,0,21.9,shell); box(g,1.2,72,13.8,"#3d4440",17.4,0,21.9,shell);
+  box(g,36,1.2,13.8,"#3d4440",0,35.4,21.9,shell); box(g,36,1.2,13.8,"#3d4440",0,-35.4,21.9,shell);
+  box(g,1.6,72,0.6,"#3d4440",-17.2,0,28.9,shell); box(g,1.6,72,0.6,"#3d4440",17.2,0,28.9,shell);
+  box(g,36,1.6,0.6,"#3d4440",0,35.2,28.9,shell); box(g,36,1.6,0.6,"#3d4440",0,-35.2,28.9,shell);
+  var gk="#ff7a3d"; box(g,0.8,70,0.6,gk,-17.4,0,15.1); box(g,0.8,70,0.6,gk,17.4,0,15.1); box(g,34,0.8,0.6,gk,0,35.4,15.1); box(g,34,0.8,0.6,gk,0,-35.4,15.1);
+})(G.caseF);
+(function(g){ var b="#e08a4f";
+  [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(function(s){ box(g,4.2,6,32,b,s[0]*17.6,s[1]*34.8,13.4,{roughness:.9}); box(g,6,4.2,32,b,s[0]*16.8,s[1]*35.6,13.4,{roughness:.9}); });
+  box(g,2.4,18,7,b,-18.6,0,22,{roughness:.9});   // GPIO rubber plug
+})(G.bumper);
+
+// ---------- Back board (radio)
+var coilTex=canvasTex(330,660,function(c,w,h){ c.fillStyle="#5e2d8c"; c.fillRect(0,0,w,h); c.strokeStyle="#d89a5a"; c.lineWidth=7;
+  for(var i=0;i<5;i++){ rr(c,30+i*16,350+i*16,270-i*32,260-i*32,26); c.stroke(); }
+  c.lineWidth=5; for(var j=0;j<4;j++){ c.beginPath(); c.arc(165,480,40-j*9,0,7); c.stroke(); }
+  c.fillStyle="#f1ecf7"; c.font="600 24px system-ui,sans-serif"; c.textAlign="center"; c.fillText("NFC 13.56 МГц",165,395); c.fillText("125 кГц",165,555);
+  c.font="700 40px system-ui,sans-serif"; c.fillText("KODY",165,170); c.font="500 20px system-ui,sans-serif"; c.fillText("v7 · радио",165,205); });
+(function(g){
+  box(g,33,66,1.6,"#5e2d8c",0,0,0.8);
+  plane(g,33,66,coilTex,0,0,-0.02,Math.PI);
+  box(g,26,28,0.3,"#2e2e2e",0,-15,1.75);                                            // ferrite under the coils
+  var can={metalness:.7,roughness:.35};
+  box(g,10,10,2.2,SILVER,-9,22,2.7,can); box(g,8,8,2,SILVER,-9,11,2.6,can);          // BK4819 + CC1101
+  box(g,13,17,2.4,SILVER,7,20,2.8,can);                                             // SX1262
+  box(g,11,10,2.2,SILVER,7,6,2.7,can);                                              // NRF24
+  box(g,13,18,2.4,SILVER,-8,-1,2.8,can); box(g,13,5,0.6,"#2f6d3a",-8,-12,2);        // ESP32-C5 module (antenna end down)
+  box(g,7,7,0.9,CHIP,8,-6,2.05); box(g,6,6,0.9,CHIP,1,-10,2.05);                    // RP2350, USB hub
+  box(g,10,10,1.6,SILVER,11,-14,2.4,can); box(g,5,5,0.9,CHIP,-2,-20,2.05);          // GPS, ST25R3916
+  [-12.75,-4.25,4.25,12.75].forEach(function(x){ box(g,6.35,5,6.35,GOLD,x,33.5,0.8,{metalness:.85,roughness:.3}); });
+  box(g,9,6.9,3.2,SILVER,7,-29.6,3.2,{metalness:.7,roughness:.3}); box(g,7.6,0.3,1.6,"#222",7,-33.1,3.2);
+  [0,1,2,3].forEach(function(i){ cyl(g,0.5,3.9,GOLD,10,10+i*2.5,3.55,"z",{metalness:.85}); });       // pogo pins
+  HOLES.forEach(function(h){ cyl(g,1.8,3.9,BRASS,h[0],h[1],3.55,"z",{metalness:.7,roughness:.4},undefined,6); });
+})(G.back);
+
+// ---------- Raspberry Pi (PCB 5.5..6.9)
+(function(g){ var dz=1.0;
+  box(g,30,65,1.4,"#2e7d4a",0,0,5.2+dz); box(g,12,12,1.2,"#222",-2,-4,6.5+dz);
+  box(g,11,12,1.4,SILVER,1,-26,6.6+dz,{metalness:.6}); box(g,7,11,3.2,SILVER,11.5,-20.1,7.5+dz,{metalness:.6});
+  box(g,5,8,2.6,SILVER,12.5,8.9,7.2+dz,{metalness:.6}); box(g,5,8,2.6,SILVER,12.5,21.5,7.2+dz,{metalness:.6});
+  box(g,5.08,50.8,2.5,BLACK,-11.5,0,7.15+dz);
   var inst=new THREE.InstancedMesh(new THREE.BoxGeometry(0.64,0.64,11),mat(GOLD,{metalness:.8,roughness:.35}),40), m4=new THREE.Matrix4(), k=0;
-  for(var i=0;i<20;i++) for(var r=0;r<2;r++){ m4.makeTranslation(r?-10.23:-12.77,-24.13+2.54*i,11.4); inst.setMatrixAt(k++,m4); }
+  for(var i=0;i<20;i++) for(var r=0;r<2;r++){ m4.makeTranslation(r?-10.23:-12.77,-24.13+2.54*i,11.4+dz); inst.setMatrixAt(k++,m4); }
   g.add(inst);
-}
-function buildCoreBase(g,color){
-  box(g,31,65,1,color,0,0,17.4);
-  box(g,5.1,51,8.5,BLACK,-12.95,0,12.65);
-  box(g,3,3,0.9,"#222",6,-27,16.45);
-  cyl(g,4,2.7,SILVER,-6,-28.5,15.5,"z",{metalness:.6});
-  HOLES.forEach(function(h){ cyl(g,1.6,11,BRASS,h[0],h[1],11.4,"z",{metalness:.7,roughness:.4},undefined,6); });
-}
-var screenTex=canvasTex(340,640,function(c,w,h){
-  c.fillStyle="#0b0f14"; c.fillRect(0,0,w,h);
-  c.fillStyle="#9fb3c8"; c.font="600 20px system-ui,sans-serif"; c.fillText("KODY",16,32); c.textAlign="right"; c.fillText("▮▮▮ 96%",w-16,32); c.textAlign="left";
-  rr(c,16,52,w-32,120,18); c.fillStyle="#1b2430"; c.fill(); c.fillStyle="#e08a4f"; c.font="700 54px system-ui,sans-serif"; c.fillText("433.92",30,128);
-  c.fillStyle="#9fb3c8"; c.font="500 20px system-ui,sans-serif"; c.fillText("МГц · Sub-GHz · приём",32,158);
-  ["NFC","LoRa","GPS","ИК","Проекты"].forEach(function(t,i){ var y=192+i*86; rr(c,16,y,w-32,74,14); c.fillStyle=i===0?"#24324a":"#151d27"; c.fill();
-    c.fillStyle="#d6e0ea"; c.font="600 26px system-ui,sans-serif"; c.fillText(t,36,y+46); c.fillStyle="#5f7388"; c.fillText("›",w-44,y+46); });
-});
-function buildScreen(g,z){
-  box(g,29,60,0.6,"#2b2f33",0,0,z-1.5);
-  box(g,26.5,49,2.4,BLACK,0,0,z);
-  var scr=new THREE.Mesh(new THREE.PlaneGeometry(22.7,42.7),new THREE.MeshBasicMaterial({map:screenTex})); scr.position.set(0,0,z+1.22); g.add(scr);
-}
-var coilTex=canvasTex(310,650,function(c,w,h){ c.fillStyle="#5e2d8c"; c.fillRect(0,0,w,h); c.strokeStyle="#d89a5a"; c.lineWidth=7;
-  for(var i=0;i<6;i++){ rr(c,40+i*16,150+i*16,230-i*32,300-i*32,26); c.stroke(); }
-  c.lineWidth=5; for(var j=0;j<4;j++){ c.beginPath(); c.arc(155,545,58-j*12,0,7); c.stroke(); }
-  c.fillStyle="#f1ecf7"; c.font="600 26px system-ui,sans-serif"; c.textAlign="center"; c.fillText("NFC",155,300); c.fillText("13.56 МГц",155,332); c.fillText("125 кГц",155,552);
-  c.font="600 22px system-ui,sans-serif"; c.fillText("KODY",155,80); });
-function buildBackModules(g){
-  box(g,31,65,1,"#5e2d8c",0,0,0.5);
-  box(g,13,17,2.2,SILVER,4,17,2.1,{metalness:.7,roughness:.35});
-  box(g,13,15,2.4,SILVER,4,0,2.2,{metalness:.7,roughness:.35});
-  box(g,13,13,2.2,SILVER,4,-16,2.1,{metalness:.7,roughness:.35});
-  box(g,7,7,0.9,"#222",-8,-20,1.45); box(g,5,5,0.9,"#222",-8,-9,1.45); box(g,8,8,1.6,SILVER,-8,4,1.8,{metalness:.7});
-  box(g,10,10,2,"#d8c9a3",-7,20,2);
-  HOLES.forEach(function(h){ cyl(g,1.6,9,BRASS,h[0],h[1],5.5,"z",{metalness:.7,roughness:.4},undefined,6); });
-  box(g,26,36,0.3,"#3a3a3a",0,8,1.15);
-  var face=new THREE.Mesh(new THREE.PlaneGeometry(31,65),new THREE.MeshBasicMaterial({map:coilTex})); face.rotation.y=Math.PI; face.position.set(0,0,-0.02); g.add(face);
-}
-function sideButton(g,x,y,z,dir){ cyl(g,4.5,2.6,"#2b2e31",x+dir*1.3,y,z,"x",{roughness:.45}); cyl(g,3.6,0.4,"#3b3f43",x+dir*2.8,y,z,"x"); }
-function knob(g,x,y,z){ cyl(g,2,2,SILVER,x+1,y,z,"x",{metalness:.7}); cyl(g,7.5,7,"#3a3d40",x+5.5,y,z,"x",{metalness:.5,roughness:.35},undefined,40);
-  cyl(g,6.3,0.6,"#55595d",x+9.3,y,z,"x",{metalness:.6,roughness:.25}); box(g,0.5,0.8,4,"#e08a4f",x+9.6,y+3,z); }
-function usbC(g,x,yEdge,z){ box(g,9,6.9,3.2,SILVER,x,yEdge+3.45,z,{metalness:.7,roughness:.3}); box(g,7.6,0.3,1.6,"#222",x,yEdge-0.05,z); }
+})(G.pi);
+(function(g){ box(g,4,10,3.4,SILVER,15.6,-20.1,8.6,{metalness:.7}); box(g,0.3,9,9.4,"#e09a3a",16.4,-20.1,13.5); box(g,6,9,0.3,"#e09a3a",13.4,-20.1,18.0); })(G.hdmi);
+
+// ---------- Front board (17.9..19.5)
 var gpioTex=canvasTex(52,512,function(c,w,h){ c.fillStyle="#151617"; c.fillRect(0,0,w,h); c.fillStyle="#000"; for(var i=0;i<20;i++) for(var r=0;r<2;r++) c.fillRect(9+r*24,8+i*25.2,9,9); });
-function gpioSocket(g,xOuter,y,z){ box(g,3,51,5.1,BLACK,xOuter+1.5,y,z); var f=new THREE.Mesh(new THREE.PlaneGeometry(5.1,51),new THREE.MeshBasicMaterial({map:gpioTex})); f.rotation.y=-Math.PI/2; f.position.set(xOuter-0.01,y,z); g.add(f); }
-function antennas(g,spots,list){ // spots: [x, z, length]; antennas point +Y from yBase
-  spots.forEach(function(s){ var x=s[0], z=s[1], L=s[2], y0=s[3];
-    cyl(g,3.1,5,GOLD,x,y0+2.5,z,"y",{metalness:.85,roughness:.3});
-    var a1=cyl(g,4.6,9,"#202224",x,y0+9.5,z,"y",{roughness:.7}), a2=cyl(g,4.0,L,"#202224",x,y0+14+L/2,z,"y",{roughness:.75},3.4), tip=cyl(g,3.4,1.5,"#2a2c2e",x,y0+14+L+0.75,z,"y");
-    var c1=cyl(g,4.2,7,GOLD,x,y0+8.5,z,"y",{metalness:.85,roughness:.3}), c2=cyl(g,3.4,1,"#2b2b2b",x,y0+12.5,z,"y");
-    c1.visible=c2.visible=false; list.ant.push(a1,a2,tip); list.cap.push(c1,c2); });
-}
+(function(g){
+  box(g,33,66,1.6,"#1f6f78",0,0,18.7);
+  box(g,5.1,51,8.5,BLACK,-12.95,0,13.65);                                            // socket for the Pi (underside)
+  box(g,7,7,1,CHIP,2,8,17.4); box(g,5,5,0.9,CHIP,-4,-2,17.45); box(g,4,4,0.9,CHIP,4,-6,17.45);   // LT6911, STM32, BQ25895
+  box(g,5,5,2.5,"#6b6f74",9,-6,16.6,{metalness:.5}); box(g,5,5,2.5,"#6b6f74",-3,-12,16.6,{metalness:.5});
+  box(g,3,3,0.9,CHIP,4,-15,17.45); box(g,3,3,0.9,CHIP,-6,16,17.45); box(g,3,3,0.9,CHIP,-6,24,17.45);
+  cyl(g,4,3,"#888c90",4,26,16.3,"z",{metalness:.5});                                  // LRA
+  box(g,11,15,3,"#2a2a2a",2,-24,16.3);                                               // speaker
+  [22,12,-10].forEach(function(y){ box(g,4,6,3.5,"#d9d9d9",14.8,y,15.9); cyl(g,4.2,2.6,"#2b2e31",18.4,y,15.6,"x",{roughness:.45}); cyl(g,3.4,0.4,"#3b3f43",19.8,y,15.6,"x"); });
+  box(g,7,12,6,"#444",12.7,0,14.8); cyl(g,2,2,SILVER,17,0,15,"x",{metalness:.7});
+  cyl(g,7.5,7,"#3a3d40",21.5,0,15,"x",{metalness:.5,roughness:.35},undefined,40); cyl(g,6.3,0.6,"#55595d",25.3,0,15,"x",{metalness:.6}); box(g,0.5,4,0.8,"#e08a4f",25.6,0,17.4);
+  box(g,5,51,5.1,BLACK,-14.6,0,22.05); plane(g,5.1,51,gpioTex,-17.11,0,22.05,-Math.PI/2);   // GPIO out (top side, left edge)
+  box(g,9,6.9,3.2,SILVER,3,-29.6,21.1,{metalness:.7,roughness:.3}); box(g,7.6,0.3,1.6,"#222",3,-33.1,21.1);
+  cyl(g,1.5,2.5,"#cfd8ff",-5,33.4,20.8,"y",{transparent:true,opacity:.8}); box(g,3.5,2.5,3,"#111",5,33.4,21);   // IR
+  box(g,8,3,1,"#c8c8c8",-3,28.5,20); cyl(g,1,0.8,"#111",12,29,20,"z");                         // screen FPC connector, light sensor
+})(G.front);
+(function(g){ HOLES.forEach(function(h){ cyl(g,1.1,22,"#9aa0a6",h[0],h[1],9.5,"z",{metalness:.8}); cyl(g,2,1.2,"#9aa0a6",h[0],h[1],20.1,"z",{metalness:.8}); }); })(G.screws);
 
+// ---------- Battery (19.6..25.1)
+(function(g){ box(g,26,50,5.5,"#7b8fa6",2,-1,22.35,{metalness:.4,roughness:.4}); box(g,26,50,0.1,"#d98b2b",2,-1,19.62);
+  [-4,2,8].forEach(function(x,i){ box(g,3,4,0.3,["#cfd3d6","#cfd3d6","#cfd3d6"][i],x,25.5,19.9,{metalness:.8}); }); })(G.battery);
 
-// landscape UI for the rotated state
-var landTex=canvasTex(640,340,function(c,w,h){
-  c.fillStyle="#0b0f14"; c.fillRect(0,0,w,h);
-  c.fillStyle="#9fb3c8"; c.font="600 20px system-ui,sans-serif"; c.fillText("KODY · Sub-GHz",16,30); c.textAlign="right"; c.fillText("▮▮▮ 96%",w-16,30); c.textAlign="left";
-  c.strokeStyle="#24324a"; c.lineWidth=1; for(var i=0;i<6;i++){ c.beginPath(); c.moveTo(16,70+i*40); c.lineTo(w-16,70+i*40); c.stroke(); }
-  c.strokeStyle="#e08a4f"; c.lineWidth=3; c.beginPath();
-  for(var x=16;x<w-16;x+=4){ var y=230-60*Math.exp(-Math.pow((x-330)/30,2))-25*Math.exp(-Math.pow((x-470)/18,2))-6*Math.sin(x*0.3); if(x===16) c.moveTo(x,y); else c.lineTo(x,y); } c.stroke();
-  c.fillStyle="#e08a4f"; c.font="700 34px system-ui,sans-serif"; c.fillText("433.92 МГц",16,320); c.fillStyle="#9fb3c8"; c.font="500 18px system-ui,sans-serif"; c.fillText("−42 дБм · запись",230,318);
+// ---------- Screen (smartphone-grade) 25.8..28.3
+var uiTex=canvasTex(360,672,function(c,w,h){
+  var gr=c.createLinearGradient(0,0,0,h); gr.addColorStop(0,"#0e1726"); gr.addColorStop(1,"#1c1030"); c.fillStyle=gr; c.fillRect(0,0,w,h);
+  c.fillStyle="#cfd8e3"; c.font="600 20px system-ui,sans-serif"; c.fillText("12:53",18,30); c.textAlign="right"; c.fillText("GPS · LoRa · 96%",w-18,30); c.textAlign="center";
+  c.font="700 64px system-ui,sans-serif"; c.fillStyle="#fff"; c.fillText("KODY",w/2,120);
+  var apps=[["Рация","#e08a4f"],["LoRa","#5fbf7f"],["NFC","#7ea8e6"],["Sub-GHz","#d9a640"],["GPS","#4fc3c9"],["ИК","#e06a5c"],["Wi-Fi","#9a7fe0"],["Проекты","#c9c2b4"],["Настройки","#8a949c"]];
+  apps.forEach(function(a,i){ var x=24+(i%3)*112, y=170+Math.floor(i/3)*130; rr(c,x,y,88,88,22); c.fillStyle=a[1]; c.fill();
+    c.fillStyle="#e7ecef"; c.font="500 17px system-ui,sans-serif"; c.fillText(a[0],x+44,y+112); });
+  rr(c,24,h-80,w-48,52,26); c.fillStyle="#ffffff1f"; c.fill(); c.fillStyle="#cfd8e3"; c.font="500 18px system-ui,sans-serif"; c.fillText("Самопроверка: всё в порядке ✔",w/2,h-47);
 });
+var landTex=canvasTex(672,360,function(c,w,h){ c.fillStyle="#0b0f14"; c.fillRect(0,0,w,h);
+  c.fillStyle="#9fb3c8"; c.font="600 20px system-ui,sans-serif"; c.fillText("Рация · 433.075 МГц · LPD 1",18,32); c.textAlign="right"; c.fillText("96%",w-18,32); c.textAlign="left";
+  c.strokeStyle="#e08a4f"; c.lineWidth=3; c.beginPath(); for(var x=18;x<w-18;x+=4){ var y=200-70*Math.exp(-Math.pow((x-300)/26,2))-30*Math.exp(-Math.pow((x-480)/16,2))-5*Math.sin(x*.3); if(x===18) c.moveTo(x,y); else c.lineTo(x,y);} c.stroke();
+  c.fillStyle="#e08a4f"; c.font="700 40px system-ui,sans-serif"; c.fillText("ПРИЁМ  −48 дБм",18,330); });
 landTex.center.set(.5,.5); landTex.rotation=Math.PI/2;
+var screenMesh;
+(function(g){ box(g,30,55,0.6,"#555",2,-1,25.4); box(g,32,64,1.8,"#111",0,0,26.7); box(g,34,70,0.7,"#0c0d0f",0,0,27.95,{roughness:.15,metalness:.3});
+  box(g,9,4,4,"#e09a3a",-3,30.5,23.6);
+  screenMesh=plane(g,30,56,uiTex,0,0,28.31); })(G.screen);
 
-var G={}; PANELS.forEach(function(p){ var g=new THREE.Group(); G[p.id]=g; p.cur=0; root.add(g); });
-buildPi(G.pi);
-// main board (core base) + edge parts
-buildCoreBase(G.main,"#1f6f78");
-knob(G.main,15.5,22,14); [7,-6,-19].forEach(function(y){ box(G.main,4,6,4,"#d9d9d9",13.5,y,14.5); sideButton(G.main,15.5,y,14.5,1); });
-box(G.main,6,12,7,"#444",11.5,22,14);
-usbC(G.main,-7,-33.5,15.5); usbC(G.main,7,-33.5,15.5); cyl(G.main,1,0.6,"#4cd964",0,-33.6,15.5,"y",{emissive:"#1a5a26"});
-box(G.main,1,55,9,"#1f6f78",-16,-4,13.5); gpioSocket(G.main,-19.5,-4,14);
-cyl(G.main,1.2,0.8,"#111",-9,30,18.2,"z");                                         // light sensor window
-// UPS block (underside of main board, in the header gap)
-box(G.ups,15,14,0.4,"#e08a4f",4,-21,16.7,{transparent:true,opacity:.55});
-box(G.ups,4,4,0.9,"#222",0,-17,16.2); box(G.ups,4,4,2,"#6b6f74",6,-17,15.6,{metalness:.5});
-box(G.ups,3,3,0.9,"#222",0,-24,16.2); box(G.ups,4,4,2,"#6b6f74",6,-24,15.6,{metalness:.5}); box(G.ups,2,2,0.8,"#222",10,-25,16.3);
-// ESP32-C5 + speaker + free zone
-box(G.extra,13,18,2.4,SILVER,4,18,15.5,{metalness:.7,roughness:.35}); box(G.extra,13,5,0.6,"#2f6d3a",4,29,16.6);
-box(G.extra,11,15,3,"#2a2a2a",4,0,15.2);
-box(G.extra,20,8,6,"#b7a65a",3,-9,13.8,{transparent:true,opacity:.35});
-// battery behind the Pi
-box(G.battery,30,50,5,"#7b8fa6",0,0,6.6,{metalness:.4,roughness:.4}); box(G.battery,30,50,0.1,"#d98b2b",0,0,9.2);
-box(G.battery,6,2,0.6,"#cc3333",-8,25.6,7); box(G.battery,6,2,0.6,"#222",-1,25.6,7); box(G.battery,4,2,0.6,"#eee",6,25.6,7);
-// radio cartridge + SMA on its top edge
-buildBackModules(G.radio);
-[-10,0,10].forEach(function(x){ box(G.radio,6.4,4,6.4,GOLD,x,33.5,3.2,{metalness:.85,roughness:.3}); });
-cyl(G.radio,1.5,2.5,"#cfd8ff",-14,33.5,6,"y",{transparent:true,opacity:.75}); box(G.radio,3,2.5,3,"#111",14,33.5,6);
-// screen
-buildScreen(G.screen,19.7);
-var screenMesh=null; G.screen.traverse(function(o){ if(o.isMesh && o.material.map) screenMesh=o; });
-// case
-var cm={color:"#d9d4c7",transparent:true,opacity:.42,roughness:.8,depthWrite:false};
-box(G.caseB,34,70,1,"#d9d4c7",0,0,-1,cm); [[-17,0,1,70],[17,0,1,70]].forEach(function(w){ box(G.caseB,w[2],w[3],17,"#d9d4c7",w[0],w[1],7,cm); });
-box(G.caseB,34,1,17,"#d9d4c7",0,35,7,cm); box(G.caseB,34,1,17,"#d9d4c7",0,-35,7,cm);
-box(G.caseF,1,70,11,"#d9d4c7",-17,0,16.5,cm); box(G.caseF,1,70,11,"#d9d4c7",17,0,16.5,cm);
-box(G.caseF,34,1,11,"#d9d4c7",0,35,16.5,cm); box(G.caseF,34,1,11,"#d9d4c7",0,-35,16.5,cm);
-box(G.caseF,3.5,70,1.2,"#d9d4c7",-15.25,0,22.2,cm); box(G.caseF,3.5,70,1.2,"#d9d4c7",15.25,0,22.2,cm);
-box(G.caseF,27,10,1.2,"#d9d4c7",0,30,22.2,cm); box(G.caseF,27,10,1.2,"#d9d4c7",0,-30,22.2,cm);
-var antList={ant:[],cap:[]}; antennas(G.ant,[[-10,3.2,52,35.5],[0,3.2,40,35.5],[10,3.2,60,35.5]],antList);
+// ---------- Antennas on the back board's top edge (base y 36)
+var antList={ant:[],cap:[]};
+(function(g){ [[-12.75,70,4.0],[-4.25,82,4.2],[4.25,44,3.6],[12.75,16,4.6]].forEach(function(s,i){ var x=s[0], L=s[1], r=s[2], z=0.8, y0=36;
+  cyl(g,3.1,4,GOLD,x,y0+2,z,"y",{metalness:.85,roughness:.3});
+  var a1=cyl(g,r,7,"#202224",x,y0+7.5,z,"y",{roughness:.7}), a2=cyl(g,r-0.4,L,"#202224",x,y0+11+L/2,z,"y",{roughness:.75},i===3?r-0.4:r-1.2), tip=cyl(g,i===3?r-0.4:r-1.2,1.2,"#2a2c2e",x,y0+11+L+0.6,z,"y");
+  var c1=cyl(g,4,6,GOLD,x,y0+7,z,"y",{metalness:.85,roughness:.3}), c2=cyl(g,3.2,1,"#2b2b2b",x,y0+10.5,z,"y"); c1.visible=c2.visible=false;
+  antList.ant.push(a1,a2,tip); antList.cap.push(c1,c2); }); })(G.ant);
 
-PANELS.forEach(function(p){ G[p.id].traverse(function(o){ if(o.isMesh){ o.userData.panelId=p.id; var m=o.material; m.userData.baseOpacity=m.opacity; m.userData.baseTransparent=m.transparent; if(m.emissive) m.userData.baseEmissive=m.emissive.getHex(); }}); });
-var labelNodes=PANELS.map(function(p){ var d=document.createElement("div"); d.className="lbl"; d.textContent=p.name.replace(/ \(.+\)/,"").replace(/:.*/,""); labelsEl.appendChild(d); return d; });
+PARTS.forEach(function(p){ G[p.id].traverse(function(o){ if(o.isMesh){ o.userData.panelId=p.id; var m=o.material; m.userData.baseOpacity=m.opacity; m.userData.baseTransparent=m.transparent; m.userData.baseEmissive=m.emissive?m.emissive.getHex():0; }}); });
+var labelNodes=PARTS.map(function(p){ var d=document.createElement("div"); d.className="lbl"; d.textContent=p.name.replace(/:.*/,"").replace(/ \(.+\)/,""); labelsEl.appendChild(d); return d; });
 var showLabels=true;
 
-// camera
-var target=new THREE.Vector3(0,18,12), sph={r:260,theta:0.55,phi:1.35}, goal={r:260,theta:0.55,phi:1.35};
-var VIEWS={front:{theta:0,phi:Math.PI/2}, back:{theta:Math.PI,phi:Math.PI/2}, side:{theta:Math.PI/2,phi:Math.PI/2}, iso:{theta:0.55,phi:1.35}};
+// ---------- camera
+var target=new THREE.Vector3(0,22,12), goalT=target.clone(), sph={r:270,theta:0.55,phi:1.35}, goal={r:270,theta:0.55,phi:1.35};
+var VIEWS={front:{theta:0,phi:Math.PI/2}, back:{theta:Math.PI,phi:Math.PI/2}, side:{theta:Math.PI/2,phi:Math.PI/2}, top:{theta:0.001,phi:0.2}, iso:{theta:0.55,phi:1.35}};
 function applyCam(){ var s=Math.sin(sph.phi); camera.position.set(target.x+sph.r*s*Math.sin(sph.theta), target.y+sph.r*Math.cos(sph.phi), target.z+sph.r*s*Math.cos(sph.theta)); camera.lookAt(target); }
-var pointers=new Map(), dragMoved=0, pinchStart=0, rStart=260;
+var pointers=new Map(), dragMoved=0, pinchStart=0, rStart=270;
 canvas.addEventListener("pointerdown",function(e){ canvas.setPointerCapture(e.pointerId); pointers.set(e.pointerId,{x:e.clientX,y:e.clientY}); dragMoved=0;
   if(pointers.size===2){ var a=Array.from(pointers.values()); pinchStart=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y); rStart=goal.r; } });
 canvas.addEventListener("pointermove",function(e){ if(!pointers.has(e.pointerId)) return; var p=pointers.get(e.pointerId), dx=e.clientX-p.x, dy=e.clientY-p.y; p.x=e.clientX; p.y=e.clientY;
   if(pointers.size===1){ dragMoved+=Math.abs(dx)+Math.abs(dy); goal.theta-=dx*0.008; goal.phi=Math.min(Math.PI-0.05,Math.max(0.05,goal.phi-dy*0.008)); sph.theta=goal.theta; sph.phi=goal.phi; }
-  else if(pointers.size===2){ dragMoved+=10; var a=Array.from(pointers.values()), d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y); if(pinchStart>0){ goal.r=Math.min(700,Math.max(60,rStart*pinchStart/d)); sph.r=goal.r; } } });
+  else if(pointers.size===2){ dragMoved+=10; var a=Array.from(pointers.values()), d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y); if(pinchStart>0){ goal.r=Math.min(800,Math.max(40,rStart*pinchStart/d)); sph.r=goal.r; } } });
 function up(e){ var was=pointers.size; pointers.delete(e.pointerId); if(was===1 && dragMoved<6) pick(e); }
 canvas.addEventListener("pointerup",up); canvas.addEventListener("pointercancel",function(e){pointers.delete(e.pointerId);});
-canvas.addEventListener("wheel",function(e){ e.preventDefault(); goal.r=Math.min(700,Math.max(60,goal.r*(1+e.deltaY*0.001))); },{passive:false});
+canvas.addEventListener("wheel",function(e){ e.preventDefault(); goal.r=Math.min(800,Math.max(40,goal.r*(1+e.deltaY*0.001))); },{passive:false});
 var ray=new THREE.Raycaster(), ndc=new THREE.Vector2();
+function visibleChain(o){ while(o){ if(!o.visible) return false; o=o.parent; } return true; }
 function pick(e){ var r=canvas.getBoundingClientRect(); ndc.set(((e.clientX-r.left)/r.width)*2-1, -((e.clientY-r.top)/r.height)*2+1); ray.setFromCamera(ndc,camera);
-  var hits=ray.intersectObjects(root.children,true).filter(function(h){ var o=h.object; while(o){ if(!o.visible) return false; o=o.parent; } return !h.object.material.depthWrite===false || h.object.material.opacity>0.5 || true; });
-  hits=hits.filter(function(h){ return h.object.userData.panelId!=="caseB" && h.object.userData.panelId!=="caseF" || hits.length===1; });
-  select(hits[0]?hits[0].object.userData.panelId:null); }
-select=function(id){
-  PANELS.forEach(function(p){ G[p.id].traverse(function(o){ if(!o.isMesh) return; var m=o.material;
-    var dim = id && p.id!==id; m.transparent = dim ? true : m.userData.baseTransparent; m.opacity = dim ? Math.min(0.18,m.userData.baseOpacity) : m.userData.baseOpacity;
-    if(m.emissive) m.emissive.setHex(p.id===id ? 0x2a1a0a : m.userData.baseEmissive); m.needsUpdate=true; }); });
-  if(!id){ info.hidden=true; return; }
-  var p=PANELS.filter(function(q){return q.id===id;})[0];
+  var hits=ray.intersectObjects(root.children,true).filter(function(h){ return visibleChain(h.object); }); select(hits[0]?hits[0].object.userData.panelId:null); }
+var hl=null;
+function paint(){ PARTS.forEach(function(p){ G[p.id].traverse(function(o){ if(!o.isMesh) return; var m=o.material, dim = hl && p.id!==hl;
+  m.transparent = dim ? true : m.userData.baseTransparent; m.opacity = dim ? 0.16 : m.userData.baseOpacity;
+  if(m.emissive) m.emissive.setHex(p.id===hl ? 0x3a220c : m.userData.baseEmissive); m.needsUpdate=true; }); }); }
+select=function(id){ hl=id; paint();
+  if(!id){ info.hidden=true; return; } var p=PARTS.filter(function(q){return q.id===id;})[0];
   info.innerHTML='<button class="x" aria-label="Закрыть">×</button><h3></h3><div class="note"></div><ul></ul>';
   info.querySelector("h3").textContent=p.name; info.querySelector(".note").textContent=p.short;
   var ul=info.querySelector("ul"); p.items.forEach(function(t){ var li=document.createElement("li"); li.textContent=t; ul.appendChild(li); });
   info.querySelector(".x").onclick=function(){ select(null); }; info.hidden=false; };
 
-// modes
-var mode="built", step=0, baseR=260, caseOn=true, rotated=false, rot=0;
-var btnEx=document.getElementById("btnExplode"), btnStep=document.getElementById("btnStep"), btnCase=document.getElementById("btnCase"), btnRot=document.getElementById("btnRotate");
-function targetFor(p){ if(mode==="exploded") return 1; if(mode==="steps") return p.step<=step ? 0 : 1; return 0; }
-function visibleFor(p){ if((p.id==="caseB"||p.id==="caseF") && !caseOn) return false; return mode!=="steps" || p.step<=step; }
-function showCap(){ if(mode!=="steps"){ cap.hidden=true; return; } var s=STEPS[step]; cap.hidden=false; cap.innerHTML="";
+// ---------- modes: built / exploded / steps / focus
+var mode="built", step=0, baseR=270, rotated=false, rot=0, focus="all";
+var FOCUS={all:null, pi:["pi","hdmi"], front:["front"], battery:["battery"], screen:["screen"], back:["back"], "case":["caseB","caseF","bumper"], ant:["ant"]};
+var btnEx=document.getElementById("btnExplode"), btnStep=document.getElementById("btnStep"), btnPrev=document.getElementById("btnPrev"), btnRot=document.getElementById("btnRotate");
+function targetFor(p){ if(focus!=="all") return 0; if(mode==="exploded") return 1; if(mode==="steps") return p.step<=step ? 0 : 1; return 0; }
+function visibleFor(p){ if(focus!=="all") return FOCUS[focus].indexOf(p.id)>=0; return mode!=="steps" || p.step<=step; }
+function showCap(){ if(mode!=="steps" || focus!=="all"){ cap.hidden=true; return; } var s=STEPS[step]; cap.hidden=false; cap.innerHTML="";
   cap.appendChild(document.createTextNode("Шаг "+(step+1)+"/"+STEPS.length+": "+s[0])); var sm=document.createElement("small"); sm.textContent=s[1]; cap.appendChild(sm); }
-function resetButtons(){ btnEx.textContent = mode==="exploded"?"Собрать":"Разобрать"; btnStep.textContent = mode!=="steps" ? "Собрать по шагам" : (step<STEPS.length-1 ? "Следующий шаг" : "Готово"); showCap(); }
-btnEx.onclick=function(){ mode = mode==="exploded" ? "built" : "exploded"; goal.r=baseR*(mode==="exploded"?1.3:1); resetButtons(); };
-btnStep.onclick=function(){ if(mode!=="steps"){ mode="steps"; step=0; } else if(step<STEPS.length-1){ step++; } else { mode="built"; }
-  PANELS.forEach(function(p){ if(mode==="steps" && p.step===step && step>0) p.cur=1; }); goal.r=baseR; resetButtons(); };
-btnCase.onclick=function(){ caseOn=!caseOn; btnCase.textContent=caseOn?"Без корпуса":"Корпус"; };
-btnRot.onclick=function(){ rotated=!rotated; btnRot.textContent=rotated?"Поставить вертикально":"Повернуть боком"; if(!rotated && screenMesh) screenMesh.material.map=screenTex, screenMesh.material.needsUpdate=true; };
+function sync(){ btnEx.textContent = mode==="exploded"?"Собрать":"Разобрать"; btnStep.textContent = mode!=="steps" ? "Собрать по шагам" : (step<STEPS.length-1 ? "Следующий шаг" : "Готово");
+  btnPrev.hidden = !(mode==="steps" && step>0); showCap();
+  if(mode==="steps"){ var newIds=PARTS.filter(function(p){return p.step===step;}).map(function(p){return p.id;}); hl = newIds.length===1 ? newIds[0] : (newIds[0]||null); paint(); hl=null; }
+  screenMesh.material.map = rotated ? landTex : uiTex; screenMesh.material.needsUpdate=true; }
+function resetFocus(){ if(focus!=="all"){ focus="all"; document.querySelectorAll("#viewChips button").forEach(function(x){ x.setAttribute("aria-pressed", x.dataset.focus==="all"); }); goalT.set(0,22,12); goal.r=baseR; } }
+btnEx.onclick=function(){ resetFocus(); mode = mode==="exploded" ? "built" : "exploded"; goal.r=baseR*(mode==="exploded"?1.35:1); select(null); sync(); };
+btnStep.onclick=function(){ resetFocus(); select(null); if(mode!=="steps"){ mode="steps"; step=0; } else if(step<STEPS.length-1){ step++; } else { mode="built"; }
+  PARTS.forEach(function(p){ if(mode==="steps" && p.step===step && step>0) p.cur=1; }); goal.r=baseR; sync(); };
+btnPrev.onclick=function(){ if(mode==="steps" && step>0){ step--; sync(); } };
+btnRot.onclick=function(){ rotated=!rotated; btnRot.textContent=rotated?"Поставить вертикально":"Повернуть боком"; sync(); };
 var caps=false, btnCaps=document.getElementById("btnCaps");
 btnCaps.onclick=function(){ caps=!caps; antList.ant.forEach(function(m){m.visible=!caps;}); antList.cap.forEach(function(m){m.visible=caps;}); btnCaps.textContent=caps?"Антенны":"Заглушки"; };
 document.querySelectorAll("[data-view]").forEach(function(b){ b.onclick=function(){ var v=VIEWS[b.dataset.view]; goal.theta=v.theta; goal.phi=v.phi; }; });
 document.getElementById("btnLabels").onclick=function(){ showLabels=!showLabels; labelsEl.hidden=!showLabels; };
+var bbox=new THREE.Box3(), tmpS=new THREE.Vector3();
+focusOn=function(f){ select(null); focus=f; mode="built"; rotated=false; btnRot.textContent="Повернуть боком";
+  if(f==="all"){ goalT.set(0,22,12); goal.r=baseR; sync(); return; }
+  PARTS.forEach(function(p){ G[p.id].position.set(0,0,0); });
+  bbox.makeEmpty(); FOCUS[f].forEach(function(id){ bbox.expandByObject(G[id]); }); bbox.getCenter(goalT); bbox.getSize(tmpS);
+  goal.r = Math.max(tmpS.x,tmpS.y,tmpS.z) * (stage.clientWidth/stage.clientHeight < 0.8 ? 3.6 : 2.6); sync(); };
 
 function syncBg(){ var c=getComputedStyle(document.documentElement).getPropertyValue("--stage").trim()||"#dfe3de"; renderer.setClearColor(new THREE.Color(c),1); }
 syncBg(); if(window.matchMedia) window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",syncBg);
 new MutationObserver(syncBg).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
 function resize(){ var w=stage.clientWidth, h=stage.clientHeight; renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
-  baseR = 260*(w/h < 0.8 ? 1.4 : 1); goal.r = Math.max(goal.r, baseR*(mode==="exploded"?1.3:1)); }
+  baseR = 270*(w/h < 0.8 ? 1.45 : 1); if(focus==="all") goal.r = Math.max(goal.r, baseR*(mode==="exploded"?1.35:1)); }
 new ResizeObserver(resize).observe(stage); resize();
 
 var tmp=new THREE.Vector3();
 function frame(){
   var k = reduce ? 1 : 0.1, spread=0;
   sph.r += (goal.r-sph.r)*k; sph.theta += (goal.theta-sph.theta)*k; sph.phi += (goal.phi-sph.phi)*k;
-  var rotGoal = rotated ? -Math.PI/2 : 0; rot += (rotGoal-rot)*k; if(Math.abs(rotGoal-rot)<1e-3) rot=rotGoal; root.rotation.z=rot;
-  if(rotated && screenMesh && rot < -Math.PI/4 && screenMesh.material.map!==landTex){ screenMesh.material.map=landTex; screenMesh.material.needsUpdate=true; }
-  PANELS.forEach(function(p){ var g=G[p.id], t=targetFor(p); p.cur += (t-p.cur)*k; if(Math.abs(t-p.cur)<1e-3) p.cur=t;
-    g.position.set(p.explode[0]*p.cur,p.explode[1]*p.cur,p.z+p.explode[2]*p.cur); g.visible=visibleFor(p);
-    if(g.visible && mode!=="steps") spread=Math.max(spread,p.cur); });
-  var ty = (mode==="steps" && step<STEPS.length-1) ? 2 : 24 + 10*spread, f=-rot/(Math.PI/2);
-  target.set(ty*f, ty*(1-f), 12);
+  var rg = (rotated && focus==="all") ? -Math.PI/2 : 0; rot += (rg-rot)*k; if(Math.abs(rg-rot)<1e-3) rot=rg; root.rotation.z=rot;
+  PARTS.forEach(function(p){ var g=G[p.id], t=targetFor(p); p.cur += (t-p.cur)*k; if(Math.abs(t-p.cur)<1e-3) p.cur=t;
+    g.position.set(p.explode[0]*p.cur,p.explode[1]*p.cur,p.explode[2]*p.cur); g.visible=visibleFor(p);
+    if(g.visible && mode==="exploded") spread=Math.max(spread,p.cur); });
+  if(focus==="all"){ var ty = (mode==="steps" && step<8) ? 4 : 26 + 22*spread, f=-rot/(Math.PI/2); goalT.set(ty*f, ty*(1-f), 12); }
+  target.lerp(goalT,k);
   applyCam(); renderer.render(scene,camera);
   var w=stage.clientWidth, h=stage.clientHeight;
-  if(showLabels) PANELS.forEach(function(p,i){ var g=G[p.id], L=p.label;
+  PARTS.forEach(function(p,i){ var g=G[p.id], L=p.label, n=labelNodes[i];
+    if(!showLabels || !g.visible){ n.style.display="none"; return; }
     tmp.set(L[0],L[1],L[2]).add(g.position); root.localToWorld(tmp); tmp.project(camera);
-    var inside = ["pi","main","ups","extra","battery","radio"].indexOf(p.id)>=0 && mode==="built" && caseOn;
-    var n=labelNodes[i], vis = g.visible && tmp.z<1 && !inside;
-    n.style.display = vis ? "" : "none"; n.style.left=((tmp.x+1)/2*w)+"px"; n.style.top=((1-tmp.y)/2*h)+"px"; });
+    var hidden = mode==="built" && focus==="all" && ["back","pi","hdmi","front","screws","battery"].indexOf(p.id)>=0;
+    n.style.display = (tmp.z<1 && !hidden) ? "" : "none"; n.style.left=((tmp.x+1)/2*w)+"px"; n.style.top=((1-tmp.y)/2*h)+"px"; });
   requestAnimationFrame(frame);
 }
-resetButtons(); frame();
+sync(); frame();
 })();
 </script>

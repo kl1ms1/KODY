@@ -11,18 +11,18 @@ class PinsTest(unittest.TestCase):
         self.assertEqual(sorted(PINS), list(range(28)))
         self.assertEqual(len({p.phys for p in PINS.values()}), 28)
 
-    def test_free_pins(self):
-        self.assertEqual([p.bcm for p in user_pins()], [18, 7, 19, 26, 20, 21])
+    def test_all_gpio_free_except_id_and_i2c(self):
+        free = sorted(p.bcm for p in user_pins())
+        self.assertEqual(free, list(range(4, 28)))
 
     def test_reserved_and_shared_rejected(self):
-        for bcm in (8, 2, 0, 99):
+        for bcm in (0, 1, 2, 99):
             with self.assertRaises(PinUnavailable):
                 check_user_pin(bcm)
 
-    def test_disabling_haptics_frees_vibro_pin(self):
-        with self.assertRaises(PinUnavailable):
-            check_user_pin(12)
-        self.assertEqual(check_user_pin(12, frozenset({"haptics"})).phys, 32)
+    def test_spi_and_uart_pins_are_yours(self):
+        for bcm in (8, 10, 11, 14, 15, 18):
+            check_user_pin(bcm)
 
 
 class AdviceTest(unittest.TestCase):
@@ -78,7 +78,7 @@ class LampTest(unittest.TestCase):
 
     def test_reserved_pin_refused(self):
         with self.assertRaises(PinUnavailable):
-            Lamp(13, PRESETS[0], lambda bcm: SimulatedPWMLED(bcm, render=False))
+            Lamp(0, PRESETS[0], lambda bcm: SimulatedPWMLED(bcm, render=False))
 
 
 if __name__ == "__main__":

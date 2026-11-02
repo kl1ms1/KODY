@@ -1,8 +1,10 @@
-"""Карта 40-пиновой гребёнки KODY v4 «пазл» (см. docs/concept.md).
+"""Карта 40-пиновой гребёнки KODY v7.
 
-Радио, NFC/RFID, ИК и GPS висят на RP2040 задней платы и общаются с Pi по UART.
-Для своих проектов свободно 6 GPIO (BCM 7, 18–21, 26) + шины I2C и SPI0.
-Если отключить вибромотор в настройках, освобождается ещё BCM 12.
+KODY не занимает GPIO: экран идёт через HDMI, кнопки/крутилка/питание —
+через свой микроконтроллер на общей шине I2C, радио, NFC и GPS — через USB
+(подпружиненные контакты к площадкам снизу Pi). Поэтому на боковом гнезде
+все 26 GPIO твои, плюс общая шина I2C (свои устройства с другими адресами).
+Пины 27/28 (ID EEPROM) по стандарту HAT заняты паспортом основной платы.
 
 Каждый пин помечен статусом:
   FREE     — свободен, можно брать для своих проектов;
@@ -38,34 +40,34 @@ class Pin:
 PINS: dict[int, Pin] = {
     p.bcm: p
     for p in [
-        Pin(0, 27, "ID EEPROM основной платы (SDA)", PinStatus.RESERVED),
-        Pin(1, 28, "ID EEPROM основной платы (SCL)", PinStatus.RESERVED),
-        Pin(2, 3, "I2C1 SDA (тач, гироскоп, компас, свет, зарядка, вибро, часы)", PinStatus.SHARED),
-        Pin(3, 5, "I2C1 SCL (общая шина датчиков)", PinStatus.SHARED),
-        Pin(4, 7, "Прерывание тача", PinStatus.RESERVED),
-        Pin(5, 29, "Кнопка B1 (левый бок)", PinStatus.RESERVED),
-        Pin(6, 31, "Кнопка B2 (левый бок)", PinStatus.RESERVED),
+        Pin(0, 27, "ID EEPROM основной платы (SDA) — стандарт HAT", PinStatus.RESERVED),
+        Pin(1, 28, "ID EEPROM основной платы (SCL) — стандарт HAT", PinStatus.RESERVED),
+        Pin(2, 3, "I2C1 SDA — общая шина: KODY + твои I2C-устройства", PinStatus.SHARED),
+        Pin(3, 5, "I2C1 SCL — общая шина: KODY + твои I2C-устройства", PinStatus.SHARED),
+        Pin(4, 7, "свободен", PinStatus.FREE),
+        Pin(5, 29, "свободен", PinStatus.FREE),
+        Pin(6, 31, "свободен", PinStatus.FREE),
         Pin(7, 26, "SPI0 CE1", PinStatus.FREE),
-        Pin(8, 24, "SPI0 CE0 — экран", PinStatus.RESERVED),
-        Pin(9, 21, "SPI0 MISO", PinStatus.SHARED),
-        Pin(10, 19, "SPI0 MOSI (экран)", PinStatus.SHARED),
-        Pin(11, 23, "SPI0 SCLK (экран)", PinStatus.SHARED),
-        Pin(12, 32, "Вибро: запуск DRV2605L (IN/TRIG)", PinStatus.RESERVED, "haptics"),
-        Pin(13, 33, "PWM1 — подсветка экрана", PinStatus.RESERVED),
-        Pin(14, 8, "UART TX → RP2040 (радио, NFC, ИК, GPS)", PinStatus.RESERVED),
-        Pin(15, 10, "UART RX ← RP2040", PinStatus.RESERVED),
-        Pin(16, 36, "Кнопка B3 (правый бок)", PinStatus.RESERVED),
-        Pin(17, 11, "Крутилка A", PinStatus.RESERVED),
-        Pin(18, 12, "—", PinStatus.FREE),
-        Pin(19, 35, "—", PinStatus.FREE),
-        Pin(20, 38, "—", PinStatus.FREE),
-        Pin(21, 40, "—", PinStatus.FREE),
-        Pin(22, 15, "RP2040 BOOTSEL", PinStatus.RESERVED),
-        Pin(23, 16, "RP2040 RUN", PinStatus.RESERVED),
-        Pin(24, 18, "Экран D/C", PinStatus.RESERVED),
-        Pin(25, 22, "Экран RESET", PinStatus.RESERVED),
-        Pin(26, 37, "—", PinStatus.FREE),
-        Pin(27, 13, "Крутилка B", PinStatus.RESERVED),
+        Pin(8, 24, "SPI0 CE0", PinStatus.FREE),
+        Pin(9, 21, "SPI0 MISO", PinStatus.FREE),
+        Pin(10, 19, "SPI0 MOSI", PinStatus.FREE),
+        Pin(11, 23, "SPI0 SCLK", PinStatus.FREE),
+        Pin(12, 32, "PWM0", PinStatus.FREE),
+        Pin(13, 33, "PWM1", PinStatus.FREE),
+        Pin(14, 8, "UART TX", PinStatus.FREE),
+        Pin(15, 10, "UART RX", PinStatus.FREE),
+        Pin(16, 36, "свободен", PinStatus.FREE),
+        Pin(17, 11, "свободен", PinStatus.FREE),
+        Pin(18, 12, "PCM CLK / PWM0", PinStatus.FREE),
+        Pin(19, 35, "SPI1 MISO / PCM FS", PinStatus.FREE),
+        Pin(20, 38, "SPI1 MOSI / PCM DIN", PinStatus.FREE),
+        Pin(21, 40, "SPI1 SCLK / PCM DOUT", PinStatus.FREE),
+        Pin(22, 15, "свободен", PinStatus.FREE),
+        Pin(23, 16, "свободен", PinStatus.FREE),
+        Pin(24, 18, "свободен", PinStatus.FREE),
+        Pin(25, 22, "свободен", PinStatus.FREE),
+        Pin(26, 37, "свободен", PinStatus.FREE),
+        Pin(27, 13, "свободен", PinStatus.FREE),
     ]
 }
 

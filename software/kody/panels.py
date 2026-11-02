@@ -4,8 +4,8 @@
   * Основная плата (в неё вставлена Pi) несёт стандартный HAT EEPROM на пинах
     ID_SD/ID_SC. Linux читает его при загрузке и кладёт имя в
     /proc/device-tree/hat/product.
-  * Экран узнаём по контроллеру тача, блок питания — по чипу зарядки,
-    радио-картридж — по его EEPROM 24C02 (0x55).
+  * Экран узнаём по контроллеру тача (GT911), задняя плата — по тому, что её
+    микроконтроллер RP2350 виден по USB.
   * Дополнительно проверяются главные микросхемы на плате (тач, зарядка,
     гироскоп). Если EEPROM отвечает, а микросхема нет — плата вставлена,
     но с ней что-то не так (плохой контакт, брак пайки).
@@ -42,16 +42,14 @@ class Panel:
     devices: tuple[Device, ...] = ()
 
 
-# Вариант «сэндвич»: основная плата (с блоком питания UPS), экран, радио-картридж.
+# KODY v7: передняя плата (питание, экран, кнопки, датчики) + задняя плата (радио, USB).
 PANELS: tuple[Panel, ...] = (
-    Panel("main", "Основная плата (гнездо Pi, кнопки, крутилка, датчики)", None,
-          (Device(0x6B, "гироскоп LSM6DSV16X"), Device(0x1E, "компас LIS2MDL"),
-           Device(0x10, "датчик света VEML7700"), Device(0x5A, "вибро-драйвер DRV2605L"),
-           Device(0x52, "часы RV-3028"))),
-    Panel("power", "Питание UPS (зарядка, защита, аккумулятор)", 0x6A,
-          (Device(0x36, "датчик заряда MAX17048"),)),
-    Panel("screen", "Экран с тачем", 0x15),
-    Panel("radio", "Радио-картридж (CC1101, LoRa, NRF24, NFC, GPS)", 0x55),
+    Panel("front", "Передняя плата: питание, кнопки, крутилка, датчики", None,
+          (Device(0x2A, "микроконтроллер питания и кнопок STM32"), Device(0x6A, "зарядка BQ25895"),
+           Device(0x36, "датчик заряда MAX17048"), Device(0x6B, "гироскоп LSM6DSV16X"),
+           Device(0x10, "датчик света VEML7700"), Device(0x5A, "вибро DRV2605L"), Device(0x52, "часы RV-3028"))),
+    Panel("screen", "Экран с тачем", 0x5D),
+    Panel("back", "Задняя плата: радио, NFC, GPS, USB", -1),
 )
 
 
@@ -68,14 +66,14 @@ def check(i2c_present: set[int], hat_product: str | None, rp2040_ok: bool | None
     for p in PANELS:
         if p.presence is None:
             present = bool(hat_product) and hat_product.strip("\x00 \n") == CORE_PRODUCT
+        elif p.presence == -1:          # задняя плата видна по USB, а не по I2C
+            present = bool(rp2040_ok)
         else:
             present = p.presence in i2c_present
         if not present:
             results.append(Result(p, Status.MISSING))
             continue
         problems = [f"не отвечает {d.name} (0x{d.addr:02X})" for d in p.devices if d.addr not in i2c_present]
-        if p.key == "radio" and rp2040_ok is False:
-            problems.append("RP2040 не отвечает по UART")
         results.append(Result(p, Status.PARTIAL if problems else Status.OK, problems))
     return results
 
@@ -118,10 +116,10 @@ def simulated_inputs(missing: frozenset[str] = frozenset()):
             continue
         if p.presence is None:
             hat = CORE_PRODUCT
-        else:
+        elif p.presence != -1:
             present.add(p.presence)
         present.update(d.addr for d in p.devices)
-    return present, hat, "radio" not in missing
+    return present, hat, "back" not in missing
 
 
 def run(simulate: bool) -> list[Result]:
