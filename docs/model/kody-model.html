@@ -148,7 +148,8 @@ var PARTS = [
   {id:"battery", step:4, name:"Аккумулятор ≈ 2000 мА·ч", color:"#7b8fa6", explode:[0,0,20], label:[0,-8,14], short:"8.5 × 24 × 70 мм, ≈ 2000 мА·ч, ≈ 3 часа", items:["Лепестки +, −, датчик температуры — без проводов","Защита и зарядка — на передней плате"]},
   {id:"screen", step:5, name:"Экран 3.5″ с тачем", color:"#202326", explode:[0,0,30], label:[0,-30,20], short:"IPS 480×800, 60 Гц, ёмкостный тач", items:["Портретный, тонкие рамки по бокам","Тач 5 касаний — плавная линия","Без мерцания, автояркость","Шлейф защёлкивается в переднюю плату"]},
   {id:"caseF", step:6, name:"Корпус: передняя рамка", color:"#cfe0ea", explode:[0,0,44], label:[20,46,19], short:"Экран вклеен в рамку", items:["4 винта к задней части","Окно под GPIO слева; ИК светит сквозь прозрачный пластик"]},
-  {id:"ant", step:7, name:"Антенны", color:"#1b1d1f", explode:[0,30,0], label:[0,110,9], short:"LoRa · Рация · 2.4 ГГц · GPS", items:["Посередине толщины","Съёмные, SMA-male; вместо любой — заглушка 50 Ом"]}
+  {id:"hdmi_out", step:3, name:"Большой HDMI (сбоку)", color:"#4fc3c9", explode:[-26,0,13], label:[-30,-28,12], short:"Вывод картинки на телевизор/монитор", items:["Из mini-HDMI Pi через чип-переключатель","Режим «на большой экран»: рация и каналы на весь ТВ","Левый бок, ниже GPIO, на месте бывшего GPS"]},
+  {id:"ant", step:7, name:"Антенны", color:"#1b1d1f", explode:[0,30,0], label:[0,110,9], short:"LoRa · Рация · 2.4 ГГц", items:["3 антенны (GPS убран)","Посередине толщины","Съёмные, SMA-male; вместо любой — заглушка 50 Ом"]}
 ];
 var STEPS = [
   ["Задняя часть корпуса","Обе платы — с завода, мелочь уже стоит. Крупное (модули, гнёзда) впаиваешь сам по списку."],
@@ -289,7 +290,8 @@ var gpioTex=canvasTex(52,512,function(c,w,h){ c.fillStyle="#151617"; c.fillRect(
   box(g,15,3,3.6,BLACK,-11,-44,6.6);
   // top side layer 9.4 … 16.4
   box(g,5.1,51,5,BLACK,-12.95+PX,PY,11.9);                                             // socket: Pi pins pass through
-  box(g,12.6,51,5.1,BLACK,-19.5,PY,11.95); plane(g,5.1,51,gpioTex,-25.81,PY,11.95,-Math.PI/2);   // GPIO out (угловое, 12.6 мм вглубь)
+  box(g,12.6,38,5.1,BLACK,-19.5,10,11.95); plane(g,5.1,38,gpioTex,-25.81,10,11.95,-Math.PI/2);   // GPIO out (угловое)
+  box(g,8,15,5.5,SILVER,-21.5,-28,12.4,{metalness:.7,roughness:.3}); box(g,0.3,14,5,"#111",-25.7,-28,12.4);   // большой HDMI сбоку
   [-24.2,-30.6,-37.0,-43.4].forEach(function(y,i){ cyl(g,2.5,6,i%3===0?"#4a1010":"#cfd8ff",-23.2,y,12.4,"x",{transparent:i%3!==0,opacity:.85}); cyl(g,2.5,2.5,i%3===0?"#4a1010":"#cfd8ff",-26.4,y,12.4,"x",{transparent:i%3!==0,opacity:.85},0.2); });  // IR LEDs
   box(g,3,5,6,"#111",-23.8,31,12.4); box(g,3,5,6,"#111",-23.8,39,12.4);          // IR receivers (над GPIO)
   box(g,15,11,3,"#2a2a2a",-12,-44,10.9);                                                // speaker box
@@ -301,7 +303,7 @@ var gpioTex=canvasTex(52,512,function(c,w,h){ c.fillStyle="#151617"; c.fillRect(
   cyl(g,7.5,8,"#3a3d40",31.7,32,12.4,"x",{metalness:.5,roughness:.35},undefined,48); cyl(g,6.3,0.6,"#55595d",35.9,32,12.4,"x",{metalness:.6}); box(g,0.5,0.8,4,"#e08a4f",36.2,34.5,12.4);
   box(g,4,9,4,"#2d6cc0",22.8,-30,12.4); box(g,3.2,2.6,2.4,"#e9e9e9",28.1,-28.2,12.4);   // slide switch body + lever
   // 4 SMA on the top edge, centred in thickness
-  [-16.5,-5.5,5.5,16.5].forEach(function(x){ box(g,6.35,5,6.35,GOLD,x,50.6,8.9,{metalness:.85,roughness:.3}); });
+  [-12,0,12].forEach(function(x){ box(g,6.35,5,6.35,GOLD,x,50.6,8.9,{metalness:.85,roughness:.3}); });
   [11,14,17,20].forEach(function(x,i){ box(g,1.6,0.8,0.5,i<3?"#4cd964":"#2a4a2f",x,-38,9.65,{emissive:i<3?"#1f7a35":"#000"}); });   // индикатор заряда
 })(G.front);
 (function(g){ HOLES9.forEach(function(h){ cyl(g,1.1,10,"#9aa0a6",h[0],h[1],4.6,"z",{metalness:.8}); cyl(g,2,1,"#9aa0a6",h[0],h[1],9.9,"z",{metalness:.8}); }); })(G.screws);
@@ -313,9 +315,9 @@ var gpioTex=canvasTex(52,512,function(c,w,h){ c.fillStyle="#151617"; c.fillRect(
 // Screen 16.7 … 18.9
 var uiTex=canvasTex(480,800,function(c,w,h){
   var gr=c.createLinearGradient(0,0,0,h); gr.addColorStop(0,"#0e1726"); gr.addColorStop(1,"#1c1030"); c.fillStyle=gr; c.fillRect(0,0,w,h);
-  c.fillStyle="#cfd8e3"; c.font="600 22px system-ui,sans-serif"; c.fillText("12:53",22,36); c.textAlign="right"; c.fillText("GPS · LoRa · 96%",w-22,36); c.textAlign="center";
+  c.fillStyle="#cfd8e3"; c.font="600 22px system-ui,sans-serif"; c.fillText("12:53",22,36); c.textAlign="right"; c.fillText("HDMI · LoRa · 96%",w-22,36); c.textAlign="center";
   c.font="700 76px system-ui,sans-serif"; c.fillStyle="#fff"; c.fillText("KODY",w/2,150);
-  var apps=[["Рация","#e08a4f"],["LoRa","#5fbf7f"],["NFC","#7ea8e6"],["Sub-GHz","#d9a640"],["GPS","#4fc3c9"],["ИК-пульт","#e06a5c"],["Wi-Fi","#9a7fe0"],["Проекты","#c9c2b4"],["Настройки","#8a949c"]];
+  var apps=[["Рация","#e08a4f"],["LoRa","#5fbf7f"],["NFC","#7ea8e6"],["Sub-GHz","#d9a640"],["HDMI","#4fc3c9"],["ИК-пульт","#e06a5c"],["Wi-Fi","#9a7fe0"],["Проекты","#c9c2b4"],["Настройки","#8a949c"]];
   apps.forEach(function(a,i){ var x=40+(i%3)*145, y=210+Math.floor(i/3)*165; rr(c,x,y,110,110,28); c.fillStyle=a[1]; c.fill();
     c.fillStyle="#e7ecef"; c.font="500 20px system-ui,sans-serif"; c.fillText(a[0],x+55,y+140); });
   rr(c,30,h-96,w-60,60,30); c.fillStyle="#ffffff1f"; c.fill(); c.fillStyle="#cfd8e3"; c.font="500 20px system-ui,sans-serif"; c.fillText("Крутилка: листай · держи — громкость",w/2,h-58);
@@ -332,7 +334,7 @@ var screenMesh;
 
 // Antennas: from the front board's top edge, centred in thickness
 var antList={ant:[],cap:[]};
-(function(g){ [[-16.5,70,4.0],[-5.5,84,4.2],[5.5,44,3.6],[16.5,16,4.6]].forEach(function(s,i){ var x=s[0], L=s[1], r=s[2], z=8.9, y0=53.1;
+(function(g){ [[-12,84,4.2],[0,44,3.6],[12,16,4.6]].forEach(function(s,i){ var x=s[0], L=s[1], r=s[2], z=8.9, y0=53.1;
   cyl(g,3.1,4,GOLD,x,y0+2,z,"y",{metalness:.85,roughness:.3});
   var a1=cyl(g,r,7,"#202224",x,y0+7.5,z,"y",{roughness:.7}), a2=cyl(g,r-0.4,L,"#202224",x,y0+11+L/2,z,"y",{roughness:.75},i===3?r-0.4:r-1.2), tip=cyl(g,i===3?r-0.4:r-1.2,1.2,"#2a2c2e",x,y0+11+L+0.6,z,"y");
   var c1=cyl(g,4,6,GOLD,x,y0+7,z,"y",{metalness:.85,roughness:.3}), c2=cyl(g,3.2,1,"#2b2b2b",x,y0+10.5,z,"y"); c1.visible=c2.visible=false;
